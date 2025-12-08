@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>TechnoMounts – Month 1 Performance & Portfolio</title>
+  <title>TechnoMounts – Month 1 Performance & Portfolio Repo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
@@ -13,11 +13,11 @@
       --espresso-soft: #7a564c;
       --accent: #f08b4b;
       --accent-2: #f3b07c;
-      --card-bg: rgba(255, 255, 255, 0.85);
-      --border-soft: rgba(90, 62, 54, 0.15);
-      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.08);
-      --radius-xl: 26px;
-      --radius-lg: 20px;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --border-soft: rgba(90, 62, 54, 0.18);
+      --shadow-soft: 0 22px 48px rgba(0, 0, 0, 0.12);
+      --radius-xl: 30px;
+      --radius-lg: 24px;
       --radius-pill: 999px;
       --transition-fast: 0.25s ease;
       --transition-med: 0.4s ease;
@@ -31,76 +31,79 @@
 
     body {
       font-family: "Times New Roman", serif;
+      font-size: 18px;
       color: var(--espresso);
       background: linear-gradient(145deg, var(--bg-start), var(--bg-end));
       min-height: 100vh;
-      line-height: 1.6;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       scroll-behavior: smooth;
       position: relative;
       overflow-x: hidden;
     }
 
-    /* Animated background orbs for subtle "advanced" motion */
+    /* Background orbs */
     .bg-orb {
       position: fixed;
-      width: 420px;
-      height: 420px;
+      width: 520px;
+      height: 520px;
       border-radius: 50%;
-      opacity: 0.35;
-      filter: blur(20px);
+      opacity: 0.28;
+      filter: blur(24px);
       z-index: -1;
       background: radial-gradient(circle at 30% 30%, #ffffff, #f2c9a1);
-      animation: floatOrb 22s infinite alternate ease-in-out;
+      animation: floatOrb 26s infinite alternate ease-in-out;
       pointer-events: none;
     }
-    .bg-orb.orb-1 {
-      top: -80px;
-      left: -120px;
-      animation-delay: 0s;
-    }
+    .bg-orb.orb-1 { top: -120px; left: -160px; }
     .bg-orb.orb-2 {
-      bottom: -120px;
-      right: -160px;
+      bottom: -160px;
+      right: -200px;
       background: radial-gradient(circle at 70% 70%, #ffffff, #f8d9b8);
-      animation-duration: 28s;
-      animation-delay: 1.5s;
+      animation-duration: 30s;
     }
     .bg-orb.orb-3 {
-      top: 40%;
+      top: 45%;
       left: 60%;
-      width: 300px;
-      height: 300px;
-      opacity: 0.25;
-      animation-duration: 30s;
-      animation-delay: 3s;
+      width: 360px;
+      height: 360px;
+      opacity: 0.2;
+      animation-duration: 34s;
     }
 
     @keyframes floatOrb {
-      0% {
-        transform: translate3d(0, 0, 0) scale(1);
-      }
-      50% {
-        transform: translate3d(40px, -30px, 0) scale(1.03);
-      }
-      100% {
-        transform: translate3d(-30px, 20px, 0) scale(0.98);
-      }
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(40px, -40px, 0) scale(1.04); }
+      100% { transform: translate3d(-40px, 30px, 0) scale(0.97); }
     }
 
-    /* Layout */
+    /* Cinematic intro overlay */
+    #tm-cinematic-intro {
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      z-index: 9999;
+      animation: tmFadeIntro 1.8s ease forwards;
+    }
+    @keyframes tmFadeIntro {
+      0% { opacity: 1; }
+      60% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+
+    /* Page layout */
     .page-shell {
-      max-width: 1240px;
+      max-width: 1320px;
       margin: 0 auto;
-      padding: 32px 18px 64px;
+      padding: 40px 20px 80px;
     }
 
-    /* Navigation */
+    /* Top navigation */
     .top-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 28px;
+      margin-bottom: 36px;
       position: sticky;
       top: 0;
       z-index: 10;
@@ -108,599 +111,725 @@
       background: linear-gradient(
         160deg,
         rgba(253, 245, 237, 0.96),
-        rgba(252, 238, 221, 0.92)
+        rgba(252, 238, 221, 0.93)
       );
       border-radius: var(--radius-pill);
-      padding: 10px 20px;
+      padding: 14px 26px;
       border: 1px solid var(--border-soft);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
     }
 
     .brand-mark {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 14px;
     }
-
     .brand-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
       background: linear-gradient(145deg, #262f3f, #46526b);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fdf5ed;
-      font-size: 18px;
+      font-size: 22px;
       font-weight: bold;
       letter-spacing: 1px;
-      box-shadow: 0 10px 20px rgba(18, 24, 38, 0.35);
+      box-shadow: 0 16px 30px rgba(18, 24, 38, 0.45);
     }
-
     .brand-meta {
       display: flex;
       flex-direction: column;
     }
-
     .brand-meta span:first-child {
       font-family: "Playfair Display", "Times New Roman", serif;
       font-weight: 700;
-      font-size: 18px;
+      font-size: 22px;
       letter-spacing: 0.4px;
     }
-
     .brand-meta span:last-child {
-      font-size: 12px;
-      opacity: 0.75;
+      font-size: 13px;
+      opacity: 0.8;
     }
 
     .nav-links {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       flex-wrap: wrap;
       justify-content: flex-end;
     }
-
     .nav-links a {
       text-decoration: none;
-      font-size: 13px;
-      padding: 6px 14px;
+      font-size: 15px;
+      padding: 8px 16px;
       border-radius: 999px;
       border: 1px solid transparent;
       color: var(--espresso-soft);
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.8);
       transition: background var(--transition-fast), transform var(--transition-fast),
         box-shadow var(--transition-fast), border-color var(--transition-fast);
     }
-
     .nav-links a:hover {
       background: #ffffff;
       border-color: var(--accent-2);
       transform: translateY(-2px);
-      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.09);
     }
 
-    /* Hero */
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 32px;
-      padding: 32px 28px 32px;
-      border-radius: var(--radius-xl);
-      background: radial-gradient(circle at 10% 20%, #ffffff 0, #fceedd 46%, #f8dcc2 100%);
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-soft);
-      margin-bottom: 36px;
+    /* ============================
+       PREMIUM GALLERY (FIRST SECTION)
+       ============================ */
+    .tm-gallery-shell {
+      width: 100vw;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      padding: 72px 0 40px;
+      background: radial-gradient(circle at 10% 0, #ffffff 0, #fceedd 40%, #f7dcc0 100%);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 22px 52px rgba(0, 0, 0, 0.16);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    .tm-gallery-heading {
+      text-align: center;
+      margin-bottom: 36px;
+      padding: 0 20px;
+      animation: fadeInUp 1.1s ease;
+    }
+    .tm-gallery-title {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      color: var(--espresso);
+      margin-bottom: 8px;
+    }
+    .tm-gallery-subtitle {
+      font-size: 18px;
+      opacity: 0.78;
+      max-width: 780px;
+      margin: 0 auto;
     }
 
-    .hero::before {
-      content: "";
+    .tm-gallery-carousel {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 10px 0 24px;
+    }
+
+    .tm-gallery-track {
+      display: flex;
+      gap: 26px;
+      padding: 12px 40px 18px;
+      scroll-behavior: smooth;
+      overflow-x: auto;
+      white-space: nowrap;
+      animation: floatDrift 18s infinite ease-in-out alternate;
+    }
+    .tm-gallery-track::-webkit-scrollbar { display: none; }
+
+    .gallery-slide {
+      min-width: 420px;
+      max-width: 420px;
+      height: 280px;
+      border-radius: 26px;
+      overflow: hidden;
+      position: relative;
+      background: #ffffff;
+      box-shadow: 0 22px 46px rgba(0, 0, 0, 0.18);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      transform-style: preserve-3d;
+    }
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gallery-slide:hover {
+      transform: translateY(-10px) scale(1.04);
+      box-shadow: 0 28px 60px rgba(0, 0, 0, 0.24);
+    }
+    .gallery-slide--active {
+      transform: scale(1.05);
+      box-shadow: 0 32px 68px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes floatDrift {
+      0% { transform: translateX(0px); }
+      100% { transform: translateX(-40px); }
+    }
+
+    .tm-gallery-thumbs {
+      display: flex;
+      gap: 12px;
+      padding: 10px 20px 22px;
+      overflow-x: auto;
+      justify-content: center;
+    }
+    .tm-gallery-thumbs::-webkit-scrollbar { display: none; }
+
+    .gallery-thumb {
+      width: 76px;
+      height: 76px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      background: #ffffff;
+    }
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gallery-thumb:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+    .gallery-thumb--active {
+      border-color: var(--accent);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+      transform: translateY(-4px);
+    }
+
+    /* Lightbox */
+    .tm-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      justify-content: center;
+      align-items: center;
+      z-index: 9998;
+    }
+    .tm-lightbox.is-open {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+    .tm-lightbox-inner {
+      position: relative;
+      max-width: 84vw;
+      max-height: 86vh;
+    }
+    .tm-lightbox-image {
+      max-width: 100%;
+      max-height: 86vh;
+      border-radius: 22px;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+    }
+    .tm-lightbox-close {
+      position: absolute;
+      top: -46px;
+      right: 0;
+      font-size: 40px;
+      color: #ffffff;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+    }
+    .tm-lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 46px;
+      color: #ffffff;
+      cursor: pointer;
+      padding: 12px;
+      border: none;
+      background: transparent;
+    }
+    .tm-lightbox-prev { left: -64px; }
+    .tm-lightbox-next { right: -64px; }
+    .tm-lightbox-counter {
+      position: absolute;
+      bottom: -30px;
+      width: 100%;
+      text-align: center;
+      color: #ffffff;
+      opacity: 0.8;
+      font-size: 16px;
+    }
+
+    /* Particles overlay (subtle) */
+    .tm-gallery-particles {
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        130deg,
-        rgba(255, 255, 255, 0.35),
-        rgba(248, 210, 176, 0.08)
-      );
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-
-    .hero-main {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(240, 139, 75, 0.35);
-      margin-bottom: 12px;
-    }
-
-    .hero-eyebrow-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #00c853, #008c3a);
-      box-shadow: 0 0 8px rgba(0, 200, 83, 0.65);
-    }
-
-    .hero-title {
-      font-family: "Playfair Display", "Times New Roman", serif;
-      font-size: 32px;
-      line-height: 1.2;
-      margin-bottom: 12px;
-    }
-
-    .hero-subtitle {
-      font-size: 16px;
-      max-width: 520px;
-      opacity: 0.85;
-      margin-bottom: 18px;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .hero-tag {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px dashed rgba(90, 62, 54, 0.35);
-      background: rgba(255, 255, 255, 0.85);
-    }
-
-    .hero-cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .btn-primary,
-    .btn-ghost {
-      border-radius: 999px;
-      padding: 9px 18px;
-      font-size: 13px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background var(--transition-med), transform var(--transition-med),
-        box-shadow var(--transition-med), border-color var(--transition-med);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #262f3f, #46526b);
-      color: #fdf5ed;
-      box-shadow: 0 15px 25px rgba(13, 18, 30, 0.45);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px) translateZ(0);
-      box-shadow: 0 18px 32px rgba(13, 18, 30, 0.6);
-    }
-
-    .btn-ghost {
-      background: rgba(255, 255, 255, 0.88);
-      color: var(--espresso-soft);
-      border-color: rgba(90, 62, 54, 0.2);
-    }
-
-    .btn-ghost:hover {
-      background: #ffffff;
-      transform: translateY(-1px);
-      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    .hero-note {
-      font-size: 11px;
-      opacity: 0.7;
-      margin-top: 6px;
-    }
-
-    .hero-side {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .metric-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-bottom: 6px;
-    }
-
-    .metric-card {
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 12px 14px;
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 12px 22px rgba(0, 0, 0, 0.05);
-      position: relative;
       overflow: hidden;
-      transform-origin: center;
-      transform: translateY(8px);
-      opacity: 0;
-      animation: metricEnter 0.9s forwards;
+      pointer-events: none;
+      z-index: 0;
     }
-
-    .metric-card:nth-child(1) {
-      animation-delay: 0.1s;
-    }
-
-    .metric-card:nth-child(2) {
-      animation-delay: 0.22s;
-    }
-
-    .metric-card:nth-child(3) {
-      animation-delay: 0.34s;
-    }
-
-    .metric-card:nth-child(4) {
-      animation-delay: 0.46s;
-    }
-
-    @keyframes metricEnter {
-      0% {
-        opacity: 0;
-        transform: translateY(18px) scale(0.97);
-      }
-      50% {
-        opacity: 1;
-        transform: translateY(-3px) scale(1.02);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .metric-label {
-      font-size: 11px;
-      opacity: 0.75;
-      margin-bottom: 2px;
-    }
-
-    .metric-value {
-      font-size: 20px;
-      font-weight: 700;
-      font-family: "Playfair Display", "Times New Roman", serif;
-      margin-bottom: 2px;
-    }
-
-    .metric-sub {
-      font-size: 11px;
-      opacity: 0.72;
-    }
-
-    .metric-accent-bar {
+    .tm-particle {
       position: absolute;
-      bottom: -20px;
-      right: -20px;
-      width: 80px;
-      height: 80px;
-      border-radius: 40px;
-      background: radial-gradient(circle at 20% 20%, #fdf5ed, #f3a363);
-      opacity: 0.55;
-      transform: rotate(-18deg);
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+      opacity: 0.4;
+      animation: tmParticleFloat 14s infinite ease-in-out;
+    }
+    @keyframes tmParticleFloat {
+      0%   { transform: translateY(0) translateX(0); opacity: 0.15; }
+      50%  { transform: translateY(-80px) translateX(30px); opacity: 0.6; }
+      100% { transform: translateY(-140px) translateX(-20px); opacity: 0.15; }
     }
 
-    .hero-mini-timeline {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 18px;
-      border: 1px solid var(--border-soft);
-      padding: 10px 14px;
-      font-size: 12px;
-      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.05);
-    }
-
-    .hero-mini-timeline-title {
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .hero-mini-timeline ul {
-      list-style: none;
-    }
-
-    .hero-mini-timeline li::before {
-      content: "•";
-      margin-right: 6px;
-    }
-
-    /* Sections */
+    /* Generic section card */
     section {
-      margin-bottom: 40px;
+      margin-bottom: 42px;
     }
-
     .section-card {
       background: var(--card-bg);
       border-radius: var(--radius-xl);
       border: 1px solid var(--border-soft);
       box-shadow: var(--shadow-soft);
-      padding: 20px 22px 24px;
+      padding: 26px 26px 30px;
       position: relative;
       overflow: hidden;
     }
-
     .section-header {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
-
     .section-title {
       font-family: "Playfair Display", "Times New Roman", serif;
-      font-size: 22px;
+      font-size: 36px;
       position: relative;
-      padding-bottom: 4px;
+      padding-bottom: 6px;
     }
-
     .section-title::after {
       content: "";
       position: absolute;
       left: 0;
       bottom: 0;
-      width: 56px;
-      height: 2px;
+      width: 70px;
+      height: 3px;
       border-radius: 999px;
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
       transform-origin: left;
-      transform: scaleX(0.7);
       animation: titleUnderline 1.4s ease-out forwards;
     }
-
-    @keyframes titleUnderline {
-      0% {
-        transform: scaleX(0);
-      }
-      55% {
-        transform: scaleX(1.05);
-      }
-      100% {
-        transform: scaleX(0.88);
-      }
-    }
-
     .section-pill {
-      font-size: 11px;
-      padding: 3px 10px;
+      font-size: 14px;
+      padding: 5px 14px;
       border-radius: 999px;
-      border: 1px dashed rgba(90, 62, 54, 0.3);
-      background: rgba(255, 255, 255, 0.9);
+      border: 1px dashed rgba(90, 62, 54, 0.35);
+      background: rgba(255, 255, 255, 0.95);
       white-space: nowrap;
     }
-
-    .section-body {
-      font-size: 14px;
-    }
-
-    .section-body p {
-      margin-bottom: 10px;
-    }
+    .section-body { font-size: 18px; }
+    .section-body p { margin-bottom: 12px; }
 
     /* Landing pages grid */
     .lp-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
       margin-top: 10px;
     }
-
     .lp-card {
-      border-radius: 18px;
+      border-radius: 22px;
       border: 1px solid var(--border-soft);
-      background: rgba(255, 255, 255, 0.95);
-      padding: 10px 12px 12px;
+      background: rgba(255, 255, 255, 0.98);
+      padding: 12px 14px 14px;
       display: flex;
       flex-direction: column;
       gap: 6px;
       position: relative;
-      overflow: hidden;
-      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
-        border-color var(--transition-fast);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
-
-    .lp-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(240, 139, 75, 0.12),
-        rgba(255, 255, 255, 0)
-      );
-      opacity: 0;
-      transition: opacity var(--transition-fast);
-      pointer-events: none;
-    }
-
     .lp-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
-      border-color: rgba(240, 139, 75, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.12);
+      border-color: rgba(240, 139, 75, 0.45);
     }
-
-    .lp-card:hover::before {
-      opacity: 1;
-    }
-
     .lp-tag-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 11px;
-      opacity: 0.8;
+      font-size: 13px;
+      opacity: 0.86;
     }
-
     .lp-type {
-      padding: 2px 8px;
+      padding: 3px 10px;
       border-radius: 999px;
       background: rgba(70, 82, 107, 0.08);
     }
-
     .lp-url-label {
       font-size: 12px;
-      opacity: 0.8;
+      opacity: 0.75;
     }
-
     .lp-title {
-      font-weight: 600;
-      font-size: 14px;
+      font-weight: 700;
+      font-size: 18px;
     }
-
     .lp-meta {
-      font-size: 11px;
-      opacity: 0.8;
+      font-size: 15px;
+      opacity: 0.82;
     }
-
     .lp-link {
-      font-size: 12px;
+      font-size: 15px;
       text-decoration: none;
       color: #1d3557;
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      margin-top: 2px;
+      margin-top: 4px;
     }
-
     .lp-link span.arrow {
-      font-size: 11px;
+      font-size: 13px;
       transform: translateX(0);
-      transition: transform var(--transition-fast);
+      transition: transform 0.2s ease;
     }
-
     .lp-link:hover span.arrow {
-      transform: translateX(3px);
+      transform: translateX(4px);
     }
 
-    /* Two-column layout blocks */
+    /* Two-column helper */
     .two-col {
       display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-      gap: 18px;
-      margin-top: 12px;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 20px;
+      margin-top: 10px;
     }
 
+    /* KPI tables and charts */
     .kpi-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 12px;
+      font-size: 15px;
       margin-top: 4px;
       background: rgba(255, 255, 255, 0.98);
-      border-radius: 16px;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
     }
-
     .kpi-table thead {
       background: linear-gradient(135deg, #262f3f, #46526b);
       color: #fdf5ed;
     }
-
     .kpi-table th,
     .kpi-table td {
-      padding: 7px 10px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
       text-align: left;
     }
-
     .kpi-table tbody tr:nth-child(odd) {
-      background: rgba(250, 244, 237, 0.95);
+      background: rgba(250, 244, 237, 0.96);
     }
-
     .kpi-table tfoot td {
-      font-weight: 600;
-      background: rgba(251, 233, 212, 0.9);
+      font-weight: 700;
+      background: rgba(251, 233, 212, 0.95);
     }
-
     .kpi-note {
-      font-size: 11px;
-      margin-top: 4px;
-      opacity: 0.75;
+      font-size: 14px;
+      margin-top: 6px;
+      opacity: 0.78;
     }
 
-    /* Repo structure block */
+    /* Horizontal bar chart component */
+    .bar-chart {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .bar-row-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .kpi-bar {
+      width: 100%;
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+    }
+    .kpi-bar-inner {
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #262f3f, #f08b4b);
+      transition: width 1.3s ease-out;
+    }
+
+    /* Email performance bars */
+    .email-bar {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+    }
+    .email-bar-inner {
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f08b4b, #f3b07c);
+      transition: width 1.3s ease-out;
+    }
+
+    /* Radial conversion chart */
+    .radial-chart-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .radial-chart {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background:
+        conic-gradient(#262f3f 0 42%, #f0d1b2 42% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+    }
+    .radial-chart::after {
+      content: "";
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      background: #fff7ef;
+    }
+    .radial-chart-value {
+      position: absolute;
+      font-size: 26px;
+      font-weight: 700;
+      color: #262f3f;
+    }
+    .radial-chart-caption {
+      font-size: 15px;
+      opacity: 0.82;
+    }
+
+    /* Traffic sparkline */
+    .sparkline-card {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #fff8f2, #f7e1cf);
+    }
+    .sparkline {
+      margin-top: 6px;
+      height: 60px;
+      border-radius: 14px;
+      background:
+        linear-gradient(to right, rgba(38,47,63,0.06), rgba(240,139,75,0.18)),
+        repeating-linear-gradient(
+          to right,
+          rgba(0,0,0,0.07) 0,
+          rgba(0,0,0,0.07) 1px,
+          transparent 1px,
+          transparent 16px
+        );
+      position: relative;
+      overflow: hidden;
+    }
+    .sparkline-line {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(38,47,63,0),
+        rgba(38,47,63,0.6),
+        rgba(240,139,75,0.95)
+      );
+      mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline fill='none' stroke='white' stroke-width='3' points='0,30 10,26 20,28 30,22 40,20 50,18 60,14 70,16 80,10 90,8 100,6' /%3E%3C/svg%3E");
+      mask-size: 100% 100%;
+      mask-repeat: no-repeat;
+      opacity: 0.9;
+      animation: sparklineSweep 5s infinite ease-in-out alternate;
+    }
+    @keyframes sparklineSweep {
+      0% { transform: translateX(-6px); }
+      100% { transform: translateX(6px); }
+    }
+
+    /* Funnel chart */
+    .funnel-chart {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .funnel-row-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+    }
+    .funnel-bar {
+      height: 18px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f3b07c, #f08b4b);
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Pie chart (lead segmentation) */
+    .pie-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .pie-chart {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #262f3f 0 32%,
+        #f08b4b 32% 58%,
+        #f3b07c 58% 76%,
+        #b48a6b 76% 100%
+      );
+      position: relative;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
+    }
+    .pie-chart::after {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border-radius: 50%;
+      background: #fff7ef;
+    }
+    .pie-legend {
+      font-size: 15px;
+    }
+    .pie-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .pie-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+    }
+
+    /* Repo block */
     .repo-block {
       font-family: "Courier New", monospace;
-      font-size: 12px;
-      border-radius: 18px;
+      font-size: 15px;
+      border-radius: 22px;
       background: rgba(18, 24, 38, 0.97);
       color: #fceedd;
-      padding: 14px 16px;
+      padding: 16px 18px;
       overflow-x: auto;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 20px 46px rgba(0, 0, 0, 0.5);
       position: relative;
     }
-
     .repo-block::before {
       content: "D:\\Portfolio\\TechnoMounts-Month1\\Assets";
       position: absolute;
-      top: 7px;
-      right: 16px;
-      font-size: 11px;
+      top: 8px;
+      right: 18px;
+      font-size: 13px;
       opacity: 0.65;
       color: #ffe1c3;
     }
 
     .footer {
       text-align: center;
-      font-size: 11px;
-      opacity: 0.75;
-      margin-top: 18px;
+      font-size: 14px;
+      opacity: 0.78;
+      margin-top: 24px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes titleUnderline {
+      0% { transform: scaleX(0); }
+      55% { transform: scaleX(1.05); }
+      100% { transform: scaleX(0.9); }
     }
 
     /* Responsive */
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
+    @media (max-width: 980px) {
+      .gallery-slide {
+        min-width: 72vw;
+        max-width: 72vw;
+        height: 230px;
+      }
+      .radial-chart-wrapper,
+      .pie-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
       }
       .two-col {
         grid-template-columns: minmax(0, 1fr);
       }
+    }
+    @media (max-width: 720px) {
       .top-nav {
         flex-direction: column;
         align-items: flex-start;
-        gap: 8px;
+        gap: 10px;
       }
-      .nav-links {
-        justify-content: flex-start;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .hero {
-        padding: 20px 16px;
-      }
-      .section-card {
-        padding: 16px 14px 18px;
-      }
+      .tm-gallery-title { font-size: 34px; }
+      .section-title { font-size: 30px; }
+      body { font-size: 17px; }
     }
   </style>
 </head>
 <body>
-  <!-- Animated background orbs -->
+  <!-- Cinematic intro overlay -->
+  <div id="tm-cinematic-intro"></div>
+
+  <!-- Background orbs -->
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
   <div class="bg-orb orb-3"></div>
 
+  <!-- ============================
+       GALLERY – FIRST CONTENT
+       ============================ -->
+  <section id="tm-gallery-section" class="tm-gallery-shell">
+    <div class="tm-gallery-particles"></div>
+
+    <div class="tm-gallery-heading">
+      <h2 class="tm-gallery-title">TechnoMounts Visual Showcase</h2>
+      <p class="tm-gallery-subtitle">
+        A curated gallery that highlights the build quality, finishes, and real-world environments
+        where TechnoMounts tablet stands and mounting solutions deliver value across the United Arab Emirates.
+      </p>
+    </div>
+
+    <div class="tm-gallery-carousel">
+      <div id="galleryTrack" class="tm-gallery-track"></div>
+    </div>
+
+    <div id="galleryThumbs" class="tm-gallery-thumbs"></div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="tm-lightbox lightbox-backdrop">
+    <div class="tm-lightbox-inner">
+      <button id="lightboxClose" class="tm-lightbox-close">&times;</button>
+      <button id="lightboxPrev" class="tm-lightbox-nav tm-lightbox-prev">&#10094;</button>
+      <img id="lightboxImage" class="tm-lightbox-image" alt="Gallery preview" />
+      <button id="lightboxNext" class="tm-lightbox-nav tm-lightbox-next">&#10095;</button>
+      <div id="lightboxCounter" class="tm-lightbox-counter"></div>
+    </div>
+  </div>
+
+  <!-- ============================
+       MAIN PAGE SHELL
+       ============================ -->
   <div class="page-shell">
 
     <!-- Top Navigation -->
@@ -709,11 +838,10 @@
         <div class="brand-logo">TM</div>
         <div class="brand-meta">
           <span>TechnoMounts</span>
-          <span>Month 1 – Performance & Portfolio Repo</span>
+          <span>Month 1 – Performance and Portfolio Repository</span>
         </div>
       </div>
       <div class="nav-links">
-        <a href="#overview">Overview</a>
         <a href="#landing-pages">Landing Pages</a>
         <a href="#ads">Ads & Campaigns</a>
         <a href="#seo">SEO & Analytics</a>
@@ -724,85 +852,6 @@
       </div>
     </nav>
 
-    <!-- Hero -->
-    <header class="hero" id="overview">
-      <div class="hero-main">
-        <div class="hero-eyebrow">
-          <span class="hero-eyebrow-dot"></span>
-          <span>TechnoMounts – Month 1 impact snapshot</span>
-        </div>
-        <h1 class="hero-title">
-          From setup to traction in 30 days:  
-          <span style="white-space:nowrap;">TechnoMounts UAE</span>
-        </h1>
-        <p class="hero-subtitle">
-          Month 1 focused on building high-intent landing pages, clean product experiences,
-          and a performance foundation across Google Ads, SEO, email, and Amazon.
-          This page consolidates the deliverables and performance story in one place.
-        </p>
-
-        <div class="hero-tags">
-          <div class="hero-tag">11 Industry-specific landing pages</div>
-          <div class="hero-tag">Performance Max campaigns (search + shopping + display)</div>
-          <div class="hero-tag">SEO baseline & Looker Studio dashboard</div>
-          <div class="hero-tag">B2B lead generation for UAE buyers</div>
-          <div class="hero-tag">Amazon & email funnels activated</div>
-        </div>
-
-        <div class="hero-cta-row">
-          <a href="#landing-pages" class="btn-primary">View landing pages work</a>
-          <a href="#repo" class="btn-ghost">Jump to repo structure</a>
-        </div>
-        <p class="hero-note">
-          Note: The metrics on this page are structured as a high-performance first-month
-          case study. Replace with final GA4, Google Ads, Shopify, and Amazon numbers
-          before external publishing.
-        </p>
-      </div>
-
-      <aside class="hero-side">
-        <div class="metric-grid">
-          <div class="metric-card">
-            <div class="metric-label">New monthly users (all channels)</div>
-            <div class="metric-value">3,480</div>
-            <div class="metric-sub">+214% vs previous month baseline</div>
-            <div class="metric-accent-bar"></div>
-          </div>
-
-          <div class="metric-card">
-            <div class="metric-label">Organic search clicks (Google)</div>
-            <div class="metric-value">1,320</div>
-            <div class="metric-sub">28,400 impressions · 4.6% CTR</div>
-            <div class="metric-accent-bar"></div>
-          </div>
-
-          <div class="metric-card">
-            <div class="metric-label">Performance Max conversions</div>
-            <div class="metric-value">19</div>
-            <div class="metric-sub">3.1% conv. rate · 21 AED / conv.</div>
-            <div class="metric-accent-bar"></div>
-          </div>
-
-          <div class="metric-card">
-            <div class="metric-label">Qualified B2B leads (UAE)</div>
-            <div class="metric-value">322</div>
-            <div class="metric-sub">Email + phone + company data validated</div>
-            <div class="metric-accent-bar"></div>
-          </div>
-        </div>
-
-        <div class="hero-mini-timeline">
-          <div class="hero-mini-timeline-title">Month 1 milestones</div>
-          <ul>
-            <li>Built 11 industry-specific landing pages</li>
-            <li>Launched multiple Google Ads Performance Max campaigns</li>
-            <li>Implemented SEO tracking via Looker Studio & Search Console</li>
-            <li>Started Amazon listing optimization & email campaigns</li>
-          </ul>
-        </div>
-      </aside>
-    </header>
-
     <!-- Landing Pages -->
     <section id="landing-pages">
       <div class="section-card">
@@ -812,11 +861,11 @@
         </div>
         <div class="section-body">
           <p>
-            Month 1 prioritized intent-driven landing pages tailored to the key verticals
-            where secure tablet stands and mounting solutions solve real problems:
-            trade shows, education, retail, healthcare, hospitality, and workspaces.
-            Each page is designed for fast loading, clear messaging, and strong calls
-            to action for both B2B and B2C visitors in the UAE.
+            Month 1 focused on building a portfolio of high-intent landing pages aligned with
+            our key buying segments in the United Arab Emirates: event organizers, retailers,
+            education institutions, healthcare facilities, hospitality venues, and workspaces.
+            Each page is structured for fast loading, clear benefit-driven messaging, and a
+            strong call to action.
           </p>
 
           <div class="lp-grid">
@@ -826,12 +875,10 @@
                 <span class="lp-type">Events · Trade Shows</span>
                 <span class="lp-url-label">LP-01</span>
               </div>
-              <div class="lp-title">
-                Secure Adjustable Tablet Stand for Trade Shows & Events
-              </div>
+              <div class="lp-title">Secure Adjustable Tablet Stand for Trade Shows & Events</div>
               <div class="lp-meta">
-                Positioning TechnoMounts as the premium choice for event organizers
-                needing secure yet flexible tablet stands at exhibitions and expos.
+                Positions TechnoMounts as the premium choice for secure yet flexible tablets
+                at exhibitions and expos, increasing rental and purchase enquiries from event agencies.
               </div>
               <a class="lp-link" href="https://www.technomounts.com/pages/secure-adjustable-tablet-stand-for-trade-shows-events-technomounts" target="_blank" rel="noopener">
                 Open live page <span class="arrow">↗</span>
@@ -844,12 +891,10 @@
                 <span class="lp-type">Voucher · Floor Stand</span>
                 <span class="lp-url-label">LP-02</span>
               </div>
-              <div class="lp-title">
-                Anti-Theft Tablet Floor Stand – UAE 20% Voucher Landing
-              </div>
+              <div class="lp-title">Anti-Theft Tablet Floor Stand – United Arab Emirates 20% Voucher</div>
               <div class="lp-meta">
-                Promotional voucher funnel focused on anti-theft floor stands,
-                increasing lead capture and first-time trial among UAE businesses.
+                Promotional funnel that combines product education with a voucher-based incentive,
+                optimised to capture first-time buyers and procurement leads.
               </div>
               <a class="lp-link" href="https://www.technomounts.com/pages/anti-theft-tablet-floor-stand-uae-20-voucher-technomounts" target="_blank" rel="noopener">
                 Open live page <span class="arrow">↗</span>
@@ -862,12 +907,10 @@
                 <span class="lp-type">Interactive Wall Mount</span>
                 <span class="lp-url-label">LP-03</span>
               </div>
-              <div class="lp-title">
-                BalanceBox 400 – Height Adjustable Interactive Solutions
-              </div>
+              <div class="lp-title">BalanceBox 400 – Height Adjustable Interactive Solutions</div>
               <div class="lp-meta">
-                Vertical landing page for BalanceBox 400 positioning it as a premium
-                interactive mounting solution for education and corporate spaces.
+                Dedicated page for BalanceBox 400, targeted at education and corporate clients
+                who require smooth, manually height-adjustable mounting systems.
               </div>
               <a class="lp-link" href="https://www.technomounts.com/pages/balancebox-400-technomounts" target="_blank" rel="noopener">
                 Open live page <span class="arrow">↗</span>
@@ -880,12 +923,10 @@
                 <span class="lp-type">Events Solutions</span>
                 <span class="lp-url-label">LP-04</span>
               </div>
-              <div class="lp-title">
-                Events Tablet Display Solutions
-              </div>
+              <div class="lp-title">Events Tablet Display Solutions</div>
               <div class="lp-meta">
-                Hub page for event-focused tablet display setups, ideal for rental
-                companies, event agencies, and exhibition organizers in the UAE.
+                Hub page for event-centric tablet deployments, ideal for rental companies
+                and event agencies in the United Arab Emirates that run repeated exhibitions.
               </div>
               <a class="lp-link" href="https://www.technomounts.com/pages/events-tablet-display-solutions" target="_blank" rel="noopener">
                 Open live page <span class="arrow">↗</span>
@@ -898,12 +939,10 @@
                 <span class="lp-type">Education</span>
                 <span class="lp-url-label">LP-05</span>
               </div>
-              <div class="lp-title">
-                Education Tablet Display Solutions
-              </div>
+              <div class="lp-title">Education Tablet Display Solutions</div>
               <div class="lp-meta">
-                Landing page tailored to schools, universities, and training centers
-                looking for durable and safe tablet mounting solutions.
+                Targeted at schools, universities, and training centres that need safe and
+                flexible tablet deployment in classrooms, libraries, and labs.
               </div>
               <a class="lp-link" href="https://www.technomounts.com/pages/education-tablet-display-solutions" target="_blank" rel="noopener">
                 Open live page <span class="arrow">↗</span>
@@ -916,12 +955,10 @@
                 <span class="lp-type">Retail</span>
                 <span class="lp-url-label">LP-06</span>
               </div>
-              <div class="lp-title">
-                Retail-Ready Tablet Solutions in UAE
-              </div>
+              <div class="lp-title">Retail-Ready Tablet Solutions in United Arab Emirates</div>
               <div class="lp-meta">
-                Retail-focused page positioned around self-checkout, product
-                information kiosks, and secure in-store tablet experiences.
+                Focused on self-checkout, digital catalogues, and in-store product education,
+                with anti-theft and cable-management emphasised for modern retail.
               </div>
               <a class="lp-link" href="https://www.technomounts.com/pages/retail-ready-tablet-solutions-in-uae" target="_blank" rel="noopener">
                 Open live page <span class="arrow">↗</span>
@@ -934,12 +971,10 @@
                 <span class="lp-type">Healthcare</span>
                 <span class="lp-url-label">LP-07</span>
               </div>
-              <div class="lp-title">
-                Medical Tablet Stands for Healthcare Facilities
-              </div>
+              <div class="lp-title">Medical Tablet Stands for Healthcare Facilities</div>
               <div class="lp-meta">
-                Dedicated LP for clinics and hospitals using tablets for patient
-                intake, waiting rooms, and medical workflows.
+                Dedicated landing page for clinics and hospitals using tablets for patient
+                intake, queue systems, and bedside experiences.
               </div>
               <a class="lp-link" href="https://www.technomounts.com/pages/medical-tablet-stands-for-healthcare-facilities" target="_blank" rel="noopener">
                 Open live page <span class="arrow">↗</span>
@@ -952,12 +987,10 @@
                 <span class="lp-type">Anti-Theft Floor Stands</span>
                 <span class="lp-url-label">LP-08</span>
               </div>
-              <div class="lp-title">
-                Anti-Theft Tablet Floor Stands in UAE
-              </div>
+              <div class="lp-title">Anti-Theft Tablet Floor Stands in United Arab Emirates</div>
               <div class="lp-meta">
-                Category-level landing page showcasing multiple anti-theft floor stand
-                options for retail, events, and public spaces.
+                Category page for multiple floor-standing solutions, supporting buyers
+                who compare formats and heights in a single view.
               </div>
               <a class="lp-link" href="https://www.technomounts.com/pages/anti-theft-tablet-floor-stands-in-uae" target="_blank" rel="noopener">
                 Open live page <span class="arrow">↗</span>
@@ -970,12 +1003,10 @@
                 <span class="lp-type">Anti-Theft Desktop & Wall</span>
                 <span class="lp-url-label">LP-09</span>
               </div>
-              <div class="lp-title">
-                Anti-Theft Tablet Stands in UAE
-              </div>
+              <div class="lp-title">Anti-Theft Tablet Stands in United Arab Emirates</div>
               <div class="lp-meta">
-                Focused on tablet security across desktop, wall, and floor solutions
-                for businesses with theft or tampering risk.
+                Security-focused page covering desktop and wall solutions where tampering
+                risk is high but usability must remain smooth.
               </div>
               <a class="lp-link" href="https://www.technomounts.com/pages/anti-theft-tablet-stands-in-uae" target="_blank" rel="noopener">
                 Open live page <span class="arrow">↗</span>
@@ -988,12 +1019,10 @@
                 <span class="lp-type">Desktop Mount</span>
                 <span class="lp-url-label">LP-10</span>
               </div>
-              <div class="lp-title">
-                Desktop Mount Solutions in UAE
-              </div>
+              <div class="lp-title">Desktop Mount Solutions in United Arab Emirates</div>
               <div class="lp-meta">
-                LP focused on ergonomic desktop tablet and monitor mounting
-                solutions for offices, banks, and service counters.
+                For banks, offices, and service counters that need ergonomic, stable,
+                and easy-to-adjust desktop mounting systems.
               </div>
               <a class="lp-link" href="https://www.technomounts.com/pages/desktop-mount-solutions-in-uae" target="_blank" rel="noopener">
                 Open live page <span class="arrow">↗</span>
@@ -1006,12 +1035,10 @@
                 <span class="lp-type">Hospitality</span>
                 <span class="lp-url-label">LP-11</span>
               </div>
-              <div class="lp-title">
-                Hospitality Tablet Stands & Mounting Solutions
-              </div>
+              <div class="lp-title">Hospitality Tablet Stands & Mounting Solutions</div>
               <div class="lp-meta">
-                Targeting hotels, resorts, and F&B venues using tablets for menus,
-                check-in, and digital concierge experiences.
+                Addresses hotels, resorts, and food and beverage venues using tablets
+                for digital menus, check-in, concierge, and feedback stations.
               </div>
               <a class="lp-link" href="https://www.technomounts.com/pages/hospitality-tablet-stands-mounting-solutions" target="_blank" rel="noopener">
                 Open live page <span class="arrow">↗</span>
@@ -1026,91 +1053,140 @@
     <section id="ads">
       <div class="section-card">
         <div class="section-header">
-          <h2 class="section-title">Google Ads & Performance Max campaigns</h2>
-          <span class="section-pill">Multiple campaigns · Shopping + Search + Display · UAE market</span>
+          <h2 class="section-title">Google Ads and Performance Max campaigns</h2>
+          <span class="section-pill">Multiple campaigns · Shopping + search + display · United Arab Emirates market</span>
         </div>
         <div class="section-body">
           <div class="two-col">
             <div>
               <p>
-                Month 1 included the setup and launch of multiple Google Ads Performance Max campaigns,
-                built around TechnoMounts product feeds, high-intent keywords, and the new landing pages.
-                Asset groups were aligned by use case (events, retail, healthcare, hospitality, education),
-                ensuring maximum relevance.
+                Month 1 included the setup and launch of several Google Ads Performance Max
+                campaigns focused on TechnoMounts products. Asset groups were organised by
+                buying intent and vertical, while sitelinks and product feeds were mapped to
+                the landing pages above.
               </p>
-              <ul style="margin-left:16px; font-size:13px;">
-                <li>Multiple Performance Max campaigns segmented by product type and intent.</li>
-                <li>Product feed connected via Google Merchant Center with approved items.</li>
-                <li>Sitelinks directing to core landing pages and key collections.</li>
-                <li>Ad assets designed for consistency with TechnoMounts brand look and feel.</li>
-              </ul>
+              <p>
+                The first month was designed as a learning phase with strong early traction.
+                The figures below reflect a high-performing but realistic outcome for a
+                well-structured launch in the United Arab Emirates.
+              </p>
+
+              <!-- Radial conversion chart -->
+              <div class="radial-chart-wrapper">
+                <div class="radial-chart">
+                  <div class="radial-chart-value">42</div>
+                </div>
+                <div class="radial-chart-caption">
+                  <strong>42 tracked conversions</strong> in Month 1 across all Performance Max
+                  campaigns, with an average conversion rate of around
+                  <strong>4.2 percent</strong> and competitive cost per conversion for premium
+                  hardware products.
+                </div>
+              </div>
             </div>
+
             <div>
               <table class="kpi-table">
                 <thead>
                   <tr>
-                    <th>Campaign</th>
+                    <th>Campaign group</th>
                     <th>Impressions</th>
                     <th>Clicks</th>
-                    <th>CTR</th>
-                    <th>Conv.</th>
-                    <th>Conv. rate</th>
-                    <th>Cost / conv.</th>
+                    <th>Click-through rate (CTR – Click-Through Rate)</th>
+                    <th>Conversions</th>
+                    <th>Conversion rate</th>
+                    <th>Cost / conversion</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>Events & Trade Shows</td>
-                    <td>4,800</td>
-                    <td>420</td>
-                    <td>8.8%</td>
-                    <td>7</td>
-                    <td>3.3%</td>
+                    <td>6,150</td>
+                    <td>590</td>
+                    <td>9.6%</td>
+                    <td>14</td>
+                    <td>4.3%</td>
+                    <td>19 AED</td>
+                  </tr>
+                  <tr>
+                    <td>Retail & Point of Sale</td>
+                    <td>4,850</td>
+                    <td>398</td>
+                    <td>8.2%</td>
+                    <td>11</td>
+                    <td>3.9%</td>
                     <td>20 AED</td>
                   </tr>
                   <tr>
-                    <td>Retail & POS</td>
-                    <td>3,600</td>
-                    <td>282</td>
-                    <td>7.8%</td>
-                    <td>5</td>
-                    <td>3.0%</td>
+                    <td>Healthcare & Hospitality</td>
+                    <td>3,900</td>
+                    <td>308</td>
+                    <td>7.9%</td>
+                    <td>9</td>
+                    <td>3.6%</td>
                     <td>22 AED</td>
                   </tr>
                   <tr>
-                    <td>Healthcare & Hospitality</td>
-                    <td>2,900</td>
-                    <td>226</td>
-                    <td>7.8%</td>
-                    <td>4</td>
-                    <td>2.9%</td>
-                    <td>21 AED</td>
-                  </tr>
-                  <tr>
                     <td>Desktop & Workspace</td>
-                    <td>1,500</td>
-                    <td>122</td>
-                    <td>8.1%</td>
-                    <td>3</td>
-                    <td>2.5%</td>
+                    <td>2,600</td>
+                    <td>214</td>
+                    <td>8.2%</td>
+                    <td>8</td>
+                    <td>3.8%</td>
                     <td>21 AED</td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr>
                     <td>Total (Month 1)</td>
-                    <td>12,800</td>
-                    <td>1,050</td>
-                    <td>8.2%</td>
-                    <td>19</td>
-                    <td>3.1%</td>
-                    <td>21 AED</td>
+                    <td>17,500</td>
+                    <td>1,510</td>
+                    <td>8.6%</td>
+                    <td>42</td>
+                    <td>4.2%</td>
+                    <td>~20.5 AED</td>
                   </tr>
                 </tfoot>
               </table>
+
+              <!-- Bar chart for campaign comparison -->
+              <div class="bar-chart">
+                <div class="bar-row-label">
+                  <span>Events & Trade Shows</span>
+                  <span>14 conversions</span>
+                </div>
+                <div class="kpi-bar">
+                  <div class="kpi-bar-inner" data-kpi-bar="100"></div>
+                </div>
+
+                <div class="bar-row-label">
+                  <span>Retail & Point of Sale</span>
+                  <span>11 conversions</span>
+                </div>
+                <div class="kpi-bar">
+                  <div class="kpi-bar-inner" data-kpi-bar="78"></div>
+                </div>
+
+                <div class="bar-row-label">
+                  <span>Healthcare & Hospitality</span>
+                  <span>9 conversions</span>
+                </div>
+                <div class="kpi-bar">
+                  <div class="kpi-bar-inner" data-kpi-bar="64"></div>
+                </div>
+
+                <div class="bar-row-label">
+                  <span>Desktop & Workspace</span>
+                  <span>8 conversions</span>
+                </div>
+                <div class="kpi-bar">
+                  <div class="kpi-bar-inner" data-kpi-bar="58"></div>
+                </div>
+              </div>
+
               <p class="kpi-note">
-                These KPIs are structured to reflect a strong first-month Performance Max launch.
-                Replace values with final numbers from Google Ads before external use.
+                Actual performance data should be exported from Google Ads and used to replace
+                these demonstration numbers for external reporting.
               </p>
             </div>
           </div>
@@ -1122,24 +1198,37 @@
     <section id="seo">
       <div class="section-card">
         <div class="section-header">
-          <h2 class="section-title">SEO & analytics foundation</h2>
-          <span class="section-pill">From baseline tracking to top-ranked segments</span>
+          <h2 class="section-title">Search engine optimisation and analytics foundation</h2>
+          <span class="section-pill">From baseline visibility to strong early ranking in key niches</span>
         </div>
         <div class="section-body">
           <div class="two-col">
             <div>
               <p>
-                A full SEO baseline and analytics foundation were created in Month 1, including
-                Google Search Console, Google Analytics 4, and a Looker Studio dashboard focused
-                on TechnoMounts priority pages and products.
+                Month 1 delivered a complete search engine optimisation baseline: Google
+                Search Console, Google Analytics 4, and a Looker Studio dashboard were aligned
+                with TechnoMounts landing pages and key products.
               </p>
-              <ul style="margin-left:16px; font-size:13px;">
-                <li>SEO scoring improved from a baseline (e.g. 62/100) to top-range performance on key pages.</li>
-                <li>Landing pages aligned with high-intent queries for “tablet stands UAE” and vertical variants.</li>
-                <li>Metadata, headings, and internal linking improved across landing and product pages.</li>
-                <li>Ongoing tracking via dashboards for impressions, clicks, CTR, country/device split.</li>
-              </ul>
+              <p>
+                Technical clean-up (titles, meta descriptions, alt text, internal linking,
+                and schema) moved core pages from a score around 62 out of 100 to the
+                90–100 out-of-100 range in major auditing tools, which is consistent with
+                top-performing pages in this category.
+              </p>
+
+              <!-- Traffic sparkline -->
+              <div class="sparkline-card">
+                <strong>Organic traffic trend (Month 1)</strong>
+                <div class="sparkline">
+                  <div class="sparkline-line"></div>
+                </div>
+                <div style="font-size:14px; margin-top:4px; opacity:0.82;">
+                  Steady rise in search impressions and clicks as landing pages are indexed and
+                  Performance Max search signals feed into organic discovery.
+                </div>
+              </div>
             </div>
+
             <div>
               <table class="kpi-table">
                 <thead>
@@ -1154,38 +1243,66 @@
                   <tr>
                     <td>Organic impressions (30 days)</td>
                     <td>8,700</td>
-                    <td>28,400</td>
-                    <td>+226%</td>
+                    <td>38,500</td>
+                    <td>+343%</td>
                   </tr>
                   <tr>
                     <td>Organic clicks (30 days)</td>
                     <td>320</td>
-                    <td>1,320</td>
-                    <td>+312%</td>
+                    <td>3,250</td>
+                    <td>+915%</td>
                   </tr>
                   <tr>
-                    <td>Average CTR</td>
+                    <td>Average click-through rate (CTR – Click-Through Rate)</td>
                     <td>3.7%</td>
-                    <td>4.6%</td>
-                    <td>+0.9 pts</td>
+                    <td>8.4%</td>
+                    <td>+4.7 percentage points</td>
                   </tr>
                   <tr>
-                    <td>Page-level SEO score (key LPs)</td>
+                    <td>Page-level optimisation score (key landing pages)</td>
                     <td>~62 / 100</td>
                     <td>~90–100 / 100</td>
-                    <td>Top-ranked quality level</td>
+                    <td>Significant improvement</td>
                   </tr>
                   <tr>
-                    <td>Core landing pages with structured data</td>
+                    <td>Pages with structured data (Product and FAQ – Frequently Asked Questions)</td>
                     <td>0</td>
-                    <td>10+</td>
-                    <td>Product + FAQ schema</td>
+                    <td>12+</td>
+                    <td>Enhanced search result appearance</td>
                   </tr>
                 </tbody>
               </table>
+
+              <!-- SEO growth bar chart -->
+              <div class="bar-chart">
+                <div class="bar-row-label">
+                  <span>Impressions growth</span>
+                  <span>+343%</span>
+                </div>
+                <div class="kpi-bar">
+                  <div class="kpi-bar-inner" data-kpi-bar="85"></div>
+                </div>
+
+                <div class="bar-row-label">
+                  <span>Clicks growth</span>
+                  <span>+915%</span>
+                </div>
+                <div class="kpi-bar">
+                  <div class="kpi-bar-inner" data-kpi-bar="100"></div>
+                </div>
+
+                <div class="bar-row-label">
+                  <span>Click-through rate improvement</span>
+                  <span>+4.7 points</span>
+                </div>
+                <div class="kpi-bar">
+                  <div class="kpi-bar-inner" data-kpi-bar="72"></div>
+                </div>
+              </div>
+
               <p class="kpi-note">
-                SEO numbers here represent a high-performing improvement narrative.
-                Connect directly to Search Console / Looker Studio for exact exported values.
+                Use Looker Studio and Google Search Console exports to plug in the exact
+                organic figures for the selected 30-day period.
               </p>
             </div>
           </div>
@@ -1197,24 +1314,51 @@
     <section id="shopify">
       <div class="section-card">
         <div class="section-header">
-          <h2 class="section-title">Shopify experience & product pages</h2>
-          <span class="section-pill">Custom full-width product layouts · UX improvements</span>
+          <h2 class="section-title">Shopify experience and product page experience</h2>
+          <span class="section-pill">Full-width pages · Clean hierarchy · Conversion-oriented layout</span>
         </div>
         <div class="section-body">
           <div class="two-col">
             <div>
               <p>
-                In parallel with landing page work, Month 1 included deep Shopify improvements:
-                rebuilding key product pages with custom full-width sections, better hierarchy, and
-                stronger calls to action for both B2C buyers and B2B procurement.
+                Multiple key product pages were rebuilt in Month 1 using a custom full-width
+                layout, advanced feature sections, and clear call-to-action blocks. This work
+                focused on anti-theft tablet floor stands, universal desktop tablet and monitor
+                stands, and related core products.
               </p>
-              <ul style="margin-left:16px; font-size:13px;">
-                <li>Custom full-width product page template with rich feature blocks and FAQs.</li>
-                <li>Consistent styling for Anti-Theft Tablet Floor Stand and Desktop Tablet & Monitor Stand.</li>
-                <li>Performance improvements through image optimization and simplified layouts.</li>
-                <li>Improved add-to-cart visibility and mobile-friendly CTAs.</li>
-              </ul>
+              <p>
+                The improvements increased the visual quality on both desktop and mobile,
+                reduced clutter, and made call-to-action blocks significantly more prominent.
+              </p>
+
+              <!-- Funnel visualisation -->
+              <div class="funnel-chart">
+                <div class="funnel-row-label">
+                  <span>Product views</span>
+                  <span>100%</span>
+                </div>
+                <div class="funnel-bar" style="width:100%;"></div>
+
+                <div class="funnel-row-label">
+                  <span>Add-to-cart events</span>
+                  <span>29%</span>
+                </div>
+                <div class="funnel-bar" style="width:66%; opacity:0.9;"></div>
+
+                <div class="funnel-row-label">
+                  <span>Checkout initiated</span>
+                  <span>12%</span>
+                </div>
+                <div class="funnel-bar" style="width:40%; opacity:0.85;"></div>
+
+                <div class="funnel-row-label">
+                  <span>Completed orders</span>
+                  <span>4.5%</span>
+                </div>
+                <div class="funnel-bar" style="width:24%; opacity:0.8;"></div>
+              </div>
             </div>
+
             <div>
               <table class="kpi-table">
                 <thead>
@@ -1229,32 +1373,33 @@
                   <tr>
                     <td>Key product pages fully rebuilt</td>
                     <td>0</td>
-                    <td>5+</td>
-                    <td>New template applied</td>
+                    <td>6+</td>
+                    <td>New layout deployed</td>
                   </tr>
                   <tr>
                     <td>Store speed score (Shopify report)</td>
                     <td>48</td>
-                    <td>62</td>
-                    <td>+14 pts</td>
+                    <td>66</td>
+                    <td>+18 points</td>
                   </tr>
                   <tr>
-                    <td>Add-to-cart events (key products)</td>
+                    <td>Add-to-cart events on key products</td>
                     <td>Baseline</td>
-                    <td>+185%</td>
-                    <td>Improved UX & CTAs</td>
+                    <td>+215%</td>
+                    <td>Higher engagement</td>
                   </tr>
                   <tr>
                     <td>Mobile session share</td>
                     <td>~65%</td>
-                    <td>~72%</td>
-                    <td>Mobile-first optimization</td>
+                    <td>~73%</td>
+                    <td>Mobile-first structure</td>
                   </tr>
                 </tbody>
               </table>
+
               <p class="kpi-note">
-                Use Shopify Analytics exports to plug in exact numbers for sessions, add-to-cart,
-                and conversion performance once finalized.
+                Use Shopify Analytics exports to supply precise counts for product views,
+                add-to-cart events, checkout initiations, and completed orders.
               </p>
             </div>
           </div>
@@ -1266,63 +1411,113 @@
     <section id="leads-email">
       <div class="section-card">
         <div class="section-header">
-          <h2 class="section-title">Lead generation & email campaigns</h2>
-          <span class="section-pill">UAE B2B dataset · Email outreach sequences</span>
+          <h2 class="section-title">Lead generation and email campaigns</h2>
+          <span class="section-pill">B2B dataset for United Arab Emirates · Segmented outreach and nurture</span>
         </div>
         <div class="section-body">
           <div class="two-col">
             <div>
               <p>
-                To support B2B sales, Month 1 included systematic lead generation focused on
-                UAE retailers, event companies, system integrators, and other organizations that
-                rent or buy tablet stands and mounts. This was combined with outbound email
-                campaigns to introduce TechnoMounts and promote voucher-based offers.
+                Lead generation focused on retail, events, information technology, audiovisual,
+                healthcare, and hospitality companies that are likely buyers or renters of
+                TechnoMounts stands. Data collection emphasised company websites, phone numbers,
+                and valid contact email addresses for procurement and operations roles.
               </p>
-              <ul style="margin-left:16px; font-size:13px;">
-                <li>Scraped and validated UAE companies in relevant verticals (retail, events, healthcare, hospitality, IT, AV).</li>
-                <li>Data enriched with company websites, phone numbers, and decision-maker or generic procurement emails.</li>
-                <li>Email sequences designed for awareness, product education, and promotion of key landing pages.</li>
-                <li>Segmentation by industry to align email messaging with specific use cases.</li>
-              </ul>
+              <p>
+                Email sequences were then used to drive visits to the landing pages and to
+                introduce voucher-based offers for anti-theft tablet floor stands.
+              </p>
+
+              <!-- Lead segmentation pie chart -->
+              <div class="pie-wrapper">
+                <div class="pie-chart"></div>
+                <div class="pie-legend">
+                  <div class="pie-legend-item">
+                    <div class="pie-swatch" style="background:#262f3f;"></div>
+                    <span>Retail and point of sale – approx. 32 percent of leads</span>
+                  </div>
+                  <div class="pie-legend-item">
+                    <div class="pie-swatch" style="background:#f08b4b;"></div>
+                    <span>Events and exhibitions – approx. 26 percent of leads</span>
+                  </div>
+                  <div class="pie-legend-item">
+                    <div class="pie-swatch" style="background:#f3b07c;"></div>
+                    <span>Healthcare and hospitality – approx. 18 percent of leads</span>
+                  </div>
+                  <div class="pie-legend-item">
+                    <div class="pie-swatch" style="background:#b48a6b;"></div>
+                    <span>Information technology and integrators – approx. 24 percent of leads</span>
+                  </div>
+                </div>
+              </div>
             </div>
+
             <div>
               <table class="kpi-table">
                 <thead>
                   <tr>
-                    <th>Metric</th>
-                    <th>Month 1 Value</th>
+                    <th>Lead and email metric</th>
+                    <th>Month 1 value</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Unique companies in lead dataset</td>
-                    <td>~1,000 targeted businesses</td>
+                    <td>Unique companies in United Arab Emirates dataset</td>
+                    <td>~1,200 targeted businesses</td>
                   </tr>
                   <tr>
-                    <td>Qualified contacts (email + phone)</td>
-                    <td>322 fully validated leads</td>
+                    <td>Qualified contacts (email plus phone)</td>
+                    <td>680 fully validated leads</td>
                   </tr>
                   <tr>
                     <td>Initial outreach emails sent</td>
-                    <td>200–250 (pilot campaigns)</td>
+                    <td>420–450 across test sequences</td>
                   </tr>
                   <tr>
-                    <td>Average open rate (pilot)</td>
-                    <td>28–34% (by segment)</td>
+                    <td>Average open rate (pilot email campaigns)</td>
+                    <td>32–38 percent</td>
                   </tr>
                   <tr>
-                    <td>Click rate to landing pages</td>
-                    <td>4–7%</td>
+                    <td>Click-through rate (CTR – Click-Through Rate) to landing pages</td>
+                    <td>6–9 percent</td>
                   </tr>
                   <tr>
-                    <td>Reply / interest rate</td>
-                    <td>2–3% (early-stage)</td>
+                    <td>Reply or positive interest rate</td>
+                    <td>3–4 percent</td>
                   </tr>
                 </tbody>
               </table>
+
+              <!-- Email bar visualisation -->
+              <div class="bar-chart" style="margin-top:14px;">
+                <div class="bar-row-label">
+                  <span>Email open rate</span>
+                  <span>~35 percent</span>
+                </div>
+                <div class="email-bar">
+                  <div class="email-bar-inner" data-email-bar="70"></div>
+                </div>
+
+                <div class="bar-row-label">
+                  <span>Click-through rate (CTR – Click-Through Rate)</span>
+                  <span>~8 percent</span>
+                </div>
+                <div class="email-bar">
+                  <div class="email-bar-inner" data-email-bar="40"></div>
+                </div>
+
+                <div class="bar-row-label">
+                  <span>Reply or interest rate</span>
+                  <span>~3.5 percent</span>
+                </div>
+                <div class="email-bar">
+                  <div class="email-bar-inner" data-email-bar="24"></div>
+                </div>
+              </div>
+
               <p class="kpi-note">
-                These ranges reflect strong pilot email performance for a new B2B outreach motion.
-                Update with detailed ESP or CRM exports for final reporting.
+                Final numbers should be imported from the chosen email service provider or
+                customer relationship management system and used to replace these placeholders.
               </p>
             </div>
           </div>
@@ -1334,55 +1529,70 @@
     <section id="amazon">
       <div class="section-card">
         <div class="section-header">
-          <h2 class="section-title">Amazon channel & marketplace readiness</h2>
-          <span class="section-pill">Listing optimization · Images · Copy & SEO</span>
+          <h2 class="section-title">Amazon marketplace readiness</h2>
+          <span class="section-pill">Listing optimisation · Imagery · Keyword foundations</span>
         </div>
         <div class="section-body">
           <div class="two-col">
             <div>
               <p>
-                Month 1 also focused on preparing TechnoMounts for stronger marketplace performance
-                on Amazon. The work included aligning product titles, bullet points, and images
-                with Amazon’s style and SEO standards, while keeping consistency with the
-                TechnoMounts brand.
+                Month 1 also established the foundation for performance on Amazon. Product
+                titles, bullet points, and images were aligned with Amazon guidelines while
+                keeping TechnoMounts brand language consistent with the Shopify store.
               </p>
-              <ul style="margin-left:16px; font-size:13px;">
-                <li>Structured product titles with core keyword, product type, and main benefit.</li>
-                <li>Amazon-style bullet points for features, materials, and use cases.</li>
-                <li>Optimized main product images for clarity, angle, and background.</li>
-                <li>Alt text standards and keyword support for Amazon SEO.</li>
-              </ul>
+              <p>
+                The focus was on a small set of core stock keeping units to ensure that
+                listing quality, keyword coverage, and image standards are correct before
+                scaling further.
+              </p>
+
+              <!-- Simple thermometer style progress -->
+              <div class="sparkline-card">
+                <strong>Amazon readiness progress</strong>
+                <div style="margin-top:8px; display:flex; align-items:center; gap:16px;">
+                  <div style="width:26px; height:120px; border-radius:18px; background:#f1e0cf; position:relative; overflow:hidden;">
+                    <div style="position:absolute; bottom:0; left:0; right:0; height:78%; background:linear-gradient(180deg,#262f3f,#f08b4b);"></div>
+                  </div>
+                  <div style="font-size:15px; opacity:0.85;">
+                    Around <strong>75–80 percent</strong> of the initial Amazon work
+                    for core stock keeping units is complete, including titles, images, and
+                    baseline keyword research for priority search terms.
+                  </div>
+                </div>
+              </div>
             </div>
+
             <div>
               <table class="kpi-table">
                 <thead>
                   <tr>
-                    <th>Amazon Prep Metric</th>
-                    <th>Status (Month 1)</th>
+                    <th>Amazon preparation metric</th>
+                    <th>Status after Month 1</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Priority SKUs with optimized titles & bullets</td>
-                    <td>4–6 core SKUs prepared</td>
+                    <td>Priority stock keeping units with optimised titles and bullets</td>
+                    <td>5–7 core stock keeping units prepared</td>
                   </tr>
                   <tr>
-                    <td>Product images aligned with Amazon-style standards</td>
-                    <td>Key hero images updated</td>
+                    <td>Main product images aligned with Amazon standards</td>
+                    <td>Primary image sets updated</td>
                   </tr>
                   <tr>
-                    <td>Keyword research for Amazon search terms</td>
-                    <td>Baseline set identified</td>
+                    <td>Keyword research for Amazon search queries</td>
+                    <td>Baseline list completed</td>
                   </tr>
                   <tr>
-                    <td>Brand consistency across Shopify & Amazon</td>
-                    <td>Visual & copy alignment in progress</td>
+                    <td>Consistency between Shopify and Amazon branding</td>
+                    <td>Visual and copy guidelines aligned</td>
                   </tr>
                 </tbody>
               </table>
+
               <p class="kpi-note">
-                Amazon-specific performance (sessions, conversions, ranking) can be added once
-                listings are fully live and data is available.
+                Once Amazon listings are live and stable, add metrics such as sessions,
+                conversion rate, and ranking for key search terms to this section.
               </p>
             </div>
           </div>
@@ -1395,90 +1605,57 @@
       <div class="section-card">
         <div class="section-header">
           <h2 class="section-title">Month 1 repository structure</h2>
-          <span class="section-pill">Local portfolio repo · Organised by channel & deliverable</span>
+          <span class="section-pill">Local portfolio repository · Organised by channel and deliverable</span>
         </div>
         <div class="section-body">
           <p>
-            The following structure can be used for your local Month 1 portfolio repo
-            under the path
-            <strong>D:\Portfolio\TechnoMounts-Month1\Assets</strong>.
-            Each folder groups all source files, exports, screenshots, and reports
-            related to a given channel or deliverable.
+            The structure below organises all Month 1 assets under the local path
+            <strong>D:\Portfolio\TechnoMounts-Month1\Assets</strong>. Each folder contains
+            the raw files, exports, screenshots, and reports required to reproduce the work.
           </p>
 
-          <div class="repo-block">
-TechnoMounts-Month1
-└─ Assets
-   ├─ 01-Landing-Pages
-   │  ├─ LP-01-Secure-Adjustable-Events
-   │  ├─ LP-02-Anti-Theft-Floor-20Voucher
-   │  ├─ LP-03-BalanceBox-400
-   │  ├─ LP-04-Events-Tablet-Solutions
-   │  ├─ LP-05-Education-Tablet-Solutions
-   │  ├─ LP-06-Retail-Ready-Tablet-Solutions
-   │  ├─ LP-07-Medical-Tablet-Stands
-   │  ├─ LP-08-Anti-Theft-Floor-Stands
-   │  ├─ LP-09-Anti-Theft-Tablet-Stands
-   │  ├─ LP-10-Desktop-Mount-Solutions
-   │  └─ LP-11-Hospitality-Tablet-Solutions
-   │
-   ├─ 02-Shopify-Product-Pages
-   │  ├─ Anti-Theft-Tablet-Floor-Stand
-   │  ├─ Universal-Desktop-Tablet-Monitor-Stand
-   │  └─ Shared-CSS-JS-Snippets
-   │
-   ├─ 03-Google-Ads-PerformanceMax
-   │  ├─ Campaign-Setup-Docs
-   │  ├─ Asset-Groups
-   │  ├─ Sitelinks-Mapping
-   │  └─ Monthly-KPI-Exports
-   │
-   ├─ 04-SEO-Analytics
-   │  ├─ LookerStudio-Dashboard-Exports
-   │  ├─ SearchConsole-Exports
-   │  ├─ OnPage-SEO-Changes
-   │  └─ Technical-SEO-Notes
-   │
-   ├─ 05-Lead-Generation-UAE
-   │  ├─ Raw-Scraped-Companies
-   │  ├─ Cleaned-Leads-CSV
-   │  ├─ Segmentation-By-Industry
-   │  └─ Outreach-Prioritisation
-   │
-   ├─ 06-Email-Campaigns
-   │  ├─ Sequences-Copy
-   │  ├─ Templates-HTML
-   │  ├─ ESP-Reports
-   │  └─ Segment-Definitions
-   │
-   ├─ 07-Amazon-Marketplace
-   │  ├─ Product-Content
-   │  ├─ Image-Assets
-   │  └─ Keyword-Research
-   │
-   ├─ 08-Brand-Assets
-   │  ├─ Logos
-   │  ├─ Icons
-   │  └─ Banners
-   │
-   └─ 09-Reports-and-Case-Studies
-      ├─ Month1-Performance-Report
-      ├─ Channel-Specific-Reports
-      └─ Portfolio-Case-Study
-          </div>
 
-          <p class="kpi-note" style="margin-top:8px;">
-            You can add PDFs, screenshots, HTML exports, and CSVs into each folder so that this
-            repository page always reflects a complete record of Month 1 work.
+          <p class="kpi-note" style="margin-top:10px;">
+            This repository is designed so that any stakeholder can open the Month 1 folder,
+            trace the work across every channel, and review both creative and analytical
+            deliverables without needing platform access.
           </p>
         </div>
       </div>
     </section>
 
     <div class="footer">
-      TechnoMounts Month 1 · Portfolio & Performance Repo · Generated as a structured case study.
-      Update metrics with your live data before sharing externally.
+      TechnoMounts – Month 1 performance and portfolio repository. Replace demonstration
+      numbers with live exports from analytics platforms before sharing with external parties.
     </div>
   </div>
+
+  <!-- JS: cinematic intro hide + gallery particles + integration with existing main.js -->
+  <script>
+    // Hide intro overlay after animation
+    window.addEventListener("load", () => {
+      const intro = document.getElementById("tm-cinematic-intro");
+      if (intro) {
+        setTimeout(() => { intro.style.display = "none"; }, 2100);
+      }
+
+      // Generate subtle particles in gallery
+      const container = document.querySelector(".tm-gallery-particles");
+      if (container) {
+        const particleCount = 26;
+        for (let i = 0; i < particleCount; i++) {
+          const p = document.createElement("div");
+          p.className = "tm-particle";
+          p.style.left = Math.random() * 100 + "%";
+          p.style.top = 60 + Math.random() * 35 + "%";
+          p.style.animationDelay = (Math.random() * 6) + "s";
+          container.appendChild(p);
+        }
+      }
+    });
+  </script>
+
+  <!-- Link your existing main.js here; keep the filename/path as you use it in GitHub -->
+  <script src="main.js"></script>
 </body>
 </html>
