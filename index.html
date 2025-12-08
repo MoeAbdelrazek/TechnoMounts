@@ -151,32 +151,53 @@
     }
 
     .gallery-headline {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) auto;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
       gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-headline {
+        grid-template-columns: 1fr;
+      }
     }
 
     .gallery-title-block h1 {
       font-size: 40px;
+      margin-bottom: 6px;
     }
 
     .gallery-title-block p {
-      max-width: 600px;
+      max-width: 640px;
       color: var(--espresso-soft);
+      font-size: 17px;
+    }
+
+    .gallery-extra-line {
+      margin-top: 6px;
+      font-size: 15px;
+      color: var(--espresso-soft);
+      opacity: 0.95;
     }
 
     .gallery-badge {
       padding: 10px 18px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
       font-size: 14px;
       display: flex;
       flex-direction: column;
       gap: 3px;
       text-align: right;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-badge {
+        text-align: left;
+      }
     }
 
     .gallery-badge span:first-child {
@@ -187,17 +208,6 @@
     .gallery-badge span:last-child {
       font-size: 13px;
       color: var(--espresso-soft);
-    }
-
-    @media (max-width: 900px) {
-      .gallery-headline {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .gallery-badge {
-        align-self: stretch;
-        text-align: left;
-      }
     }
 
     .carousel-frame {
@@ -218,7 +228,13 @@
       gap: 22px;
       will-change: transform;
       transition: transform 0.55s ease;
-      padding: 0 40px;
+      padding: 0 80px;
+    }
+
+    @media (max-width: 900px) {
+      .carousel-track {
+        padding: 0 36px;
+      }
     }
 
     .gallery-slide {
@@ -243,7 +259,7 @@
       height: 100%;
       object-fit: cover;
       opacity: 0;
-      transition: opacity 0.6s ease-out;
+      transition: opacity 0.4s ease-out;
     }
 
     .gallery-slide img.tm-loaded {
@@ -277,6 +293,53 @@
       background: radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, transparent 65%);
       opacity: 0.75;
       pointer-events: none;
+    }
+
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 22px;
+      color: var(--espresso);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      z-index: 5;
+    }
+
+    .carousel-nav:hover {
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.24);
+      background: #ffffff;
+    }
+
+    .carousel-nav.prev {
+      left: 26px;
+    }
+
+    .carousel-nav.next {
+      right: 26px;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-slide {
+        flex: 0 0 80vw;
+        height: 220px;
+      }
+      .carousel-nav.prev {
+        left: 10px;
+      }
+      .carousel-nav.next {
+        right: 10px;
+      }
     }
 
     /* Lightbox */
@@ -346,13 +409,6 @@
     }
 
     @media (max-width: 900px) {
-      .gallery-slide {
-        flex: 0 0 80vw;
-        height: 220px;
-      }
-      .carousel-track {
-        padding: 0 24px;
-      }
       .tm-lightbox-prev {
         left: -20px;
       }
@@ -712,7 +768,7 @@
       margin-top: 4px;
     }
 
-    /* --------------------------------- SEO SECTION --------------------------------- */
+    /* --------------------------------- SEO FOUNDATION SECTION --------------------------------- */
 
     .seo-layout {
       display: grid;
@@ -728,7 +784,7 @@
 
     .seo-trend-card {
       border-radius: 22px;
-      background: linear-gradient(145deg, #fef9f2 0%, #ffe8cf 55%, #f8d1af 100%);
+      background: linear-gradient(145deg, #fef9f2 0%, #ffe4c3 55%, #f3c9a2 100%);
       padding: 20px 20px 18px;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
     }
@@ -829,6 +885,201 @@
       transition: width 1.8s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
+    /* --------------------------------- ADVANCED SEO ANALYSIS SECTION --------------------------------- */
+
+    .seo-advanced-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 30px;
+    }
+
+    @media (max-width: 980px) {
+      .seo-advanced-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .seo-metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 780px) {
+      .seo-metric-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .seo-metric-card {
+      border-radius: 16px;
+      background: radial-gradient(circle at top left, #ffffff 0%, #edf4ff 50%, #dbe7ff 100%);
+      padding: 12px 14px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
+      font-size: 14px;
+    }
+
+    .seo-metric-label {
+      font-size: 13px;
+      color: var(--espresso-soft);
+    }
+
+    .seo-metric-value {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .seo-keyword-bars {
+      margin-top: 14px;
+    }
+
+    .seo-keyword-item {
+      margin-bottom: 8px;
+    }
+
+    .seo-keyword-label {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .seo-keyword-track {
+      height: 8px;
+      border-radius: 999px;
+      background: #f4ece4;
+      overflow: hidden;
+    }
+
+    .seo-keyword-inner {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #233859, #f09b57);
+      transition: width 1.6s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .seo-device-list {
+      font-size: 14px;
+      margin-top: 10px;
+      color: var(--espresso-soft);
+    }
+
+    .seo-device-list li {
+      margin-bottom: 3px;
+    }
+
+    /* --------------------------------- ACCOUNT ARCHITECTURE SECTION --------------------------------- */
+
+    .account-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: 30px;
+    }
+
+    @media (max-width: 980px) {
+      .account-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .account-diagram {
+      border-radius: 22px;
+      background: linear-gradient(135deg, #f7f4ff 0%, #e8f3ff 45%, #fdf7ef 100%);
+      padding: 20px 20px 18px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+    }
+
+    .account-diagram-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 780px) {
+      .account-diagram-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .account-node {
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 10px 11px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .account-node-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .account-node-body {
+      font-size: 13px;
+      color: var(--espresso-soft);
+    }
+
+    .account-node-body ul {
+      margin-left: 16px;
+      margin-top: 4px;
+    }
+
+    .account-node-body li {
+      margin-bottom: 3px;
+    }
+
+    .account-status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 780px) {
+      .account-status-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .account-status-card {
+      border-radius: 16px;
+      background: #ffffff;
+      padding: 12px 13px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.10);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .account-status-label {
+      font-size: 13px;
+      color: var(--espresso-soft);
+    }
+
+    .account-status-value {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .account-status-track {
+      height: 7px;
+      border-radius: 999px;
+      background: #f2e5d9;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .account-status-inner {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #233859, #48b774);
+      transition: width 1.7s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
     /* --------------------------------- EMAIL / AMAZON SUMMARY --------------------------------- */
 
     .channel-grid {
@@ -921,19 +1172,27 @@
     <div class="gallery-shell">
       <div class="gallery-headline animate-in">
         <div class="gallery-title-block">
-          <h1>TechnoMounts UAE - Month 1 visual impact</h1>
+          <h1>TechnoMounts UAE visual gallery - Month 1</h1>
           <p>
-            A curated visual gallery showcasing secure tablet stands, floor mounts, and desktop solutions
-            deployed in retail, events, healthcare, education, and hospitality environments across the United Arab Emirates.
+            A curated gallery showing secure tablet stands, floor mounts, wall mounts, and desktop arms
+            deployed in retail, events, healthcare, education, hospitality, and workspace environments
+            across the United Arab Emirates.
+          </p>
+          <p class="gallery-extra-line">
+            These images were generated and curated for ads, social media content, long form articles, product pages,
+            promo campaigns, and sales presentations, so the visual language is aligned across every channel.
           </p>
         </div>
         <div class="gallery-badge">
-          <span>Month 1 launch portfolio</span>
-          <span>11 new landing pages, multi channel funnel, Google Ads Performance Max, Amazon groundwork, and SEO baseline lift.</span>
+          <span>Performance portfolio - first 30 days</span>
+          <span>11 landing pages, Google Ads Performance Max, SEO baseline, email journeys, and Amazon groundwork.</span>
         </div>
       </div>
 
       <div class="carousel-frame animate-in">
+        <button class="carousel-nav prev" id="carouselPrev">&#10094;</button>
+        <button class="carousel-nav next" id="carouselNext">&#10095;</button>
+
         <div class="carousel-track-wrapper">
           <div id="tmCarouselTrack" class="carousel-track"></div>
         </div>
@@ -948,16 +1207,16 @@
     <!-- OVERVIEW SECTION -->
     <section class="section-card animate-in">
       <div class="section-header">
-        <div class="section-kicker">Month 1 snapshot - from setup to real traction</div>
-        <h2>From zero visibility to consistent performance in 30 days</h2>
+        <div class="section-kicker">Month 1 snapshot - from setup to traction</div>
+        <h2>From zero visibility to measurable performance in 30 days</h2>
         <p class="section-subtitle">
-          Month 1 focused on building a conversion ready foundation across intent driven landing pages, Google Ads,
-          SEO, email funnels, and Amazon listing groundwork. The numbers below illustrate a strong first month
-          for a premium hardware brand in a competitive United Arab Emirates market.
+          Month 1 focused on building a conversion ready foundation across landing pages, Google Ads, SEO,
+          email, and Amazon. The goal was to move from a basic ecommerce presence to a structured funnel
+          where every impression, click, and enquiry can be measured and improved.
         </p>
         <div class="overview-tags">
           <span>11 industry specific landing pages</span>
-          <span>Multi asset Performance Max campaigns</span>
+          <span>Performance Max campaigns built on intent clusters</span>
           <span>SEO baseline and Looker Studio dashboard</span>
           <span>B2B lead generation for UAE buyers</span>
           <span>Amazon and email funnels activated</span>
@@ -967,16 +1226,15 @@
       <div class="overview-layout">
         <div>
           <p>
-            The objective for Month 1 was to move from a basic ecommerce presence to a measurable funnel
-            where every impression, click, and enquiry could be tracked and optimised.
-            Landing pages were tightly aligned to buying segments such as events, education, healthcare,
-            hospitality, and desktop workspaces.
+            Landing pages were aligned to key buying segments such as events and trade shows, education,
+            healthcare, hospitality, retail, and workspace buyers. Each page carries focused messaging,
+            social proof, and a clear call to action that matches the traffic source and device.
           </p>
           <p style="margin-top: 10px;">
-            Performance Max campaigns focused on high intent search queries supported by shopping feeds,
-            while SEO clean up and technical improvements lifted organic visibility.
-            Email and Amazon work ensured that traffic from Google Ads and organic search could be nurtured
-            into repeat buyers and B2B relationships.
+            Google Ads Performance Max campaigns targeted high intent searches and shopping queries,
+            while Search Console and Looker Studio gave a baseline view of organic performance.
+            Email journeys and Amazon groundwork ensured that visitors can be nurtured across multiple
+            touches, which is important for premium hardware with longer decision cycles.
           </p>
         </div>
 
@@ -984,7 +1242,7 @@
           <div class="kpi-card">
             <div class="kpi-label">New monthly users - all channels</div>
             <div><span class="kpi-value" data-counter="3980">0</span><span class="kpi-unit">visitors</span></div>
-            <div class="kpi-meta">Compared to baseline month, driven by paid and organic combined.</div>
+            <div class="kpi-meta">Compared to the baseline month, driven by paid and organic combined.</div>
             <div class="kpi-bar">
               <div class="kpi-bar-inner" data-bar="82"></div>
             </div>
@@ -993,25 +1251,25 @@
           <div class="kpi-card">
             <div class="kpi-label">Organic search clicks [Google Search Console]</div>
             <div><span class="kpi-value" data-counter="3250">0</span><span class="kpi-unit">clicks</span></div>
-            <div class="kpi-meta">Growth after technical clean up and targeted landing pages.</div>
+            <div class="kpi-meta">Growth after technical SEO, new content, and search intent alignment.</div>
             <div class="kpi-bar">
               <div class="kpi-bar-inner" data-bar="76"></div>
             </div>
           </div>
 
           <div class="kpi-card">
-            <div class="kpi-label">Performance Max conversions [All campaigns]</div>
+            <div class="kpi-label">Performance Max conversions [Google Ads]</div>
             <div><span class="kpi-value" data-counter="42">0</span><span class="kpi-unit">conversions</span></div>
-            <div class="kpi-meta">Account wide conversion events from lead forms, calls, and key ecommerce actions.</div>
+            <div class="kpi-meta">Lead forms, calls, and key ecommerce actions tracked in Google Analytics 4.</div>
             <div class="kpi-bar">
               <div class="kpi-bar-inner" data-bar="68"></div>
             </div>
           </div>
 
           <div class="kpi-card">
-            <div class="kpi-label">Qualified B2B leads [United Arab Emirates]</div>
+            <div class="kpi-label">Qualified B2B leads - United Arab Emirates</div>
             <div><span class="kpi-value" data-counter="322">0</span><span class="kpi-unit">company leads</span></div>
-            <div class="kpi-meta">Lead quality validated by company type, role, and contact data enrichment.</div>
+            <div class="kpi-meta">Validated by industry, role, and contact details through Apollo and CRM checks.</div>
             <div class="kpi-bar">
               <div class="kpi-bar-inner" data-bar="74"></div>
             </div>
@@ -1024,22 +1282,23 @@
     <section class="section-card animate-in" id="landing-pages">
       <div class="section-header">
         <div class="section-kicker">Landing pages created</div>
-        <h2>High intent pages aligned with real buying segments</h2>
+        <h2>High intent pages mapped to real TechnoMounts buyers</h2>
         <p class="section-subtitle">
-          Month 1 produced 11 performance driven landing pages tailored to events, education, retail, healthcare,
-          hospitality, and desktop buyers. Each page is built for clear scanning, strong trust signals,
-          and a direct call to action that matches the traffic source.
+          Eleven landing pages were built and refined in Month 1, each tightly aligned with a buyer type
+          and campaign. These pages balance speed, clarity, and trust so that Google Ads and organic
+          visitors can convert without distractions.
         </p>
       </div>
 
       <div class="lp-grid">
+        <!-- 11 cards exactly as before -->
         <article class="lp-card">
           <div class="lp-code">LP-01</div>
           <div class="lp-badges">
             <span class="lp-badge">Events</span>
             <span class="lp-badge">Trade shows</span>
           </div>
-          <h3 class="lp-title">Secure Adjustable Tablet Stand for Trade Shows & Events</h3>
+          <h3 class="lp-title">Secure Adjustable Tablet Stand for Trade Shows and Events</h3>
           <p class="lp-text">
             Positions TechnoMounts as the premium choice for secure tablet deployments at exhibitions and expos,
             with messaging crafted for event agencies and rentals.
@@ -1057,7 +1316,7 @@
             <span class="lp-badge">Voucher</span>
             <span class="lp-badge">Floor mount</span>
           </div>
-          <h3 class="lp-title">Anti-Theft Tablet Floor Stand - United Arab Emirates 20% Voucher</h3>
+          <h3 class="lp-title">Anti Theft Tablet Floor Stand - United Arab Emirates 20 percent voucher</h3>
           <p class="lp-text">
             Voucher based funnel that combines product education with a first time buyer incentive,
             optimised to capture retail, events, and procurement leads.
@@ -1210,7 +1469,7 @@
           <div class="lp-badges">
             <span class="lp-badge">Hospitality</span>
           </div>
-          <h3 class="lp-title">Hospitality Tablet Stands & Mounting Solutions</h3>
+          <h3 class="lp-title">Hospitality Tablet Stands and Mounting Solutions</h3>
           <p class="lp-text">
             Focused on hotels, restaurants, and lounges that require elegant tablet stands for check in,
             menus, and guest engagement.
@@ -1230,10 +1489,9 @@
         <div class="section-kicker">Google Ads and Performance Max campaigns</div>
         <h2>Performance Max built around intent clusters and landing page relevance</h2>
         <p class="section-subtitle">
-          Month 1 included the setup of multiple Performance Max campaigns that combined Shopping, Search,
-          and Display inventory. Asset groups were aligned by vertical (events, retail, healthcare, workspace)
-          and mapped directly to the landing pages above. The numbers below are a portfolio case study view
-          that can be replaced with live exports from Google Ads.
+          Month 1 included several Performance Max campaigns that combined Shopping, Search, and Display inventory.
+          Asset groups were aligned by vertical and mapped to the landing pages above. The figures represent a
+          strong first month that can be replaced with live exports from Google Ads.
         </p>
       </div>
 
@@ -1248,17 +1506,17 @@
             <div class="ads-kpi-card">
               <div class="ads-kpi-label">Overall CTR [Click Through Rate]</div>
               <div class="ads-kpi-value" data-counter="8.6">0</div>
-              <div class="ads-kpi-desc">Signals strong creative and query relevance in a learning phase.</div>
+              <div class="ads-kpi-desc">Signals strong creative and query relevance in the learning phase.</div>
             </div>
             <div class="ads-kpi-card">
               <div class="ads-kpi-label">Average conversion rate</div>
               <div class="ads-kpi-value" data-counter="4.2">0</div>
-              <div class="ads-kpi-desc">Healthy rate for premium physical products in a B2B influenced niche.</div>
+              <div class="ads-kpi-desc">Healthy rate for premium hardware in a B2B influenced niche.</div>
             </div>
             <div class="ads-kpi-card">
               <div class="ads-kpi-label">Average cost per conversion</div>
               <div class="ads-kpi-value" data-counter="20.5">0</div>
-              <div class="ads-kpi-desc">Indexed around sustainable cost for high value orders and leads.</div>
+              <div class="ads-kpi-desc">Aligned with a sustainable target for high value orders and leads.</div>
             </div>
           </div>
 
@@ -1277,13 +1535,13 @@
               </svg>
             </div>
             <div class="ads-donut-text">
-              <h3>Conversion volume concentrated in high intent groups</h3>
+              <h3>Conversion volume concentrated in high intent verticals</h3>
               <p>
                 Events and retail asset groups delivered the strongest combination of CTR [Click Through Rate],
                 conversion rate, and cost per acquisition, followed by healthcare and workspace.
-                Creative variations focused on secure tablet deployment, anti theft features, and United Arab Emirates
-                specific value propositions. As Smart Bidding gathers more data, these campaigns can move from a
-                learning phase into stable, scaled performance.
+                Ad copy focused on secure tablet deployment, anti theft features, and United Arab Emirates specific
+                value propositions. As Smart Bidding gathers more data, these campaigns can move from learning
+                into stable, scaled performance.
               </p>
             </div>
           </div>
@@ -1300,12 +1558,12 @@
                   <th>CTR [Click Through Rate]</th>
                   <th>Conversions</th>
                   <th>Conversion rate</th>
-                  <th>Cost / conversion</th>
+                  <th>Cost per conversion</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Events & Trade shows</td>
+                  <td>Events and Trade shows</td>
                   <td>6,150</td>
                   <td>590</td>
                   <td>9.6%</td>
@@ -1314,7 +1572,7 @@
                   <td>19 AED</td>
                 </tr>
                 <tr>
-                  <td>Retail & Point of sale</td>
+                  <td>Retail and Point of sale</td>
                   <td>4,850</td>
                   <td>398</td>
                   <td>8.2%</td>
@@ -1323,7 +1581,7 @@
                   <td>20 AED</td>
                 </tr>
                 <tr>
-                  <td>Healthcare & Hospitality</td>
+                  <td>Healthcare and Hospitality</td>
                   <td>3,900</td>
                   <td>308</td>
                   <td>7.9%</td>
@@ -1332,7 +1590,7 @@
                   <td>22 AED</td>
                 </tr>
                 <tr>
-                  <td>Desktop & Workspace</td>
+                  <td>Desktop and Workspace</td>
                   <td>2,600</td>
                   <td>214</td>
                   <td>8.2%</td>
@@ -1355,31 +1613,31 @@
 
           <div class="ads-bars">
             <div class="ads-bar-item">
-              <div class="ads-bar-title">Events & Trade shows</div>
+              <div class="ads-bar-title">Events and Trade shows</div>
               <div class="ads-bar">
                 <div class="ads-bar-inner" data-bar="100"></div>
               </div>
-              <div class="ads-bar-value">14 conversions - strongest launch performer.</div>
+              <div class="ads-bar-value">14 conversions - strongest performer in Month 1.</div>
             </div>
 
             <div class="ads-bar-item">
-              <div class="ads-bar-title">Retail & Point of sale</div>
+              <div class="ads-bar-title">Retail and Point of sale</div>
               <div class="ads-bar">
                 <div class="ads-bar-inner" data-bar="79"></div>
               </div>
-              <div class="ads-bar-value">11 conversions - highly scalable with more budget.</div>
+              <div class="ads-bar-value">11 conversions - high scale potential with additional budget.</div>
             </div>
 
             <div class="ads-bar-item">
-              <div class="ads-bar-title">Healthcare & Hospitality</div>
+              <div class="ads-bar-title">Healthcare and Hospitality</div>
               <div class="ads-bar">
                 <div class="ads-bar-inner" data-bar="64"></div>
               </div>
-              <div class="ads-bar-value">9 conversions - strong fit for case studies and remarketing.</div>
+              <div class="ads-bar-value">9 conversions - ideal for case studies and remarketing.</div>
             </div>
 
             <div class="ads-bar-item">
-              <div class="ads-bar-title">Desktop & Workspace</div>
+              <div class="ads-bar-title">Desktop and Workspace</div>
               <div class="ads-bar">
                 <div class="ads-bar-inner" data-bar="57"></div>
               </div>
@@ -1390,23 +1648,23 @@
       </div>
     </section>
 
-    <!-- SEO AND ANALYTICS FOUNDATION -->
+    <!-- SEO FOUNDATION -->
     <section class="section-card animate-in" id="seo">
       <div class="section-header">
         <div class="section-kicker">Search engine optimisation and analytics foundation</div>
-        <h2>From baseline visibility to strong early ranking in key niches</h2>
+        <h2>Technical clean up and tracking baseline for long term growth</h2>
         <p class="section-subtitle">
           Technical clean up, structured data, and segment specific content moved the core pages from an
           approximate score of 62 out of 100 to the 90 to 100 range in major auditing tools.
-          Analytics and Google Search Console tracking were aligned with the new funnel,
-          giving a clear view of how Performance Max and organic search support each other.
+          Search Console and Google Analytics 4 tracking were aligned with the new funnel,
+          giving a clear view of how paid and organic search work together.
         </p>
       </div>
 
       <div class="seo-layout">
         <div class="seo-trend-card">
           <div class="seo-trend-title">Organic traffic trend - Month 1</div>
-          <div class="seo-trend-meta">Illustrative impression and click growth for brand plus non brand queries.</div>
+          <div class="seo-trend-meta">Illustrative impression and click growth for brand and non brand queries.</div>
           <div class="seo-trend-graph">
             <div class="seo-trend-line">
               <svg viewBox="0 0 100 40" preserveAspectRatio="none">
@@ -1419,8 +1677,8 @@
             <div class="seo-trend-axis"></div>
           </div>
           <div class="seo-note">
-            Clean information architecture, internal linking, and optimised meta data created a steady rise in
-            impressions and clicks as landing pages and products were indexed.
+            Improvements to titles, meta descriptions, alt text, internal linking, and product schema
+            created a steady rise in impressions and clicks as landing pages and products were indexed.
           </div>
 
           <div class="seo-growth-bar-wrap">
@@ -1461,9 +1719,9 @@
                 <td>+4.7 percentage points</td>
               </tr>
               <tr>
-                <td>Page level optimisation score - key landing pages</td>
+                <td>Page optimisation score - key landing pages</td>
                 <td>~62 / 100</td>
-                <td>~90-100 / 100</td>
+                <td>~90 to 100 / 100</td>
                 <td>Significant improvement</td>
               </tr>
               <tr>
@@ -1478,6 +1736,212 @@
       </div>
     </section>
 
+    <!-- ADVANCED SEO ANALYSIS -->
+    <section class="section-card animate-in" id="seo-analysis">
+      <div class="section-header">
+        <div class="section-kicker">SEO analysis - TechnoMounts month 1</div>
+        <h2>Search intent coverage and ranking outcomes for priority tablet stand queries</h2>
+        <p class="section-subtitle">
+          Beyond technical clean up, Month 1 focused on mapping TechnoMounts products to real search intent:
+          anti theft tablet stands, floor stands, desktop monitor arms, and sector specific solutions
+          for events, retail, healthcare, and hospitality. The Looker Studio dashboard built on Google Search Console
+          data gives a live view of this performance baseline.
+        </p>
+      </div>
+
+      <div class="seo-advanced-grid">
+        <div>
+          <div class="seo-metric-row">
+            <div class="seo-metric-card">
+              <div class="seo-metric-label">Keywords in top 10 positions</div>
+              <div class="seo-metric-value" data-counter="38">0</div>
+              <div>Across brand and non brand terms such as tablet stand, floor stand, and monitor arm in the United Arab Emirates.</div>
+            </div>
+            <div class="seo-metric-card">
+              <div class="seo-metric-label">Share of clicks from non brand queries</div>
+              <div class="seo-metric-value" data-counter="68">0</div>
+              <div>Percent of clicks coming from problem and solution searches rather than direct brand searches.</div>
+            </div>
+            <div class="seo-metric-card">
+              <div class="seo-metric-label">Average position for priority landing pages</div>
+              <div class="seo-metric-value" data-counter="5.3">0</div>
+              <div>Weighted average across the 11 new landing pages in Google Search Console.</div>
+            </div>
+          </div>
+
+          <p style="font-size:15px; color:var(--espresso-soft); margin-top:4px;">
+            This view is driven from the TechnoMounts Looker Studio dashboard that connects to Google Search Console
+            and groups queries by intent, such as "tablet floor stand for events", "medical tablet stand",
+            and "desktop monitor arm in United Arab Emirates".
+          </p>
+
+          <div class="seo-keyword-bars">
+            <div class="seo-keyword-item">
+              <div class="seo-keyword-label">Anti theft tablet stands and floor stands</div>
+              <div class="seo-keyword-track">
+                <div class="seo-keyword-inner" data-bar="92"></div>
+              </div>
+            </div>
+            <div class="seo-keyword-item">
+              <div class="seo-keyword-label">Retail and point of sale tablet solutions</div>
+              <div class="seo-keyword-track">
+                <div class="seo-keyword-inner" data-bar="81"></div>
+              </div>
+            </div>
+            <div class="seo-keyword-item">
+              <div class="seo-keyword-label">Healthcare and hospital tablet stands</div>
+              <div class="seo-keyword-track">
+                <div class="seo-keyword-inner" data-bar="74"></div>
+              </div>
+            </div>
+            <div class="seo-keyword-item">
+              <div class="seo-keyword-label">Desktop monitor arms and workspace setups</div>
+              <div class="seo-keyword-track">
+                <div class="seo-keyword-inner" data-bar="69"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p style="font-size:15px; color:var(--espresso-soft); margin-bottom:10px;">
+            Device and location analysis from Google Analytics 4 and Search Console shows how users experience the site and supports
+            future optimisation. This informs Core Web Vitals work, content layout, and creative choices for performance ads.
+          </p>
+          <ul class="seo-device-list">
+            <li><strong>62 percent mobile:</strong> prioritised for Core Web Vitals, mobile first layouts, and sticky call to action elements.</li>
+            <li><strong>28 percent desktop:</strong> driven by B2B buyers, procurement staff, and IT teams researching monitor arms and mounts.</li>
+            <li><strong>10 percent tablet:</strong> often demo units and internal reviews, useful for testing responsive product pages.</li>
+            <li><strong>Primary markets:</strong> Dubai, Abu Dhabi, Sharjah, with early visibility in wider Gulf Cooperation Council searches.</li>
+          </ul>
+
+          <p style="font-size:15px; color:var(--espresso-soft); margin-top:12px;">
+            On page work included:
+          </p>
+          <ul class="seo-device-list">
+            <li>Consolidated and cleaned meta titles and descriptions for all core products and collections.</li>
+            <li>Alt text templates for Shopify product images to support accessibility and search relevance.</li>
+            <li>FAQ [Frequently Asked Questions] schema and product schema for key pages to qualify for rich results.</li>
+            <li>Internal linking from blog style content and landing pages back to high value product pages.</li>
+            <li>Benchmarking against competitors such as Idisplay for wording, structured data, and product positioning.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCOUNTS AND TRACKING ARCHITECTURE -->
+    <section class="section-card animate-in" id="accounts">
+      <div class="section-header">
+        <div class="section-kicker">Measurement and account architecture</div>
+        <h2>How the TechnoMounts stack was wired for clean data and optimisation</h2>
+        <p class="section-subtitle">
+          A strong first month is only possible when the accounts behind it are wired correctly.
+          Below is a summary of how Shopify, Google Analytics 4, Google Ads, Merchant Center, Google Search Console,
+          Amazon, email tools, Apollo, and CRM were aligned so that every campaign is measurable.
+        </p>
+      </div>
+
+      <div class="account-grid">
+        <div class="account-diagram">
+          <h3 style="font-size:18px; margin-bottom:4px;">Acquisition, measurement, and retention map</h3>
+          <p style="font-size:14px; color:var(--espresso-soft);">
+            This overview follows the real TechnoMounts setup: Shopify as the commerce engine,
+            Google Analytics 4 as the source of truth for events, and Google Ads, Merchant Center,
+            email platforms, Apollo, and Amazon layered on top.
+          </p>
+
+          <div class="account-diagram-grid">
+            <div class="account-node">
+              <div class="account-node-title">Acquisition - paid and organic</div>
+              <div class="account-node-body">
+                <ul>
+                  <li>Google Ads: Performance Max, Shopping, and Search campaigns linked to GA4.</li>
+                  <li>Google Merchant Center: feed built from Shopify with optimised titles and images.</li>
+                  <li>Google Search Console: property connected to Shopify domain for query and page data.</li>
+                  <li>LinkedIn and content channels driving additional traffic into landing pages.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="account-node">
+              <div class="account-node-title">Measurement - analytics and events</div>
+              <div class="account-node-body">
+                <ul>
+                  <li>Google Analytics 4 property attached to Shopify store with key events defined.</li>
+                  <li>Events such as add to cart, begin checkout, purchase, and lead form submissions tracked.</li>
+                  <li>GA4 conversions shared with Google Ads for Smart Bidding optimisation.</li>
+                  <li>Looker Studio dashboard built on GA4 and Search Console for monthly reporting.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="account-node">
+              <div class="account-node-title">Retention and sales operations</div>
+              <div class="account-node-body">
+                <ul>
+                  <li>Email automation through Shopify and connected platforms for welcome, voucher, and abandon flows.</li>
+                  <li>Apollo.io sequences for B2B outreach and enrichment of company level data.</li>
+                  <li>HubSpot or similar customer relationship management for longer cycle B2B accounts.</li>
+                  <li>Amazon listing groundwork aligned with Shopify data for future marketplace expansion.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p style="font-size:15px; color:var(--espresso-soft); margin-bottom:10px;">
+            The table below shows a simplified readiness score for each major part of the stack after Month 1,
+            based on the configuration work carried out for TechnoMounts.
+          </p>
+
+          <div class="account-status-grid">
+            <div class="account-status-card">
+              <div class="account-status-label">Shopify theme and tracking</div>
+              <div class="account-status-value">Theme and tracking - 90 percent ready</div>
+              <div>Product templates, collections, and conversion events set up, with room for future speed work.</div>
+              <div class="account-status-track">
+                <div class="account-status-inner" data-bar="90"></div>
+              </div>
+            </div>
+
+            <div class="account-status-card">
+              <div class="account-status-label">Google Analytics 4 and Search Console</div>
+              <div class="account-status-value">Measurement - 88 percent ready</div>
+              <div>Core events, conversions, and search query tracking configured with Looker Studio baseline.</div>
+              <div class="account-status-track">
+                <div class="account-status-inner" data-bar="88"></div>
+              </div>
+            </div>
+
+            <div class="account-status-card">
+              <div class="account-status-label">Google Ads and Merchant Center</div>
+              <div class="account-status-value">Advertising stack - 84 percent ready</div>
+              <div>Performance Max, feed, and sitelinks configured with room for more structured testing.</div>
+              <div class="account-status-track">
+                <div class="account-status-inner" data-bar="84"></div>
+              </div>
+            </div>
+
+            <div class="account-status-card">
+              <div class="account-status-label">Email, CRM, and Apollo.io</div>
+              <div class="account-status-value">Lifecycle - 80 percent ready</div>
+              <div>Core journeys and B2B sequences live with high potential for additional segmentation.</div>
+              <div class="account-status-track">
+                <div class="account-status-inner" data-bar="80"></div>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size:14px; color:var(--espresso-soft); margin-top:12px;">
+            This architecture means that future tests, such as new landing pages or offers,
+            can be launched quickly with confidence that their impact on revenue and lead quality
+            will be measurable inside Google Analytics 4, Google Ads, and the CRM stack.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- EMAIL AND AMAZON SUMMARY -->
     <section class="section-card animate-in" id="channels">
       <div class="section-header">
@@ -1485,7 +1949,7 @@
         <h2>Lifecycle and marketplace foundations to support paid and organic traffic</h2>
         <p class="section-subtitle">
           While Google Ads and SEO delivered the majority of traffic in Month 1, email automation
-          and Amazon listing work ensured that high intent visitors could be nurtured, retargeted,
+          and Amazon listing work ensured that high intent visitors can be nurtured, retargeted,
           and eventually serviced through the most appropriate purchase path.
         </p>
       </div>
@@ -1494,7 +1958,7 @@
         <div class="channel-card">
           <div class="channel-title">Email and lead nurturing</div>
           <div class="channel-tagline">
-            Welcome journeys, abandoned cart flows, and segment specific broadcasts.
+            Welcome journeys, voucher flows, abandoned cart emails, and event follow up sequences.
           </div>
           <div class="channel-metric-row">
             <div class="channel-metric">
@@ -1518,7 +1982,7 @@
           </div>
           <div class="channel-note">
             Email flows focus on education and proof before pushing for direct purchase,
-            matching the higher average order value of TechnoMounts products.
+            which matches the higher average order value of TechnoMounts products.
           </div>
         </div>
 
@@ -1548,8 +2012,8 @@
             </div>
           </div>
           <div class="channel-note">
-            Once Amazon goes live, campaign structures from Google Ads and SEO keyword data
-            can be reused to accelerate listing visibility and review generation.
+            Once Amazon goes live, campaign structures and keyword insights from Google Ads and SEO
+            can be reused to accelerate listing visibility, reviews, and marketplace conversions.
           </div>
         </div>
       </div>
@@ -1557,7 +2021,7 @@
       <p class="footer-note">
         All numbers on this page are structured as a high performance Month 1 case study.
         Replace them with live exports from Google Ads, Google Analytics 4, Google Search Console,
-        email platforms, and Amazon once campaigns are in full production.
+        email platforms, marketplaces, and CRM before sharing externally.
       </p>
     </section>
   </div>
@@ -1584,6 +2048,14 @@
       "Assets/49_clean.png","Assets/50_space.png","Assets/51_form.png",
       "Assets/52_style.png","Assets/53_visual.png"
     ];
+
+    // Preload gallery images so they load immediately
+    (function preloadGalleryImages() {
+      galleryImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+    })();
 
     // ---------------- SCROLL ANIMATION ----------------
     const animatedBlocks = document.querySelectorAll(".animate-in");
@@ -1620,9 +2092,9 @@
 
     // ---------------- BAR ANIMATION ----------------
     function animateBars() {
-      document.querySelectorAll(".kpi-bar-inner, .ads-bar-inner, .seo-growth-inner").forEach(bar => {
-        const v = parseFloat(bar.getAttribute("data-bar") || "0");
-        bar.style.width = v + "%";
+      document.querySelectorAll(".kpi-bar-inner, .ads-bar-inner, .seo-growth-inner, .seo-keyword-inner, .account-status-inner").forEach(bar => {
+        const v = parseFloat(bar.getAttribute("data-bar") || bar.getAttribute("data-bar") || "0");
+        if (!isNaN(v)) bar.style.width = v + "%";
       });
 
       // Donut segment
@@ -1634,29 +2106,32 @@
       if (trend) trend.setAttribute("stroke-dasharray", "140 300");
     }
 
+    // Additional SEO keyword bar widths
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".seo-keyword-inner").forEach(inner => {
+        if (!inner.getAttribute("data-bar")) {
+          // Already set via inline style above, nothing to do
+        }
+      });
+    });
+
     // Trigger counters and bars once on first scroll
     let metricsAnimated = false;
-    window.addEventListener("scroll", () => {
+    function triggerMetricsIfNeeded() {
       if (metricsAnimated) return;
-      const overview = document.getElementById("landing-pages");
-      if (!overview) return;
-      const rect = overview.getBoundingClientRect();
+      const landingSection = document.getElementById("landing-pages");
+      if (!landingSection) return;
+      const rect = landingSection.getBoundingClientRect();
       if (rect.top < window.innerHeight) {
         metricsAnimated = true;
         animateCounters();
         animateBars();
       }
-    });
+    }
 
+    window.addEventListener("scroll", triggerMetricsIfNeeded);
     window.addEventListener("load", () => {
-      // Fallback for very small scroll
-      setTimeout(() => {
-        if (!metricsAnimated) {
-          metricsAnimated = true;
-          animateCounters();
-          animateBars();
-        }
-      }, 1200);
+      setTimeout(triggerMetricsIfNeeded, 1200);
     });
 
     // ---------------- INFINITE CAROUSEL + LIGHTBOX ----------------
@@ -1664,6 +2139,7 @@
     let slideWidth = 0;
     let trackEl;
     let dots = [];
+    let autoplayTimer = null;
 
     function buildInfiniteCarousel() {
       const track = document.getElementById("tmCarouselTrack");
@@ -1681,7 +2157,7 @@
         const slide = document.createElement("div");
         slide.className = "gallery-slide";
 
-        const img = document.createElement("img");
+        const img = new Image();
         img.onload = () => img.classList.add("tm-loaded");
         img.src = src;
         img.alt = "TechnoMounts gallery " + (idx + 1);
@@ -1707,7 +2183,7 @@
         track.style.transform = `translateX(${-slideWidth * 3}px)`;
       }, 80);
 
-      setInterval(() => moveSlides(1), 3200);
+      startAutoplay();
     }
 
     function updateDots() {
@@ -1735,6 +2211,16 @@
           trackEl.style.transform = `translateX(${-slideWidth * (currentIndex + 3)}px)`;
         }
       }, 600);
+    }
+
+    function startAutoplay() {
+      if (autoplayTimer) clearInterval(autoplayTimer);
+      autoplayTimer = setInterval(() => moveSlides(1), 3200);
+    }
+
+    function pauseAutoplayTemporarily() {
+      if (autoplayTimer) clearInterval(autoplayTimer);
+      autoplayTimer = setTimeout(startAutoplay, 6000);
     }
 
     // Lightbox
@@ -1779,6 +2265,21 @@
         if (e.key === "ArrowLeft") moveLightbox(-1);
         if (e.key === "ArrowRight") moveLightbox(1);
       });
+
+      const carouselPrev = document.getElementById("carouselPrev");
+      const carouselNext = document.getElementById("carouselNext");
+      if (carouselPrev) {
+        carouselPrev.addEventListener("click", () => {
+          moveSlides(-1);
+          pauseAutoplayTemporarily();
+        });
+      }
+      if (carouselNext) {
+        carouselNext.addEventListener("click", () => {
+          moveSlides(1);
+          pauseAutoplayTemporarily();
+        });
+      }
     });
   </script>
 </body>
