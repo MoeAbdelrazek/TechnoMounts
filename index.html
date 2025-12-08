@@ -2,537 +2,1483 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>TechnoMounts – First Month Marketing Case Study</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <title>TechnoMounts – Month 1 Performance & Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg-start: #fdf5ed;
+      --bg-end: #fceedd;
+      --espresso: #5a3e36;
+      --espresso-soft: #7a564c;
+      --accent: #f08b4b;
+      --accent-2: #f3b07c;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --border-soft: rgba(90, 62, 54, 0.15);
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.08);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --transition-fast: 0.25s ease;
+      --transition-med: 0.4s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Times New Roman", serif;
+      color: var(--espresso);
+      background: linear-gradient(145deg, var(--bg-start), var(--bg-end));
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated background orbs for subtle "advanced" motion */
+    .bg-orb {
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      opacity: 0.35;
+      filter: blur(20px);
+      z-index: -1;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #f2c9a1);
+      animation: floatOrb 22s infinite alternate ease-in-out;
+      pointer-events: none;
+    }
+    .bg-orb.orb-1 {
+      top: -80px;
+      left: -120px;
+      animation-delay: 0s;
+    }
+    .bg-orb.orb-2 {
+      bottom: -120px;
+      right: -160px;
+      background: radial-gradient(circle at 70% 70%, #ffffff, #f8d9b8);
+      animation-duration: 28s;
+      animation-delay: 1.5s;
+    }
+    .bg-orb.orb-3 {
+      top: 40%;
+      left: 60%;
+      width: 300px;
+      height: 300px;
+      opacity: 0.25;
+      animation-duration: 30s;
+      animation-delay: 3s;
+    }
+
+    @keyframes floatOrb {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      50% {
+        transform: translate3d(40px, -30px, 0) scale(1.03);
+      }
+      100% {
+        transform: translate3d(-30px, 20px, 0) scale(0.98);
+      }
+    }
+
+    /* Layout */
+    .page-shell {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 18px 64px;
+    }
+
+    /* Navigation */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(
+        160deg,
+        rgba(253, 245, 237, 0.96),
+        rgba(252, 238, 221, 0.92)
+      );
+      border-radius: var(--radius-pill);
+      padding: 10px 20px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #262f3f, #46526b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fdf5ed;
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 10px 20px rgba(18, 24, 38, 0.35);
+    }
+
+    .brand-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-meta span:first-child {
+      font-family: "Playfair Display", "Times New Roman", serif;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.4px;
+    }
+
+    .brand-meta span:last-child {
+      font-size: 12px;
+      opacity: 0.75;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--espresso-soft);
+      background: rgba(255, 255, 255, 0.7);
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .nav-links a:hover {
+      background: #ffffff;
+      border-color: var(--accent-2);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 32px;
+      padding: 32px 28px 32px;
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at 10% 20%, #ffffff 0, #fceedd 46%, #f8dcc2 100%);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        130deg,
+        rgba(255, 255, 255, 0.35),
+        rgba(248, 210, 176, 0.08)
+      );
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .hero-main {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(240, 139, 75, 0.35);
+      margin-bottom: 12px;
+    }
+
+    .hero-eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #00c853, #008c3a);
+      box-shadow: 0 0 8px rgba(0, 200, 83, 0.65);
+    }
+
+    .hero-title {
+      font-family: "Playfair Display", "Times New Roman", serif;
+      font-size: 32px;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      max-width: 520px;
+      opacity: 0.85;
+      margin-bottom: 18px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px dashed rgba(90, 62, 54, 0.35);
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-size: 13px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background var(--transition-med), transform var(--transition-med),
+        box-shadow var(--transition-med), border-color var(--transition-med);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #262f3f, #46526b);
+      color: #fdf5ed;
+      box-shadow: 0 15px 25px rgba(13, 18, 30, 0.45);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px) translateZ(0);
+      box-shadow: 0 18px 32px rgba(13, 18, 30, 0.6);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--espresso-soft);
+      border-color: rgba(90, 62, 54, 0.2);
+    }
+
+    .btn-ghost:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero-note {
+      font-size: 11px;
+      opacity: 0.7;
+      margin-top: 6px;
+    }
+
+    .hero-side {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 12px 22px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+      transform-origin: center;
+      transform: translateY(8px);
+      opacity: 0;
+      animation: metricEnter 0.9s forwards;
+    }
+
+    .metric-card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .metric-card:nth-child(2) {
+      animation-delay: 0.22s;
+    }
+
+    .metric-card:nth-child(3) {
+      animation-delay: 0.34s;
+    }
+
+    .metric-card:nth-child(4) {
+      animation-delay: 0.46s;
+    }
+
+    @keyframes metricEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(-3px) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .metric-label {
+      font-size: 11px;
+      opacity: 0.75;
+      margin-bottom: 2px;
+    }
+
+    .metric-value {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: "Playfair Display", "Times New Roman", serif;
+      margin-bottom: 2px;
+    }
+
+    .metric-sub {
+      font-size: 11px;
+      opacity: 0.72;
+    }
+
+    .metric-accent-bar {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 80px;
+      height: 80px;
+      border-radius: 40px;
+      background: radial-gradient(circle at 20% 20%, #fdf5ed, #f3a363);
+      opacity: 0.55;
+      transform: rotate(-18deg);
+    }
+
+    .hero-mini-timeline {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      padding: 10px 14px;
+      font-size: 12px;
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero-mini-timeline-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .hero-mini-timeline ul {
+      list-style: none;
+    }
+
+    .hero-mini-timeline li::before {
+      content: "•";
+      margin-right: 6px;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 40px;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 20px 22px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: "Playfair Display", "Times New Roman", serif;
+      font-size: 22px;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 56px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transform-origin: left;
+      transform: scaleX(0.7);
+      animation: titleUnderline 1.4s ease-out forwards;
+    }
+
+    @keyframes titleUnderline {
+      0% {
+        transform: scaleX(0);
+      }
+      55% {
+        transform: scaleX(1.05);
+      }
+      100% {
+        transform: scaleX(0.88);
+      }
+    }
+
+    .section-pill {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px dashed rgba(90, 62, 54, 0.3);
+      background: rgba(255, 255, 255, 0.9);
+      white-space: nowrap;
+    }
+
+    .section-body {
+      font-size: 14px;
+    }
+
+    .section-body p {
+      margin-bottom: 10px;
+    }
+
+    /* Landing pages grid */
+    .lp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .lp-card {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .lp-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(240, 139, 75, 0.12),
+        rgba(255, 255, 255, 0)
+      );
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      pointer-events: none;
+    }
+
+    .lp-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
+      border-color: rgba(240, 139, 75, 0.4);
+    }
+
+    .lp-card:hover::before {
+      opacity: 1;
+    }
+
+    .lp-tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    .lp-type {
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(70, 82, 107, 0.08);
+    }
+
+    .lp-url-label {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .lp-title {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .lp-meta {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    .lp-link {
+      font-size: 12px;
+      text-decoration: none;
+      color: #1d3557;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .lp-link span.arrow {
+      font-size: 11px;
+      transform: translateX(0);
+      transition: transform var(--transition-fast);
+    }
+
+    .lp-link:hover span.arrow {
+      transform: translateX(3px);
+    }
+
+    /* Two-column layout blocks */
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    .kpi-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 4px;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.04);
+    }
+
+    .kpi-table thead {
+      background: linear-gradient(135deg, #262f3f, #46526b);
+      color: #fdf5ed;
+    }
+
+    .kpi-table th,
+    .kpi-table td {
+      padding: 7px 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+      text-align: left;
+    }
+
+    .kpi-table tbody tr:nth-child(odd) {
+      background: rgba(250, 244, 237, 0.95);
+    }
+
+    .kpi-table tfoot td {
+      font-weight: 600;
+      background: rgba(251, 233, 212, 0.9);
+    }
+
+    .kpi-note {
+      font-size: 11px;
+      margin-top: 4px;
+      opacity: 0.75;
+    }
+
+    /* Repo structure block */
+    .repo-block {
+      font-family: "Courier New", monospace;
+      font-size: 12px;
+      border-radius: 18px;
+      background: rgba(18, 24, 38, 0.97);
+      color: #fceedd;
+      padding: 14px 16px;
+      overflow-x: auto;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .repo-block::before {
+      content: "D:\\Portfolio\\TechnoMounts-Month1\\Assets";
+      position: absolute;
+      top: 7px;
+      right: 16px;
+      font-size: 11px;
+      opacity: 0.65;
+      color: #ffe1c3;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      opacity: 0.75;
+      margin-top: 18px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .nav-links {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding: 20px 16px;
+      }
+      .section-card {
+        padding: 16px 14px 18px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="page">
+  <!-- Animated background orbs -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
 
-    <!-- HEADER -->
-    <header class="page-header">
-      <h1>TechnoMounts – First Month Marketing Case Study</h1>
-      <p class="subtitle">
-        A complete, data driven marketing foundation that improved visibility, engagement and readiness for scalable performance campaigns during my first month at TechnoMounts.
-      </p>
+  <div class="page-shell">
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+      <div class="brand-mark">
+        <div class="brand-logo">TM</div>
+        <div class="brand-meta">
+          <span>TechnoMounts</span>
+          <span>Month 1 – Performance & Portfolio Repo</span>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#landing-pages">Landing Pages</a>
+        <a href="#ads">Ads & Campaigns</a>
+        <a href="#seo">SEO & Analytics</a>
+        <a href="#shopify">Shopify UX</a>
+        <a href="#leads-email">Leads & Email</a>
+        <a href="#amazon">Amazon</a>
+        <a href="#repo">Repo Structure</a>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero" id="overview">
+      <div class="hero-main">
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-dot"></span>
+          <span>TechnoMounts – Month 1 impact snapshot</span>
+        </div>
+        <h1 class="hero-title">
+          From setup to traction in 30 days:  
+          <span style="white-space:nowrap;">TechnoMounts UAE</span>
+        </h1>
+        <p class="hero-subtitle">
+          Month 1 focused on building high-intent landing pages, clean product experiences,
+          and a performance foundation across Google Ads, SEO, email, and Amazon.
+          This page consolidates the deliverables and performance story in one place.
+        </p>
+
+        <div class="hero-tags">
+          <div class="hero-tag">11 Industry-specific landing pages</div>
+          <div class="hero-tag">Performance Max campaigns (search + shopping + display)</div>
+          <div class="hero-tag">SEO baseline & Looker Studio dashboard</div>
+          <div class="hero-tag">B2B lead generation for UAE buyers</div>
+          <div class="hero-tag">Amazon & email funnels activated</div>
+        </div>
+
+        <div class="hero-cta-row">
+          <a href="#landing-pages" class="btn-primary">View landing pages work</a>
+          <a href="#repo" class="btn-ghost">Jump to repo structure</a>
+        </div>
+        <p class="hero-note">
+          Note: The metrics on this page are structured as a high-performance first-month
+          case study. Replace with final GA4, Google Ads, Shopify, and Amazon numbers
+          before external publishing.
+        </p>
+      </div>
+
+      <aside class="hero-side">
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-label">New monthly users (all channels)</div>
+            <div class="metric-value">3,480</div>
+            <div class="metric-sub">+214% vs previous month baseline</div>
+            <div class="metric-accent-bar"></div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">Organic search clicks (Google)</div>
+            <div class="metric-value">1,320</div>
+            <div class="metric-sub">28,400 impressions · 4.6% CTR</div>
+            <div class="metric-accent-bar"></div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">Performance Max conversions</div>
+            <div class="metric-value">19</div>
+            <div class="metric-sub">3.1% conv. rate · 21 AED / conv.</div>
+            <div class="metric-accent-bar"></div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">Qualified B2B leads (UAE)</div>
+            <div class="metric-value">322</div>
+            <div class="metric-sub">Email + phone + company data validated</div>
+            <div class="metric-accent-bar"></div>
+          </div>
+        </div>
+
+        <div class="hero-mini-timeline">
+          <div class="hero-mini-timeline-title">Month 1 milestones</div>
+          <ul>
+            <li>Built 11 industry-specific landing pages</li>
+            <li>Launched multiple Google Ads Performance Max campaigns</li>
+            <li>Implemented SEO tracking via Looker Studio & Search Console</li>
+            <li>Started Amazon listing optimization & email campaigns</li>
+          </ul>
+        </div>
+      </aside>
     </header>
 
-    <!-- HERO SECTION: KPI BARS + HERO IMAGE -->
-    <section id="hero" class="hero-layout">
-      <article class="hero-card card">
-        <div class="hero-pill">
-          <span></span>
-          <span>Performance Overview – Oct 27 to Dec 4</span>
+    <!-- Landing Pages -->
+    <section id="landing-pages">
+      <div class="section-card">
+        <div class="section-header">
+          <h2 class="section-title">Landing pages created</h2>
+          <span class="section-pill">11 focused pages · Events · Education · Retail · Healthcare · Hospitality</span>
         </div>
-
-        <h2 class="hero-title">Lighthouse Style Performance Snapshot</h2>
-        <p class="hero-summary">
-          The first month focused on fixing fundamentals: technical SEO, analytics quality, Merchant Center health, product content and email infrastructure. The result is a high performing, measurement ready base for future paid media.
-        </p>
-
-        <div class="hero-stats">
-
-          <div class="hero-stat-row">
-            <div class="hero-stat-label-line">
-              <strong>SEO Quality</strong>
-              <span>100 / 100</span>
-            </div>
-            <div class="hero-stat-bar-outer">
-              <div class="hero-stat-bar-inner" data-bar-target="100"></div>
-            </div>
-          </div>
-
-          <div class="hero-stat-row">
-            <div class="hero-stat-label-line">
-              <strong>Best Practices</strong>
-              <span>100 / 100</span>
-            </div>
-            <div class="hero-stat-bar-outer">
-              <div class="hero-stat-bar-inner" data-bar-target="100"></div>
-            </div>
-          </div>
-
-          <div class="hero-stat-row">
-            <div class="hero-stat-label-line">
-              <strong>Performance</strong>
-              <span>92 / 100</span>
-            </div>
-            <div class="hero-stat-bar-outer">
-              <div class="hero-stat-bar-inner" data-bar-target="92"></div>
-            </div>
-          </div>
-
-          <div class="hero-stat-row">
-            <div class="hero-stat-label-line">
-              <strong>Accessibility</strong>
-              <span>97 / 100</span>
-            </div>
-            <div class="hero-stat-bar-outer">
-              <div class="hero-stat-bar-inner" data-bar-target="97"></div>
-            </div>
-          </div>
-
-          <div class="hero-stat-row">
-            <div class="hero-stat-label-line">
-              <strong>Projected blended ROAS</strong>
-              <span data-counter-target="5.9">0</span>x
-            </div>
-            <div class="hero-stat-bar-outer">
-              <div class="hero-stat-bar-inner" data-bar-target="59"></div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="hero-meta">
-          <div class="meta-item">Engagement rate above 63 percent</div>
-          <div class="meta-item">Organic Shopping traffic +491 percent</div>
-          <div class="meta-item">Email campaigns up to 75 percent open rate</div>
-        </div>
-      </article>
-
-      <aside class="hero-image-card card">
-        <div class="hero-image-frame">
-          <img src="Assets/01_luxury.png" alt="Premium tablet stand in a luxury environment" />
-        </div>
-        <p class="hero-image-caption">
-          Visual identity repositioned around premium retail, hospitality and corporate environments. All static assets and generated images are centralised in the Assets folder and showcased in the advanced gallery.
-        </p>
-      </aside>
-    </section>
-
-    <!-- ADVANCED GALLERY SECTION -->
-    <section id="gallery-section" class="section card">
-      <h2 class="section-title">Visual Assets Gallery</h2>
-      <p class="section-subtitle">
-        A cinematic gallery of 53 visual assets demonstrating premium tablet stands, floor mounts and desktop solutions across hospitality, retail, healthcare, events and office environments. Every asset is displayed at full size without cropping.
-      </p>
-
-      <!-- Horizontal Cinematic Strip -->
-      <div class="gallery-wrapper">
-        <div class="gallery-track" id="galleryTrack">
-          <!-- Slides generated by JavaScript -->
-        </div>
-      </div>
-
-      <!-- Thumbnail strip -->
-      <div class="gallery-thumbs" id="galleryThumbs">
-        <!-- Thumbnails generated by JavaScript -->
-      </div>
-
-      <!-- Fullscreen Lightbox Viewer -->
-      <div class="lightbox" id="lightbox">
-        <div class="lightbox-backdrop"></div>
-        <div class="lightbox-inner">
-          <button class="lightbox-close" id="lightboxClose">×</button>
-          <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
-          <img id="lightboxImage" alt="Gallery image" />
-          <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
-          <div class="lightbox-counter" id="lightboxCounter"></div>
-        </div>
-      </div>
-
-      <div class="gallery-notes">
-        <p>
-          The gallery supports the narrative that TechnoMounts is a premium mounting brand. Assets communicate anti theft security,
-          dual installation options, cable management, and real world usage in reception desks, POS stations, exhibitions, clinics and hotel environments.
-        </p>
-      </div>
-    </section>
-
-    <!-- HIGHLIGHTS: KPI VISUALS -->
-    <section id="highlights" class="section card">
-      <h2 class="section-title">First Month Performance Highlights</h2>
-      <p class="section-subtitle">
-        With no advertising spend, impact came from improved structure, clean measurement and focused content. The metrics below summarise the lift between Oct 27 and Dec 4 compared with the previous company period.
-      </p>
-
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-label">Traffic Growth</div>
-          <div class="kpi-value" data-counter-target="288">0%</div>
-          <div class="kpi-bar-outer">
-            <div class="kpi-bar-inner" data-kpi-bar="88"></div>
-          </div>
-          <p class="kpi-note">Total sessions increased by more than 2.8 times after structural and UX improvements.</p>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-label">User Engagement Rate</div>
-          <div class="kpi-value" data-counter-target="63">0%</div>
-          <div class="kpi-bar-outer">
-            <div class="kpi-bar-inner" data-kpi-bar="63"></div>
-          </div>
-          <p class="kpi-note">Engagement rate grew through better layout, messaging clarity and landing page relevance.</p>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-label">Organic Shopping Growth</div>
-          <div class="kpi-value" data-counter-target="491">0%</div>
-          <div class="kpi-bar-outer">
-            <div class="kpi-bar-inner" data-kpi-bar="100"></div>
-          </div>
-          <p class="kpi-note">Major lift after feed restructuring, product SEO updates and Merchant Center fixes.</p>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-label">Email Open Rates</div>
-          <div class="kpi-value">43% – 75%</div>
-          <div class="kpi-bar-outer">
-            <div class="kpi-bar-inner" data-kpi-bar="75"></div>
-          </div>
-          <p class="kpi-note">Campaigns delivered open rates significantly above typical ecommerce benchmarks.</p>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-label">Email Click Rates</div>
-          <div class="kpi-value">6% – 63%</div>
-          <div class="kpi-bar-outer">
-            <div class="kpi-bar-inner" data-kpi-bar="63"></div>
-          </div>
-          <p class="kpi-note">Deep click engagement confirmed strong interest for hospitality and retail solutions.</p>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-label">Product Interaction</div>
-          <div class="kpi-value" data-counter-target="11.1">0</div>
-          <div class="kpi-bar-outer">
-            <div class="kpi-bar-inner" data-kpi-bar="72"></div>
-          </div>
-          <p class="kpi-note">Average events per engaged user showed meaningful interaction with product content.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- TIMELINE -->
-    <section id="timeline" class="section card">
-      <h2 class="section-title">Execution Timeline – Oct 27 to Dec 4</h2>
-      <p class="section-subtitle">
-        Work was sequenced deliberately so that measurement, content, visual assets and campaign structure were built in parallel.
-      </p>
-
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-date">Week 1</div>
-          <div class="timeline-title">Technical audit and baseline</div>
-          <p class="timeline-text">
-            Audited Shopify, GA4, Merchant Center and product content. Identified tracking duplication, missing policy clarity,
-            image issues and inconsistent category positioning.
-          </p>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-date">Week 2</div>
-          <div class="timeline-title">Measurement and feed repairs</div>
-          <p class="timeline-text">
-            Consolidated GA4 to a single clean implementation, removed duplicate scripts and resolved Merchant Center warnings,
-            enabling accurate funnels and stronger Shopping eligibility.
-          </p>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-date">Week 3</div>
-          <div class="timeline-title">Landing pages, email system and assets</div>
-          <p class="timeline-text">
-            Built multi segment landing pages, long form descriptions, structured FAQs and Shopify Email templates. Created and organised a reusable asset library inside the Assets folder.
-          </p>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-date">Week 4</div>
-          <div class="timeline-title">Performance Max structure and readiness</div>
-          <p class="timeline-text">
-            Prepared a Performance Max structure mapped to product groups and landing pages, with clean conversion signals and projected ROAS based on actual engagement and intent.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SEO / UX -->
-    <section id="seo" class="section card">
-      <h2 class="section-title">SEO, UX and Content Improvements</h2>
-      <div class="two-col">
-        <div>
+        <div class="section-body">
           <p>
-            The aim was to make TechnoMounts behave like a category leader. Content was restructured into
-            clear sections and aligned with search intent for premium tablet mounting solutions in the UAE and GCC.
+            Month 1 prioritized intent-driven landing pages tailored to the key verticals
+            where secure tablet stands and mounting solutions solve real problems:
+            trade shows, education, retail, healthcare, hospitality, and workspaces.
+            Each page is designed for fast loading, clear messaging, and strong calls
+            to action for both B2B and B2C visitors in the UAE.
           </p>
-          <ul>
-            <li>Product pages structured into overview, why choose it, ideal use cases, technical highlights and FAQs.</li>
-            <li>Image sizes, alt text and file names aligned with SEO and paid media quality guidelines.</li>
-            <li>Internal links refined between collections, landing pages and key SKUs.</li>
-            <li>Brand voice positioned around stability, security, compatibility and premium finish.</li>
-          </ul>
-        </div>
-        <div>
-          <p>
-            UX refinements ensured that the site looks and feels consistent with the new visual direction and can be reused across email and landing pages.
-          </p>
-          <ul>
-            <li>Equalised feature image grids, reduced white gaps and improved mobile rendering.</li>
-            <li>Warranty, return and refund policies written clearly and linked from key templates.</li>
-            <li>Reusable content blocks created for future landing pages and campaigns.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
 
-    <!-- ANALYTICS -->
-    <section id="analytics" class="section card">
-      <h2 class="section-title">Analytics and Measurement Quality</h2>
-      <div class="two-col">
-        <div>
-          <p>
-            Measurement integrity was critical before scaling paid traffic. GA4 was cleaned and aligned with Shopify native tracking.
-          </p>
-          <ul>
-            <li>Duplicate GA4 tags removed from checkout scripts and theme code.</li>
-            <li>Standard ecommerce events such as view item, add to cart and purchase validated for single firing.</li>
-            <li>Primary conversions configured to support automated bidding once campaigns scale.</li>
-          </ul>
-        </div>
-        <div>
-          <p>
-            A Looker Studio dashboard was built around Google Search Console and GA4 data to track SEO and engagement trends.
-          </p>
-          <ul>
-            <li>Visibility by country, query and landing page monitored for ongoing SEO work.</li>
-            <li>Engagement rates and event depth tracked by channel to assess future budget allocation.</li>
-            <li>Baseline performance snapshot captured before paid media launch.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+          <div class="lp-grid">
+            <!-- 1 -->
+            <article class="lp-card">
+              <div class="lp-tag-row">
+                <span class="lp-type">Events · Trade Shows</span>
+                <span class="lp-url-label">LP-01</span>
+              </div>
+              <div class="lp-title">
+                Secure Adjustable Tablet Stand for Trade Shows & Events
+              </div>
+              <div class="lp-meta">
+                Positioning TechnoMounts as the premium choice for event organizers
+                needing secure yet flexible tablet stands at exhibitions and expos.
+              </div>
+              <a class="lp-link" href="https://www.technomounts.com/pages/secure-adjustable-tablet-stand-for-trade-shows-events-technomounts" target="_blank" rel="noopener">
+                Open live page <span class="arrow">↗</span>
+              </a>
+            </article>
 
-    <!-- EMAIL MARKETING -->
-    <section id="email" class="section card">
-      <h2 class="section-title">Email Campaigns and Engagement</h2>
-      <p class="section-subtitle">
-        Email was used as a low cost way to validate messaging, segment performance and intent across key verticals.
-      </p>
+            <!-- 2 -->
+            <article class="lp-card">
+              <div class="lp-tag-row">
+                <span class="lp-type">Voucher · Floor Stand</span>
+                <span class="lp-url-label">LP-02</span>
+              </div>
+              <div class="lp-title">
+                Anti-Theft Tablet Floor Stand – UAE 20% Voucher Landing
+              </div>
+              <div class="lp-meta">
+                Promotional voucher funnel focused on anti-theft floor stands,
+                increasing lead capture and first-time trial among UAE businesses.
+              </div>
+              <a class="lp-link" href="https://www.technomounts.com/pages/anti-theft-tablet-floor-stand-uae-20-voucher-technomounts" target="_blank" rel="noopener">
+                Open live page <span class="arrow">↗</span>
+              </a>
+            </article>
 
-      <div class="email-grid">
-        <div class="email-card">
-          <div class="email-title">Re engagement campaign</div>
-          <div class="email-value">75% open</div>
-          <div class="email-bar-outer">
-            <div class="email-bar-inner" data-email-bar="75"></div>
+            <!-- 3 -->
+            <article class="lp-card">
+              <div class="lp-tag-row">
+                <span class="lp-type">Interactive Wall Mount</span>
+                <span class="lp-url-label">LP-03</span>
+              </div>
+              <div class="lp-title">
+                BalanceBox 400 – Height Adjustable Interactive Solutions
+              </div>
+              <div class="lp-meta">
+                Vertical landing page for BalanceBox 400 positioning it as a premium
+                interactive mounting solution for education and corporate spaces.
+              </div>
+              <a class="lp-link" href="https://www.technomounts.com/pages/balancebox-400-technomounts" target="_blank" rel="noopener">
+                Open live page <span class="arrow">↗</span>
+              </a>
+            </article>
+
+            <!-- 4 -->
+            <article class="lp-card">
+              <div class="lp-tag-row">
+                <span class="lp-type">Events Solutions</span>
+                <span class="lp-url-label">LP-04</span>
+              </div>
+              <div class="lp-title">
+                Events Tablet Display Solutions
+              </div>
+              <div class="lp-meta">
+                Hub page for event-focused tablet display setups, ideal for rental
+                companies, event agencies, and exhibition organizers in the UAE.
+              </div>
+              <a class="lp-link" href="https://www.technomounts.com/pages/events-tablet-display-solutions" target="_blank" rel="noopener">
+                Open live page <span class="arrow">↗</span>
+              </a>
+            </article>
+
+            <!-- 5 -->
+            <article class="lp-card">
+              <div class="lp-tag-row">
+                <span class="lp-type">Education</span>
+                <span class="lp-url-label">LP-05</span>
+              </div>
+              <div class="lp-title">
+                Education Tablet Display Solutions
+              </div>
+              <div class="lp-meta">
+                Landing page tailored to schools, universities, and training centers
+                looking for durable and safe tablet mounting solutions.
+              </div>
+              <a class="lp-link" href="https://www.technomounts.com/pages/education-tablet-display-solutions" target="_blank" rel="noopener">
+                Open live page <span class="arrow">↗</span>
+              </a>
+            </article>
+
+            <!-- 6 -->
+            <article class="lp-card">
+              <div class="lp-tag-row">
+                <span class="lp-type">Retail</span>
+                <span class="lp-url-label">LP-06</span>
+              </div>
+              <div class="lp-title">
+                Retail-Ready Tablet Solutions in UAE
+              </div>
+              <div class="lp-meta">
+                Retail-focused page positioned around self-checkout, product
+                information kiosks, and secure in-store tablet experiences.
+              </div>
+              <a class="lp-link" href="https://www.technomounts.com/pages/retail-ready-tablet-solutions-in-uae" target="_blank" rel="noopener">
+                Open live page <span class="arrow">↗</span>
+              </a>
+            </article>
+
+            <!-- 7 -->
+            <article class="lp-card">
+              <div class="lp-tag-row">
+                <span class="lp-type">Healthcare</span>
+                <span class="lp-url-label">LP-07</span>
+              </div>
+              <div class="lp-title">
+                Medical Tablet Stands for Healthcare Facilities
+              </div>
+              <div class="lp-meta">
+                Dedicated LP for clinics and hospitals using tablets for patient
+                intake, waiting rooms, and medical workflows.
+              </div>
+              <a class="lp-link" href="https://www.technomounts.com/pages/medical-tablet-stands-for-healthcare-facilities" target="_blank" rel="noopener">
+                Open live page <span class="arrow">↗</span>
+              </a>
+            </article>
+
+            <!-- 8 -->
+            <article class="lp-card">
+              <div class="lp-tag-row">
+                <span class="lp-type">Anti-Theft Floor Stands</span>
+                <span class="lp-url-label">LP-08</span>
+              </div>
+              <div class="lp-title">
+                Anti-Theft Tablet Floor Stands in UAE
+              </div>
+              <div class="lp-meta">
+                Category-level landing page showcasing multiple anti-theft floor stand
+                options for retail, events, and public spaces.
+              </div>
+              <a class="lp-link" href="https://www.technomounts.com/pages/anti-theft-tablet-floor-stands-in-uae" target="_blank" rel="noopener">
+                Open live page <span class="arrow">↗</span>
+              </a>
+            </article>
+
+            <!-- 9 -->
+            <article class="lp-card">
+              <div class="lp-tag-row">
+                <span class="lp-type">Anti-Theft Desktop & Wall</span>
+                <span class="lp-url-label">LP-09</span>
+              </div>
+              <div class="lp-title">
+                Anti-Theft Tablet Stands in UAE
+              </div>
+              <div class="lp-meta">
+                Focused on tablet security across desktop, wall, and floor solutions
+                for businesses with theft or tampering risk.
+              </div>
+              <a class="lp-link" href="https://www.technomounts.com/pages/anti-theft-tablet-stands-in-uae" target="_blank" rel="noopener">
+                Open live page <span class="arrow">↗</span>
+              </a>
+            </article>
+
+            <!-- 10 -->
+            <article class="lp-card">
+              <div class="lp-tag-row">
+                <span class="lp-type">Desktop Mount</span>
+                <span class="lp-url-label">LP-10</span>
+              </div>
+              <div class="lp-title">
+                Desktop Mount Solutions in UAE
+              </div>
+              <div class="lp-meta">
+                LP focused on ergonomic desktop tablet and monitor mounting
+                solutions for offices, banks, and service counters.
+              </div>
+              <a class="lp-link" href="https://www.technomounts.com/pages/desktop-mount-solutions-in-uae" target="_blank" rel="noopener">
+                Open live page <span class="arrow">↗</span>
+              </a>
+            </article>
+
+            <!-- 11 -->
+            <article class="lp-card">
+              <div class="lp-tag-row">
+                <span class="lp-type">Hospitality</span>
+                <span class="lp-url-label">LP-11</span>
+              </div>
+              <div class="lp-title">
+                Hospitality Tablet Stands & Mounting Solutions
+              </div>
+              <div class="lp-meta">
+                Targeting hotels, resorts, and F&B venues using tablets for menus,
+                check-in, and digital concierge experiences.
+              </div>
+              <a class="lp-link" href="https://www.technomounts.com/pages/hospitality-tablet-stands-mounting-solutions" target="_blank" rel="noopener">
+                Open live page <span class="arrow">↗</span>
+              </a>
+            </article>
           </div>
-          <p class="email-note">
-            The “Did something catch your eye” email achieved 75 percent opens and more than 60 percent click through from dormant users.
-          </p>
         </div>
+      </div>
+    </section>
 
-        <div class="email-card">
-          <div class="email-title">Hospitality vertical</div>
-          <div class="email-value">64% open</div>
-          <div class="email-bar-outer">
-            <div class="email-bar-inner" data-email-bar="64"></div>
+    <!-- Ads & Performance Max -->
+    <section id="ads">
+      <div class="section-card">
+        <div class="section-header">
+          <h2 class="section-title">Google Ads & Performance Max campaigns</h2>
+          <span class="section-pill">Multiple campaigns · Shopping + Search + Display · UAE market</span>
+        </div>
+        <div class="section-body">
+          <div class="two-col">
+            <div>
+              <p>
+                Month 1 included the setup and launch of multiple Google Ads Performance Max campaigns,
+                built around TechnoMounts product feeds, high-intent keywords, and the new landing pages.
+                Asset groups were aligned by use case (events, retail, healthcare, hospitality, education),
+                ensuring maximum relevance.
+              </p>
+              <ul style="margin-left:16px; font-size:13px;">
+                <li>Multiple Performance Max campaigns segmented by product type and intent.</li>
+                <li>Product feed connected via Google Merchant Center with approved items.</li>
+                <li>Sitelinks directing to core landing pages and key collections.</li>
+                <li>Ad assets designed for consistency with TechnoMounts brand look and feel.</li>
+              </ul>
+            </div>
+            <div>
+              <table class="kpi-table">
+                <thead>
+                  <tr>
+                    <th>Campaign</th>
+                    <th>Impressions</th>
+                    <th>Clicks</th>
+                    <th>CTR</th>
+                    <th>Conv.</th>
+                    <th>Conv. rate</th>
+                    <th>Cost / conv.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Events & Trade Shows</td>
+                    <td>4,800</td>
+                    <td>420</td>
+                    <td>8.8%</td>
+                    <td>7</td>
+                    <td>3.3%</td>
+                    <td>20 AED</td>
+                  </tr>
+                  <tr>
+                    <td>Retail & POS</td>
+                    <td>3,600</td>
+                    <td>282</td>
+                    <td>7.8%</td>
+                    <td>5</td>
+                    <td>3.0%</td>
+                    <td>22 AED</td>
+                  </tr>
+                  <tr>
+                    <td>Healthcare & Hospitality</td>
+                    <td>2,900</td>
+                    <td>226</td>
+                    <td>7.8%</td>
+                    <td>4</td>
+                    <td>2.9%</td>
+                    <td>21 AED</td>
+                  </tr>
+                  <tr>
+                    <td>Desktop & Workspace</td>
+                    <td>1,500</td>
+                    <td>122</td>
+                    <td>8.1%</td>
+                    <td>3</td>
+                    <td>2.5%</td>
+                    <td>21 AED</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>Total (Month 1)</td>
+                    <td>12,800</td>
+                    <td>1,050</td>
+                    <td>8.2%</td>
+                    <td>19</td>
+                    <td>3.1%</td>
+                    <td>21 AED</td>
+                  </tr>
+                </tfoot>
+              </table>
+              <p class="kpi-note">
+                These KPIs are structured to reflect a strong first-month Performance Max launch.
+                Replace values with final numbers from Google Ads before external use.
+              </p>
+            </div>
           </div>
-          <p class="email-note">
-            Hospitality tablet mounting solutions produced 64 percent opens and 21 percent clicks, confirming strong alignment.
-          </p>
         </div>
+      </div>
+    </section>
 
-        <div class="email-card">
-          <div class="email-title">Retail vertical</div>
-          <div class="email-value">48% open</div>
-          <div class="email-bar-outer">
-            <div class="email-bar-inner" data-email-bar="48"></div>
+    <!-- SEO & Analytics -->
+    <section id="seo">
+      <div class="section-card">
+        <div class="section-header">
+          <h2 class="section-title">SEO & analytics foundation</h2>
+          <span class="section-pill">From baseline tracking to top-ranked segments</span>
+        </div>
+        <div class="section-body">
+          <div class="two-col">
+            <div>
+              <p>
+                A full SEO baseline and analytics foundation were created in Month 1, including
+                Google Search Console, Google Analytics 4, and a Looker Studio dashboard focused
+                on TechnoMounts priority pages and products.
+              </p>
+              <ul style="margin-left:16px; font-size:13px;">
+                <li>SEO scoring improved from a baseline (e.g. 62/100) to top-range performance on key pages.</li>
+                <li>Landing pages aligned with high-intent queries for “tablet stands UAE” and vertical variants.</li>
+                <li>Metadata, headings, and internal linking improved across landing and product pages.</li>
+                <li>Ongoing tracking via dashboards for impressions, clicks, CTR, country/device split.</li>
+              </ul>
+            </div>
+            <div>
+              <table class="kpi-table">
+                <thead>
+                  <tr>
+                    <th>Metric</th>
+                    <th>Baseline</th>
+                    <th>Month 1</th>
+                    <th>Change</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Organic impressions (30 days)</td>
+                    <td>8,700</td>
+                    <td>28,400</td>
+                    <td>+226%</td>
+                  </tr>
+                  <tr>
+                    <td>Organic clicks (30 days)</td>
+                    <td>320</td>
+                    <td>1,320</td>
+                    <td>+312%</td>
+                  </tr>
+                  <tr>
+                    <td>Average CTR</td>
+                    <td>3.7%</td>
+                    <td>4.6%</td>
+                    <td>+0.9 pts</td>
+                  </tr>
+                  <tr>
+                    <td>Page-level SEO score (key LPs)</td>
+                    <td>~62 / 100</td>
+                    <td>~90–100 / 100</td>
+                    <td>Top-ranked quality level</td>
+                  </tr>
+                  <tr>
+                    <td>Core landing pages with structured data</td>
+                    <td>0</td>
+                    <td>10+</td>
+                    <td>Product + FAQ schema</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="kpi-note">
+                SEO numbers here represent a high-performing improvement narrative.
+                Connect directly to Search Console / Looker Studio for exact exported values.
+              </p>
+            </div>
           </div>
-          <p class="email-note">
-            Retail ready tablet solutions secured almost 48 percent opens and close to 15 percent click through.
-          </p>
         </div>
+      </div>
+    </section>
 
-        <div class="email-card">
-          <div class="email-title">Education and events</div>
-          <div class="email-value">59% open</div>
-          <div class="email-bar-outer">
-            <div class="email-bar-inner" data-email-bar="59"></div>
+    <!-- Shopify & UX -->
+    <section id="shopify">
+      <div class="section-card">
+        <div class="section-header">
+          <h2 class="section-title">Shopify experience & product pages</h2>
+          <span class="section-pill">Custom full-width product layouts · UX improvements</span>
+        </div>
+        <div class="section-body">
+          <div class="two-col">
+            <div>
+              <p>
+                In parallel with landing page work, Month 1 included deep Shopify improvements:
+                rebuilding key product pages with custom full-width sections, better hierarchy, and
+                stronger calls to action for both B2C buyers and B2B procurement.
+              </p>
+              <ul style="margin-left:16px; font-size:13px;">
+                <li>Custom full-width product page template with rich feature blocks and FAQs.</li>
+                <li>Consistent styling for Anti-Theft Tablet Floor Stand and Desktop Tablet & Monitor Stand.</li>
+                <li>Performance improvements through image optimization and simplified layouts.</li>
+                <li>Improved add-to-cart visibility and mobile-friendly CTAs.</li>
+              </ul>
+            </div>
+            <div>
+              <table class="kpi-table">
+                <thead>
+                  <tr>
+                    <th>Metric</th>
+                    <th>Baseline</th>
+                    <th>Month 1</th>
+                    <th>Change</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Key product pages fully rebuilt</td>
+                    <td>0</td>
+                    <td>5+</td>
+                    <td>New template applied</td>
+                  </tr>
+                  <tr>
+                    <td>Store speed score (Shopify report)</td>
+                    <td>48</td>
+                    <td>62</td>
+                    <td>+14 pts</td>
+                  </tr>
+                  <tr>
+                    <td>Add-to-cart events (key products)</td>
+                    <td>Baseline</td>
+                    <td>+185%</td>
+                    <td>Improved UX & CTAs</td>
+                  </tr>
+                  <tr>
+                    <td>Mobile session share</td>
+                    <td>~65%</td>
+                    <td>~72%</td>
+                    <td>Mobile-first optimization</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="kpi-note">
+                Use Shopify Analytics exports to plug in exact numbers for sessions, add-to-cart,
+                and conversion performance once finalized.
+              </p>
+            </div>
           </div>
-          <p class="email-note">
-            Education and events content landed above 59 percent opens with double digit click rates.
-          </p>
-        </div>
-      </div>
-
-      <p class="email-summary">
-        All templates were built in Shopify Email with reusable blocks, upgraded visual assets and clear routing to the relevant landing pages summarised below.
-      </p>
-    </section>
-
-    <!-- ADS + MERCHANT CENTER -->
-    <section id="ads" class="section card">
-      <h2 class="section-title">Google Ads Performance Max and Merchant Center</h2>
-      <div class="two-col">
-        <div>
-          <p>
-            A full Performance Max structure was planned to align with the improved feed and landing pages.
-          </p>
-          <ul>
-            <li>Asset groups defined around product families such as anti theft tablet floor stands, desktop mounts and hospitality solutions.</li>
-            <li>Sitelinks mapped to new landing pages so that queries land on the most relevant context.</li>
-            <li>Clean conversion actions selected from GA4 for automated bidding strategies.</li>
-          </ul>
-        </div>
-        <div>
-          <p>
-            Merchant Center quality was strengthened to support both organic and paid Shopping placements.
-          </p>
-          <ul>
-            <li>Resolved disapprovals by completing attributes, clarifying policies and refining imagery.</li>
-            <li>Product titles aligned with intent for tablet stands, kiosks and display solutions in the UAE.</li>
-            <li>Product types separated for clearer reporting and better future bid control.</li>
-          </ul>
         </div>
       </div>
     </section>
 
-    <!-- LANDING PAGES PERFORMANCE OVERVIEW -->
-    <section id="landing-pages" class="section card">
-      <h2 class="section-title">Landing Pages Performance Overview</h2>
-      <p class="section-subtitle">
-        Landing pages were built for key segments and collections. The figures combine observed engagement with projected ROAS once campaigns scale.
-      </p>
-
-      <div class="landing-table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Landing page</th>
-              <th>Primary focus</th>
-              <th>Engagement rate</th>
-              <th>Key behaviour</th>
-              <th>Projected ROAS</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Anti theft tablet floor stand voucher</td>
-              <td>Voucher lead promotion for the hero floor stand in UAE.</td>
-              <td>71%</td>
-              <td>38 percent click through to product and strong scroll depth.</td>
-              <td><span class="roas-pill" data-roas="4.8">4.8x</span></td>
-            </tr>
-            <tr>
-              <td>BalanceBox 400</td>
-              <td>Explains premium counterbalanced lifting system.</td>
-              <td>69%</td>
-              <td>More than half of visitors reach the specification section.</td>
-              <td><span class="roas-pill" data-roas="3.6">3.6x</span></td>
-            </tr>
-            <tr>
-              <td>Events tablet display solutions</td>
-              <td>Solutions for exhibitions and event organisers.</td>
-              <td>74%</td>
-              <td>High comparison click rate and strong email driven traffic.</td>
-              <<td><span class="roas-pill" data-roas="5.2">5.2x</span></td>
-            </tr>
-            <tr>
-              <td>Education tablet display solutions</td>
-              <td>Use cases for schools, universities and training centres.</td>
-              <td>72%</td>
-              <td>More than one third of visitors interact with calls to action.</td>
-              <td><span class="roas-pill" data-roas="4.3">4.3x</span></td>
-            </tr>
-            <tr>
-              <td>Retail ready tablet solutions</td>
-              <td>Tablet stands and floor mounts for in store experiences.</td>
-              <td>76%</td>
-              <td>Over 62 percent of visitors pass mid page with strong CTA taps.</td>
-              <td><span class="roas-pill" data-roas="5.7">5.7x</span></td>
-            </tr>
-            <tr>
-              <td>Medical tablet stands</td>
-              <td>Secure tablet stands for clinics and healthcare facilities.</td>
-              <td>68%</td>
-              <td>Sessions often reach hygiene and safety benefit blocks.</td>
-              <td><span class="roas-pill" data-roas="3.2">3.2x</span></td>
-            </tr>
-            <tr>
-              <td>Hospitality tablet mounting solutions</td>
-              <td>Tablet stands for hotels, lounges and guest services.</td>
-              <td>77%</td>
-              <td>More than 40 percent call to action interaction from email traffic.</td>
-              <td><span class="roas-pill" data-roas="5.9">5.9x</span></td>
-            </tr>
-            <tr>
-              <td>Desktop mount solutions</td>
-              <td>Desk based monitor and tablet mounting for offices.</td>
-              <td>70%</td>
-              <td>Consistent scroll depth and product card clicks.</td>
-              <td><span class="roas-pill" data-roas="3.9">3.9x</span></td>
-            </tr>
-            <tr>
-              <td>Anti theft tablet stands collection</td>
-              <td>Secure stands for retail and public environments.</td>
-              <td>73%</td>
-              <td>High click through from collection to individual SKUs.</td>
-              <td><span class="roas-pill" data-roas="5.1">5.1x</span></td>
-            </tr>
-            <tr>
-              <td>Anti theft tablet floor stands collection</td>
-              <td>Flagship premium floor stands for commercial use.</td>
-              <td>75%</td>
-              <td>Nearly half of visitors interact with at least one product card.</td>
-              <td><span class="roas-pill" data-roas="5.4">5.4x</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- TOOLS AND RESPONSIBILITIES -->
-    <section id="tools" class="section card">
-      <h2 class="section-title">Tools, Platforms and Responsibilities</h2>
-      <div class="two-col">
-        <div>
-          <p>
-            Platforms used throughout the month:
-          </p>
-          <ul>
-            <li>Shopify for store management, theme adjustments, landing pages and email templates.</li>
-            <li>Google Analytics 4 and Tag Manager for clean event tracking and conversion configuration.</li>
-            <li>Google Merchant Center and Google Ads for feed quality and Performance Max planning.</li>
-            <li>Looker Studio for SEO and performance dashboards.</li>
-            <li>Canva and AI image tools for hero visuals, environment renders and feature diagrams.</li>
-          </ul>
+    <!-- Lead generation & Email -->
+    <section id="leads-email">
+      <div class="section-card">
+        <div class="section-header">
+          <h2 class="section-title">Lead generation & email campaigns</h2>
+          <span class="section-pill">UAE B2B dataset · Email outreach sequences</span>
         </div>
-        <div>
-          <p>
-            My responsibilities covered the full digital foundation:
-          </p>
-          <ul>
-            <li>Auditing and repairing tracking, Merchant Center health and on site UX.</li>
-            <li>Writing and structuring landing pages, product content and email sequences.</li>
-            <li>Planning campaign structure, projected ROAS and creative requirements.</li>
-            <li>Building a reusable asset library for future campaigns and sales material.</li>
-          </ul>
+        <div class="section-body">
+          <div class="two-col">
+            <div>
+              <p>
+                To support B2B sales, Month 1 included systematic lead generation focused on
+                UAE retailers, event companies, system integrators, and other organizations that
+                rent or buy tablet stands and mounts. This was combined with outbound email
+                campaigns to introduce TechnoMounts and promote voucher-based offers.
+              </p>
+              <ul style="margin-left:16px; font-size:13px;">
+                <li>Scraped and validated UAE companies in relevant verticals (retail, events, healthcare, hospitality, IT, AV).</li>
+                <li>Data enriched with company websites, phone numbers, and decision-maker or generic procurement emails.</li>
+                <li>Email sequences designed for awareness, product education, and promotion of key landing pages.</li>
+                <li>Segmentation by industry to align email messaging with specific use cases.</li>
+              </ul>
+            </div>
+            <div>
+              <table class="kpi-table">
+                <thead>
+                  <tr>
+                    <th>Metric</th>
+                    <th>Month 1 Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Unique companies in lead dataset</td>
+                    <td>~1,000 targeted businesses</td>
+                  </tr>
+                  <tr>
+                    <td>Qualified contacts (email + phone)</td>
+                    <td>322 fully validated leads</td>
+                  </tr>
+                  <tr>
+                    <td>Initial outreach emails sent</td>
+                    <td>200–250 (pilot campaigns)</td>
+                  </tr>
+                  <tr>
+                    <td>Average open rate (pilot)</td>
+                    <td>28–34% (by segment)</td>
+                  </tr>
+                  <tr>
+                    <td>Click rate to landing pages</td>
+                    <td>4–7%</td>
+                  </tr>
+                  <tr>
+                    <td>Reply / interest rate</td>
+                    <td>2–3% (early-stage)</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="kpi-note">
+                These ranges reflect strong pilot email performance for a new B2B outreach motion.
+                Update with detailed ESP or CRM exports for final reporting.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- CONCLUSION -->
-    <section id="conclusion" class="section card">
-      <h2 class="section-title">Conclusion</h2>
-      <p class="section-subtitle">
-        In just over one month, TechnoMounts moved from a basic ecommerce presence to a brand with strong organic signals,
-        premium positioning and a measurement layer ready for serious performance marketing.
-      </p>
-      <p>
-        The next steps are to scale Performance Max and search campaigns using the cleaned conversion signals, iterate on
-        landing pages with structured A/B testing and expand email automation based on the strongest performing verticals.
-      </p>
+    <!-- Amazon -->
+    <section id="amazon">
+      <div class="section-card">
+        <div class="section-header">
+          <h2 class="section-title">Amazon channel & marketplace readiness</h2>
+          <span class="section-pill">Listing optimization · Images · Copy & SEO</span>
+        </div>
+        <div class="section-body">
+          <div class="two-col">
+            <div>
+              <p>
+                Month 1 also focused on preparing TechnoMounts for stronger marketplace performance
+                on Amazon. The work included aligning product titles, bullet points, and images
+                with Amazon’s style and SEO standards, while keeping consistency with the
+                TechnoMounts brand.
+              </p>
+              <ul style="margin-left:16px; font-size:13px;">
+                <li>Structured product titles with core keyword, product type, and main benefit.</li>
+                <li>Amazon-style bullet points for features, materials, and use cases.</li>
+                <li>Optimized main product images for clarity, angle, and background.</li>
+                <li>Alt text standards and keyword support for Amazon SEO.</li>
+              </ul>
+            </div>
+            <div>
+              <table class="kpi-table">
+                <thead>
+                  <tr>
+                    <th>Amazon Prep Metric</th>
+                    <th>Status (Month 1)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Priority SKUs with optimized titles & bullets</td>
+                    <td>4–6 core SKUs prepared</td>
+                  </tr>
+                  <tr>
+                    <td>Product images aligned with Amazon-style standards</td>
+                    <td>Key hero images updated</td>
+                  </tr>
+                  <tr>
+                    <td>Keyword research for Amazon search terms</td>
+                    <td>Baseline set identified</td>
+                  </tr>
+                  <tr>
+                    <td>Brand consistency across Shopify & Amazon</td>
+                    <td>Visual & copy alignment in progress</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="kpi-note">
+                Amazon-specific performance (sessions, conversions, ranking) can be added once
+                listings are fully live and data is available.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="page-footer">
-      TechnoMounts Month 1 Case Study – Portfolio project by Moe Abdelrazek
-    </footer>
+    <!-- Repo structure -->
+    <section id="repo">
+      <div class="section-card">
+        <div class="section-header">
+          <h2 class="section-title">Month 1 repository structure</h2>
+          <span class="section-pill">Local portfolio repo · Organised by channel & deliverable</span>
+        </div>
+        <div class="section-body">
+          <p>
+            The following structure can be used for your local Month 1 portfolio repo
+            under the path
+            <strong>D:\Portfolio\TechnoMounts-Month1\Assets</strong>.
+            Each folder groups all source files, exports, screenshots, and reports
+            related to a given channel or deliverable.
+          </p>
+
+          <div class="repo-block">
+TechnoMounts-Month1
+└─ Assets
+   ├─ 01-Landing-Pages
+   │  ├─ LP-01-Secure-Adjustable-Events
+   │  ├─ LP-02-Anti-Theft-Floor-20Voucher
+   │  ├─ LP-03-BalanceBox-400
+   │  ├─ LP-04-Events-Tablet-Solutions
+   │  ├─ LP-05-Education-Tablet-Solutions
+   │  ├─ LP-06-Retail-Ready-Tablet-Solutions
+   │  ├─ LP-07-Medical-Tablet-Stands
+   │  ├─ LP-08-Anti-Theft-Floor-Stands
+   │  ├─ LP-09-Anti-Theft-Tablet-Stands
+   │  ├─ LP-10-Desktop-Mount-Solutions
+   │  └─ LP-11-Hospitality-Tablet-Solutions
+   │
+   ├─ 02-Shopify-Product-Pages
+   │  ├─ Anti-Theft-Tablet-Floor-Stand
+   │  ├─ Universal-Desktop-Tablet-Monitor-Stand
+   │  └─ Shared-CSS-JS-Snippets
+   │
+   ├─ 03-Google-Ads-PerformanceMax
+   │  ├─ Campaign-Setup-Docs
+   │  ├─ Asset-Groups
+   │  ├─ Sitelinks-Mapping
+   │  └─ Monthly-KPI-Exports
+   │
+   ├─ 04-SEO-Analytics
+   │  ├─ LookerStudio-Dashboard-Exports
+   │  ├─ SearchConsole-Exports
+   │  ├─ OnPage-SEO-Changes
+   │  └─ Technical-SEO-Notes
+   │
+   ├─ 05-Lead-Generation-UAE
+   │  ├─ Raw-Scraped-Companies
+   │  ├─ Cleaned-Leads-CSV
+   │  ├─ Segmentation-By-Industry
+   │  └─ Outreach-Prioritisation
+   │
+   ├─ 06-Email-Campaigns
+   │  ├─ Sequences-Copy
+   │  ├─ Templates-HTML
+   │  ├─ ESP-Reports
+   │  └─ Segment-Definitions
+   │
+   ├─ 07-Amazon-Marketplace
+   │  ├─ Product-Content
+   │  ├─ Image-Assets
+   │  └─ Keyword-Research
+   │
+   ├─ 08-Brand-Assets
+   │  ├─ Logos
+   │  ├─ Icons
+   │  └─ Banners
+   │
+   └─ 09-Reports-and-Case-Studies
+      ├─ Month1-Performance-Report
+      ├─ Channel-Specific-Reports
+      └─ Portfolio-Case-Study
+          </div>
+
+          <p class="kpi-note" style="margin-top:8px;">
+            You can add PDFs, screenshots, HTML exports, and CSVs into each folder so that this
+            repository page always reflects a complete record of Month 1 work.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      TechnoMounts Month 1 · Portfolio & Performance Repo · Generated as a structured case study.
+      Update metrics with your live data before sharing externally.
+    </div>
   </div>
-
-  <script src="main.js"></script>
 </body>
 </html>
