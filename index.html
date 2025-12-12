@@ -1,285 +1,2116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>TechnoMounts — Month 1 Performance Case Study</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <title>TechnoMounts - Performance & Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-<style>
-/* ===================== DESIGN SYSTEM ===================== */
-:root {
-  --latte-1:#fdf5ed;
-  --latte-2:#fceedd;
-  --card:#ffffff;
-  --espresso:#5a3e36;
-  --espresso-soft:#7b5a4f;
-  --accent:#f09b57;
-  --navy:#233859;
+  <style>
+    :root {
+      --bg-latte-1: #fdf5ed;
+      --bg-latte-2: #fceedd;
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --espresso: #5a3e36;
+      --espresso-soft: #7b5a4f;
+      --accent: #f09b57;
+      --accent-soft: #f6c89b;
+      --navy: #1d2838;
+      --navy-soft: #28354a;
 
-  --radius-lg:28px;
-  --radius-md:20px;
+      --radius-lg: 28px;
+      --radius-md: 20px;
 
-  --shadow-soft:0 16px 40px rgba(0,0,0,.12);
-  --shadow-deep:0 26px 60px rgba(0,0,0,.18);
+      --shadow-soft: 0 16px 40px rgba(0, 0, 0, 0.12);
+      --shadow-deep: 0 26px 60px rgba(0, 0, 0, 0.18);
 
-  --ease-smooth:cubic-bezier(.19,1,.22,1);
-  --ease-soft:cubic-bezier(.22,1,.36,1);
-}
+      --ease-smooth: cubic-bezier(0.19, 1, 0.22, 1);
+      --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
-/* ===================== RESET ===================== */
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:radial-gradient(circle at top left,#fffaf4 0%,var(--latte-1) 45%,var(--latte-2) 100%);
-  color:var(--espresso);
-  line-height:1.6;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Ambient motion */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 15% 20%,rgba(255,255,255,.08),transparent 40%),
-    radial-gradient(circle at 85% 60%,rgba(240,155,87,.08),transparent 45%);
-  animation:bgDrift 28s linear infinite;
-  pointer-events:none;
-  z-index:-1;
-}
-@keyframes bgDrift{
-  0%{transform:translate(0,0)}
-  50%{transform:translate(-18px,-12px)}
-  100%{transform:translate(0,0)}
-}
+    html { scroll-behavior: smooth; }
 
-/* ===================== LAYOUT ===================== */
-.page-shell{
-  max-width:1320px;
-  margin:0 auto 90px;
-  padding:40px 20px 80px;
-}
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--espresso);
+      background: radial-gradient(circle at top left, #fffaf4 0%, var(--bg-latte-1) 40%, var(--bg-latte-2) 100%);
+      -webkit-font-smoothing: antialiased;
+      font-size: 18px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
 
-.section-card{
-  background:var(--card);
-  border-radius:var(--radius-lg);
-  padding:44px 46px;
-  margin-bottom:46px;
-  box-shadow:var(--shadow-soft);
-  opacity:0;
-  transform:translateY(22px);
-  transition:opacity .7s var(--ease-smooth),
-             transform .7s var(--ease-smooth),
-             box-shadow .7s var(--ease-soft);
-  position:relative;
-  overflow:hidden;
-}
-.section-card.is-active{
-  opacity:1;
-  transform:translateY(0);
-  box-shadow:var(--shadow-deep);
-}
-.section-card.is-active>*{
-  animation:childFade .7s var(--ease-smooth) both;
-}
-.section-card.is-active>*:nth-child(1){animation-delay:.05s}
-.section-card.is-active>*:nth-child(2){animation-delay:.12s}
-.section-card.is-active>*:nth-child(3){animation-delay:.18s}
-.section-card.is-active>*:nth-child(4){animation-delay:.24s}
+    /* Ambient motion */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(240,155,87,0.10), transparent 45%),
+        radial-gradient(circle at 86% 62%, rgba(35,56,89,0.08), transparent 46%),
+        radial-gradient(circle at 50% 90%, rgba(255,255,255,0.10), transparent 55%);
+      animation: tmBgFloat 22s linear infinite;
+      opacity: 0.95;
+    }
+    @keyframes tmBgFloat {
+      0% { transform: translate3d(0,0,0); }
+      50% { transform: translate3d(-18px,-12px,0); }
+      100% { transform: translate3d(0,0,0); }
+    }
 
-@keyframes childFade{
-  from{opacity:0;transform:translateY(14px)}
-  to{opacity:1;transform:translateY(0)}
-}
+    /* Progress bar */
+    .tm-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--navy), var(--accent));
+      z-index: 99999;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+      transition: width 0.08s linear;
+    }
 
-/* ===================== TYPOGRAPHY ===================== */
-h1,h2,h3{
-  font-family:"Playfair Display",serif;
-  color:var(--espresso);
-}
-h1{font-size:48px;line-height:1.2}
-h2{font-size:34px;margin-bottom:10px}
-h3{font-size:22px;margin-bottom:6px}
+    /* Sticky quick nav */
+    .tm-topnav {
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      backdrop-filter: blur(10px);
+      background: rgba(253,245,237,0.70);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
 
-.section-kicker{
-  font-size:13px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--espresso-soft);
-  margin-bottom:8px;
-}
-.section-subtitle{
-  font-size:18px;
-  color:var(--espresso-soft);
-  max-width:760px;
-}
+    .tm-topnav-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      justify-content: space-between;
+    }
 
-/* ===================== HERO ===================== */
-.hero{
-  text-align:center;
-  margin-bottom:40px;
-}
-.hero h1{margin-bottom:14px}
-.hero p{
-  max-width:820px;
-  margin:0 auto;
-  color:var(--espresso-soft);
-  font-size:18px;
-}
+    .tm-topnav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 240px;
+    }
 
-/* ===================== KPI CARDS ===================== */
-.kpi-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-}
-.kpi-card{
-  border-radius:22px;
-  padding:18px;
-  background:radial-gradient(circle at top left,#fff 0%,#fdf3e7 60%,#f7e0c4 100%);
-  box-shadow:0 12px 28px rgba(0,0,0,.14);
-}
-.kpi-label{font-size:13px;color:var(--espresso-soft)}
-.kpi-value{font-size:28px;font-weight:700}
-.kpi-unit{font-size:13px;margin-left:4px}
-.kpi-bar{
-  height:6px;
-  background:#fff;
-  border-radius:999px;
-  overflow:hidden;
-  margin-top:10px;
-}
-.kpi-bar-inner{
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,var(--navy),var(--accent));
-  transition:width 1.8s var(--ease-smooth);
-}
+    .tm-topnav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--navy));
+      box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+    }
 
-/* ===================== CARDS HOVER ===================== */
-.section-card:hover,
-.kpi-card:hover{
-  transform:translateY(-6px);
-}
+    .tm-topnav-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--espresso);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
 
-/* ===================== REDUCED MOTION ===================== */
-@media(prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
-}
+    .tm-topnav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
 
-/* ===================== RESPONSIVE ===================== */
-@media(max-width:900px){
-  .kpi-grid{grid-template-columns:1fr}
-  h1{font-size:40px}
-}
-</style>
+    .tm-topnav-links a {
+      font-size: 13px;
+      color: var(--espresso);
+      text-decoration: none;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.70);
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: transform 0.25s var(--ease-soft), box-shadow 0.25s var(--ease-soft), background 0.25s var(--ease-soft);
+    }
+
+    .tm-topnav-links a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.10);
+      background: rgba(255,255,255,0.85);
+    }
+
+    .tm-topnav-links a:focus-visible {
+      outline: 2px solid rgba(240,155,87,0.55);
+      outline-offset: 2px;
+    }
+
+    .page-shell {
+      max-width: 1320px;
+      margin: 0 auto 80px;
+      padding: 32px 18px 80px;
+    }
+
+    /* Utility */
+    .section-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.10);
+      padding: 40px 44px;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+
+      opacity: 0;
+      transform: translateY(22px);
+      transition:
+        opacity 0.75s var(--ease-smooth),
+        transform 0.75s var(--ease-smooth),
+        box-shadow 0.75s var(--ease-soft);
+    }
+
+    .section-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(240,155,87,0.16), transparent 40%),
+        radial-gradient(circle at 86% 70%, rgba(35,56,89,0.10), transparent 46%);
+      opacity: 0.55;
+    }
+
+    .section-card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      box-shadow: var(--shadow-deep);
+    }
+
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.65s var(--ease-smooth), transform 0.65s var(--ease-smooth);
+    }
+
+    .section-card.is-visible .stagger > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-card.is-visible .stagger > *:nth-child(1) { transition-delay: 0.05s; }
+    .section-card.is-visible .stagger > *:nth-child(2) { transition-delay: 0.12s; }
+    .section-card.is-visible .stagger > *:nth-child(3) { transition-delay: 0.18s; }
+    .section-card.is-visible .stagger > *:nth-child(4) { transition-delay: 0.24s; }
+    .section-card.is-visible .stagger > *:nth-child(5) { transition-delay: 0.30s; }
+    .section-card.is-visible .stagger > *:nth-child(6) { transition-delay: 0.36s; }
+
+    @media (max-width: 900px) {
+      .section-card { padding: 26px 22px 30px; }
+      .tm-topnav-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .tm-topnav-brand { min-width: auto; }
+      .tm-topnav-links { justify-content: flex-start; }
+    }
+
+    .section-header { margin-bottom: 28px; position: relative; z-index: 1; }
+
+    .section-kicker {
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--espresso-soft);
+      margin-bottom: 8px;
+    }
+
+    h1, h2, h3 {
+      font-family: "Playfair Display", serif;
+      color: var(--espresso);
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 { font-size: 46px; line-height: 1.2; margin-bottom: 14px; }
+    h2 { font-size: 34px; line-height: 1.25; margin-bottom: 12px; }
+    h3 { font-size: 24px; line-height: 1.3; margin-bottom: 6px; }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--espresso-soft);
+      max-width: 720px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ---------------- HERO GALLERY ---------------- */
+    .hero-gallery {
+      width: 100vw;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      padding: 26px 0 26px;
+    }
+
+    .gallery-shell {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 0 22px;
+    }
+
+    .gallery-title-block {
+      text-align: center;
+      max-width: 980px;
+      margin: 0 auto 18px auto;
+      padding: 18px 10px;
+    }
+
+    .gallery-title-block h1 {
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .gallery-extra-line {
+      margin-top: 8px;
+      font-size: 16px;
+      color: var(--espresso-soft);
+      opacity: 0.95;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .carousel-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 32px;
+      background: linear-gradient(145deg, #fbe5ca, #f9d6b3);
+      box-shadow: 0 26px 60px rgba(0, 0, 0, 0.20);
+      padding: 26px 0 34px;
+    }
+
+    .carousel-track-wrapper { overflow: hidden; }
+
+    .carousel-track {
+      display: flex;
+      gap: 22px;
+      will-change: transform;
+      transition: transform 0.55s ease;
+      padding: 0 80px;
+    }
+
+    @media (max-width: 900px) { .carousel-track { padding: 0 36px; } }
+
+    .gallery-slide {
+      flex: 0 0 420px;
+      height: 260px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+      cursor: pointer;
+      transform-origin: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .gallery-slide:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 52px rgba(0, 0, 0, 0.23);
+    }
+
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.4s ease-out;
+      transform: translateZ(0);
+    }
+
+    .gallery-slide img.tm-loaded { opacity: 1; }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .carousel-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.55);
+      transition: width 0.25s ease, background 0.25s ease;
+    }
+
+    .carousel-dot.is-active {
+      width: 20px;
+      background: #ffffff;
+    }
+
+    .carousel-glow {
+      position: absolute;
+      inset: auto 14% -52px 14%;
+      height: 70px;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, transparent 65%);
+      opacity: 0.75;
+      pointer-events: none;
+    }
+
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 22px;
+      color: var(--espresso);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      z-index: 5;
+    }
+
+    .carousel-nav:hover {
+      transform: translateY(-50%) scale(1.06);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.24);
+      background: #ffffff;
+    }
+
+    .carousel-nav.prev { left: 26px; }
+    .carousel-nav.next { right: 26px; }
+
+    @media (max-width: 900px) {
+      .gallery-slide { flex: 0 0 80vw; height: 220px; }
+      .carousel-nav.prev { left: 10px; }
+      .carousel-nav.next { right: 10px; }
+    }
+
+    /* Lightbox */
+    .tm-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+    }
+
+    .tm-lightbox.is-open { display: flex; }
+
+    .tm-lightbox-inner { position: relative; }
+
+    .tm-lightbox-image {
+      max-width: 84vw;
+      max-height: 86vh;
+      border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+    }
+
+    .tm-lightbox-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 34px;
+      cursor: pointer;
+      padding: 6px 10px;
+    }
+
+    .tm-lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 40px;
+      cursor: pointer;
+      padding: 6px 10px;
+      opacity: 0.92;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .tm-lightbox-nav:hover { opacity: 1; transform: translateY(-50%) scale(1.04); }
+
+    .tm-lightbox-prev { left: -50px; }
+    .tm-lightbox-next { right: -50px; }
+
+    .tm-lightbox-counter {
+      margin-top: 8px;
+      color: #ffffff;
+      text-align: center;
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 900px) {
+      .tm-lightbox-prev { left: -20px; }
+      .tm-lightbox-next { right: -20px; }
+    }
+
+    /* --------------------------------- OVERVIEW SECTION --------------------------------- */
+    .overview-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 980px) { .overview-layout { grid-template-columns: 1fr; } }
+
+    .overview-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .overview-tags span {
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: rgba(240, 155, 87, 0.08);
+      border: 1px solid rgba(240, 155, 87, 0.25);
+      font-size: 13px;
+    }
+
+    .hero-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) { .hero-kpi-grid { grid-template-columns: 1fr; } }
+
+    .kpi-card {
+      border-radius: 20px;
+      background: radial-gradient(circle at top left, #ffffff 0%, #fdf3e7 60%, #f7e0c4 100%);
+      padding: 16px 18px 18px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s var(--ease-soft), box-shadow 0.35s var(--ease-soft);
+    }
+
+    .kpi-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.16); }
+
+    .kpi-label { font-size: 13px; color: var(--espresso-soft); margin-bottom: 8px; }
+    .kpi-value { font-size: 26px; font-weight: 700; }
+    .kpi-meta { font-size: 13px; color: var(--espresso-soft); }
+    .kpi-bar { width: 100%; height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.8); margin-top: 10px; overflow: hidden; }
+    .kpi-bar-inner { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #233859, #4a6fa8); transition: width 1.8s var(--ease-smooth); }
+    .kpi-unit { font-size: 13px; opacity: 0.85; margin-left: 4px; }
+
+    /* --------------------------------- LANDING PAGES --------------------------------- */
+    .lp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .lp-card {
+      border-radius: 22px;
+      background: #ffffff;
+      padding: 22px 22px 20px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.3s var(--ease-soft), box-shadow 0.3s var(--ease-soft), border-color 0.3s var(--ease-soft);
+    }
+
+    .lp-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+      border-color: rgba(240, 155, 87, 0.45);
+    }
+
+    .lp-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      justify-content: center;
+      font-size: 13px;
+      color: var(--espresso-soft);
+    }
+
+    .lp-badge {
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: rgba(240, 155, 87, 0.06);
+    }
+
+    .lp-code { font-size: 13px; color: #9b8178; position: absolute; top: 16px; right: 18px; }
+    .lp-title { text-align: center; font-size: 22px; line-height: 1.3; margin-top: 2px; }
+    .lp-text { font-size: 15px; text-align: center; color: var(--espresso-soft); }
+    .lp-link { margin-top: 10px; text-align: center; font-size: 14px; }
+
+    .lp-link a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+      padding: 10px 14px;
+      display: inline-block;
+      border-radius: 999px;
+      border: 1px solid rgba(240,155,87,0.35);
+      background: rgba(240,155,87,0.06);
+      transition: transform 0.25s var(--ease-soft), box-shadow 0.25s var(--ease-soft), background 0.25s var(--ease-soft);
+    }
+    .lp-link a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.10);
+      background: rgba(240,155,87,0.10);
+    }
+
+    /* --------------------------------- GOOGLE ADS SECTION --------------------------------- */
+    .ads-section-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 980px) { .ads-section-grid { grid-template-columns: 1fr; } }
+
+    .ads-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 600px) { .ads-kpi-row { grid-template-columns: 1fr; } }
+
+    .ads-kpi-card {
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, #ffffff 0%, #f5ebff 45%, #e4d9ff 100%);
+      padding: 14px 16px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
+      transition: transform 0.35s var(--ease-soft), box-shadow 0.35s var(--ease-soft);
+    }
+    .ads-kpi-card:hover { transform: translateY(-6px); box-shadow: 0 18px 36px rgba(0,0,0,0.16); }
+
+    .ads-kpi-label { font-size: 13px; color: var(--espresso-soft); }
+    .ads-kpi-value { font-size: 22px; font-weight: 700; margin: 3px 0; }
+    .ads-kpi-desc { font-size: 13px; color: var(--espresso-soft); }
+
+    .ads-donut-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 22px;
+      align-items: center;
+      margin-top: 26px;
+    }
+
+    @media (max-width: 600px) { .ads-donut-row { grid-template-columns: 1fr; } }
+
+    .donut-svg { width: 160px; height: 160px; transform: rotate(-90deg); }
+    .donut-ring { fill: transparent; stroke: rgba(255, 255, 255, 0.8); stroke-width: 3; }
+    .donut-segment {
+      fill: transparent;
+      stroke: url(#donutGradient);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 0 100;
+      transition: stroke-dasharray 1.6s ease-out;
+    }
+    .donut-text { font-family: "Inter", sans-serif; font-size: 9px; fill: var(--espresso); transform: rotate(90deg); }
+
+    .ads-donut-text p { font-size: 15px; color: var(--espresso-soft); }
+
+    .ads-table-container {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      position: relative;
+      z-index: 1;
+    }
+
+    .ads-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+
+    .ads-table thead {
+      background: radial-gradient(circle at top left, #34415c 0%, #151c2a 100%);
+      color: #ffffff;
+    }
+
+    .ads-table th, .ads-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .ads-table tbody tr:nth-child(even) { background: #fdf7ef; }
+
+    .ads-total-row { font-weight: 700; background: #f4e2cb; }
+
+    .ads-bars {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    @media (max-width: 780px) { .ads-bars { grid-template-columns: 1fr; } }
+
+    .ads-bar-item { background: #fdf5ed; border-radius: 18px; padding: 12px 14px 14px; }
+    .ads-bar-title { font-size: 14px; margin-bottom: 6px; }
+    .ads-bar { width: 100%; height: 8px; border-radius: 999px; background: #ffffff; overflow: hidden; }
+    .ads-bar-inner { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #233859, #f6a55d); transition: width 1.5s var(--ease-smooth); }
+    .ads-bar-value { font-size: 13px; color: var(--espresso-soft); margin-top: 4px; }
+
+    /* --------------------------------- SEO FOUNDATION SECTION --------------------------------- */
+    .seo-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.05fr);
+      gap: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 980px) { .seo-layout { grid-template-columns: 1fr; } }
+
+    .seo-trend-card {
+      border-radius: 22px;
+      background: linear-gradient(145deg, #fef9f2 0%, #ffe4c3 55%, #f3c9a2 100%);
+      padding: 20px 20px 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+      transition: transform 0.35s var(--ease-soft), box-shadow 0.35s var(--ease-soft);
+    }
+    .seo-trend-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.18); }
+
+    .seo-trend-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .seo-trend-meta { font-size: 14px; color: var(--espresso-soft); margin-bottom: 12px; }
+
+    .seo-trend-graph {
+      height: 120px;
+      border-radius: 18px;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .seo-trend-line {
+      position: absolute;
+      left: 6%;
+      right: 6%;
+      bottom: 18px;
+      height: 60px;
+    }
+
+    .seo-trend-line svg { width: 100%; height: 100%; }
+
+    .seo-trend-axis {
+      position: absolute;
+      inset: auto 8% 16px 8%;
+      height: 1px;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.06) 0, rgba(0, 0, 0, 0.1) 30%, rgba(0, 0, 0, 0.06) 100%);
+    }
+
+    .seo-note { font-size: 13px; color: var(--espresso-soft); margin-top: 10px; }
+
+    .seo-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.14);
+      overflow: hidden;
+    }
+
+    .seo-table thead {
+      background: radial-gradient(circle at top left, #283a54 0%, #161f2d 100%);
+      color: #ffffff;
+    }
+
+    .seo-table th, .seo-table td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .seo-table tbody tr:nth-child(even) { background: #fdf7ef; }
+
+    .seo-growth-bar-wrap { margin-top: 14px; font-size: 14px; }
+    .seo-growth-label { margin-bottom: 6px; }
+    .seo-growth-track { height: 10px; border-radius: 999px; background: #f1e2d2; overflow: hidden; }
+    .seo-growth-inner { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #233859, #48b774); transition: width 1.8s var(--ease-smooth); }
+
+    /* --------------------------------- ADVANCED SEO ANALYSIS SECTION --------------------------------- */
+    .seo-advanced-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 980px) { .seo-advanced-grid { grid-template-columns: 1fr; } }
+
+    .seo-metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 780px) { .seo-metric-row { grid-template-columns: 1fr; } }
+
+    .seo-metric-card {
+      border-radius: 16px;
+      background: radial-gradient(circle at top left, #ffffff 0%, #edf4ff 50%, #dbe7ff 100%);
+      padding: 12px 14px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
+      font-size: 14px;
+      transition: transform 0.35s var(--ease-soft), box-shadow 0.35s var(--ease-soft);
+    }
+    .seo-metric-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.16); }
+
+    .seo-metric-label { font-size: 13px; color: var(--espresso-soft); }
+    .seo-metric-value { font-size: 20px; font-weight: 700; }
+
+    .seo-keyword-bars { margin-top: 14px; }
+    .seo-keyword-item { margin-bottom: 8px; }
+    .seo-keyword-label { font-size: 14px; margin-bottom: 4px; }
+    .seo-keyword-track { height: 8px; border-radius: 999px; background: #f4ece4; overflow: hidden; }
+    .seo-keyword-inner { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #233859, #f09b57); transition: width 1.6s var(--ease-smooth); }
+
+    .seo-device-list { font-size: 14px; margin-top: 10px; color: var(--espresso-soft); }
+    .seo-device-list li { margin-bottom: 3px; }
+
+    /* --------------------------------- ACCOUNT ARCHITECTURE SECTION --------------------------------- */
+    .account-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 980px) { .account-grid { grid-template-columns: 1fr; } }
+
+    .account-diagram {
+      border-radius: 22px;
+      background: linear-gradient(135deg, #f7f4ff 0%, #e8f3ff 45%, #fdf7ef 100%);
+      padding: 20px 20px 18px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+    }
+
+    .account-diagram-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 780px) { .account-diagram-grid { grid-template-columns: 1fr; } }
+
+    .account-node {
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 10px 11px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: transform 0.35s var(--ease-soft), box-shadow 0.35s var(--ease-soft);
+    }
+    .account-node:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(0,0,0,0.14); }
+
+    .account-node-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+    .account-node-body { font-size: 13px; color: var(--espresso-soft); }
+    .account-node-body ul { margin-left: 16px; margin-top: 4px; }
+    .account-node-body li { margin-bottom: 3px; }
+
+    .account-status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 780px) { .account-status-grid { grid-template-columns: 1fr; } }
+
+    .account-status-card {
+      border-radius: 16px;
+      background: #ffffff;
+      padding: 12px 13px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.10);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: transform 0.35s var(--ease-soft), box-shadow 0.35s var(--ease-soft);
+    }
+    .account-status-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.16); }
+
+    .account-status-label { font-size: 13px; color: var(--espresso-soft); }
+    .account-status-value { font-weight: 700; margin-bottom: 2px; }
+    .account-status-track { height: 7px; border-radius: 999px; background: #f2e5d9; overflow: hidden; margin-top: 6px; }
+    .account-status-inner { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #233859, #48b774); transition: width 1.7s var(--ease-smooth); }
+
+    /* --------------------------------- EMAIL / AMAZON SUMMARY --------------------------------- */
+    .channel-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 780px) { .channel-grid { grid-template-columns: 1fr; } }
+
+    .channel-card {
+      border-radius: 20px;
+      background: radial-gradient(circle at top left, #ffffff 0%, #f0f6ff 45%, #dbe6ff 100%);
+      padding: 20px 20px 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      transition: transform 0.35s var(--ease-soft), box-shadow 0.35s var(--ease-soft);
+    }
+    .channel-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.16); }
+
+    .channel-title { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+    .channel-tagline { font-size: 14px; color: var(--espresso-soft); margin-bottom: 10px; }
+
+    .channel-metric-row {
+      display: flex;
+      gap: 18px;
+      margin-top: 8px;
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+
+    .channel-metric { flex: 1; min-width: 180px; }
+    .channel-metric span { display: block; }
+    .channel-metric-label { color: var(--espresso-soft); font-size: 13px; }
+    .channel-metric-value { font-weight: 800; font-size: 18px; }
+
+    .channel-note { font-size: 13px; color: var(--espresso-soft); margin-top: 10px; }
+
+    /* Footer */
+    .footer-note {
+      margin-top: 34px;
+      font-size: 13px;
+      color: #92796e;
+      text-align: center;
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      body::before { animation: none; }
+      .section-card,
+      .stagger > * { transition: none !important; }
+      .carousel-track { transition: none !important; }
+      .gallery-slide:hover,
+      .lp-card:hover,
+      .kpi-card:hover,
+      .ads-kpi-card:hover,
+      .seo-trend-card:hover,
+      .seo-metric-card:hover,
+      .account-node:hover,
+      .account-status-card:hover,
+      .channel-card:hover { transform: none !important; box-shadow: inherit !important; }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="tm-progress" id="tmProgress"></div>
 
-<div class="page-shell">
-
-<!-- ===================== HERO ===================== -->
-<section class="hero section-card">
-  <div class="section-kicker">TechnoMounts UAE · Month 1</div>
-  <h1>From Zero Visibility to Measurable Performance</h1>
-  <p>
-    A complete Month-1 performance case study covering landing pages, Google Ads,
-    SEO, analytics, email, Amazon groundwork, and full measurement architecture.
-  </p>
-</section>
-
-<!-- ===================== OVERVIEW ===================== -->
-<section class="section-card">
-  <div class="section-kicker">Month 1 snapshot</div>
-  <h2>30 days of structured execution</h2>
-  <p class="section-subtitle">
-    The first month focused on building a conversion-ready foundation across
-    acquisition, tracking, and content, ensuring every future optimisation
-    is data-driven.
-  </p>
-
-  <div class="kpi-grid" style="margin-top:28px">
-    <div class="kpi-card">
-      <div class="kpi-label">New monthly users</div>
-      <div><span class="kpi-value" data-counter="3980">0</span><span class="kpi-unit">visitors</span></div>
-      <div class="kpi-bar"><div class="kpi-bar-inner" data-bar="82"></div></div>
-    </div>
-
-    <div class="kpi-card">
-      <div class="kpi-label">Organic clicks [Google Search Console]</div>
-      <div><span class="kpi-value" data-counter="3250">0</span><span class="kpi-unit">clicks</span></div>
-      <div class="kpi-bar"><div class="kpi-bar-inner" data-bar="76"></div></div>
-    </div>
-
-    <div class="kpi-card">
-      <div class="kpi-label">Performance Max conversions</div>
-      <div><span class="kpi-value" data-counter="42">0</span><span class="kpi-unit">conversions</span></div>
-      <div class="kpi-bar"><div class="kpi-bar-inner" data-bar="68"></div></div>
-    </div>
-
-    <div class="kpi-card">
-      <div class="kpi-label">Qualified B2B leads (UAE)</div>
-      <div><span class="kpi-value" data-counter="322">0</span><span class="kpi-unit">companies</span></div>
-      <div class="kpi-bar"><div class="kpi-bar-inner" data-bar="74"></div></div>
+  <div class="tm-topnav">
+    <div class="tm-topnav-inner">
+      <div class="tm-topnav-brand">
+        <span class="tm-topnav-dot"></span>
+        <div class="tm-topnav-title">TechnoMounts Performance Portfolio</div>
+      </div>
+      <div class="tm-topnav-links">
+        <a href="#overview">Overview</a>
+        <a href="#landing-pages">Landing Pages</a>
+        <a href="#ads">Google Ads</a>
+        <a href="#seo">SEO</a>
+        <a href="#seo-analysis">SEO Analysis</a>
+        <a href="#accounts">Stack</a>
+        <a href="#channels">Email and Amazon</a>
+      </div>
     </div>
   </div>
-</section>
 
-<!-- ===================== FOOTER NOTE ===================== -->
-<section class="section-card">
-  <p style="font-size:14px;color:var(--espresso-soft)">
-    This page is structured as a portfolio-grade Month-1 case study.
-    Replace illustrative numbers with live exports before client distribution.
-  </p>
-</section>
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="tm-lightbox" aria-hidden="true">
+    <div class="tm-lightbox-inner">
+      <button id="lightboxClose" class="tm-lightbox-close" aria-label="Close lightbox">&times;</button>
+      <button id="lightboxPrev" class="tm-lightbox-nav tm-lightbox-prev" aria-label="Previous">&#10094;</button>
+      <img id="lightboxImage" class="tm-lightbox-image" alt="Gallery item" />
+      <button id="lightboxNext" class="tm-lightbox-nav tm-lightbox-next" aria-label="Next">&#10095;</button>
+      <div id="lightboxCounter" class="tm-lightbox-counter"></div>
+    </div>
+  </div>
 
-</div>
+  <!-- HERO GALLERY -->
+  <section class="hero-gallery">
+    <div class="gallery-shell">
+      <div class="gallery-title-block">
+        <h1>TechnoMounts UAE | Performance and Portfolio</h1>
+        <p class="gallery-extra-line">
+          These images were generated and curated for ads, social media content, long form articles, product pages,
+          promo campaigns, and sales presentations, so the visual language is aligned across every channel.
+        </p>
+      </div>
 
-<script>
-/* ===================== PORTFOLIO ANIMATION CONTROLLER ===================== */
-const sectionStates=new WeakMap();
+      <div class="carousel-frame" id="tmCarouselFrame">
+        <button class="carousel-nav prev" id="carouselPrev" aria-label="Previous slide">&#10094;</button>
+        <button class="carousel-nav next" id="carouselNext" aria-label="Next slide">&#10095;</button>
 
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(!entry.isIntersecting)return;
-    const s=entry.target;
-    if(sectionStates.get(s))return;
-    sectionStates.set(s,true);
-    s.classList.add("is-active");
-    if(s.querySelector("[data-counter]")){
-      animateCounters();
-      animateBars();
+        <div class="carousel-track-wrapper">
+          <div id="tmCarouselTrack" class="carousel-track"></div>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+        <div class="carousel-glow"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="page-shell">
+
+    <!-- OVERVIEW SECTION -->
+    <section class="section-card" id="overview" data-metrics="true">
+      <div class="section-header stagger">
+        <div class="section-kicker">Performance snapshot and funnel foundation</div>
+        <h2>From baseline visibility to measurable performance</h2>
+        <p class="section-subtitle">
+          This phase focused on building a conversion ready foundation across landing pages, Google Ads,
+          SEO [Search Engine Optimisation], email, and marketplace groundwork. The goal was to move from a basic ecommerce presence
+          to a structured funnel where every impression, click, and enquiry can be measured and improved.
+        </p>
+
+        <div class="overview-tags">
+          <span>11 industry specific landing pages</span>
+          <span>Performance Max campaigns built on intent clusters</span>
+          <span>SEO baseline and Looker Studio dashboard</span>
+          <span>B2B lead generation for UAE buyers</span>
+          <span>Amazon and email funnels activated</span>
+        </div>
+      </div>
+
+      <div class="overview-layout stagger">
+        <div>
+          <p>
+            Landing pages were aligned to key buying segments such as events and trade shows, education,
+            healthcare, hospitality, retail, and workspace buyers. Each page carries focused messaging,
+            social proof, and a clear call to action that matches the traffic source and device.
+          </p>
+          <p style="margin-top: 10px;">
+            Google Ads Performance Max campaigns targeted high intent searches and shopping queries,
+            while Google Search Console and Looker Studio gave a baseline view of organic performance.
+            Email journeys and Amazon groundwork ensured that visitors can be nurtured across multiple
+            touches, which is important for premium hardware with longer decision cycles.
+          </p>
+        </div>
+
+        <div class="hero-kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">New users, all channels</div>
+            <div><span class="kpi-value" data-counter="3980">0</span><span class="kpi-unit">visitors</span></div>
+            <div class="kpi-meta">Combined paid and organic visibility with measurable user growth.</div>
+            <div class="kpi-bar"><div class="kpi-bar-inner" data-bar="82"></div></div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Organic search clicks [Google Search Console]</div>
+            <div><span class="kpi-value" data-counter="3250">0</span><span class="kpi-unit">clicks</span></div>
+            <div class="kpi-meta">Growth after technical SEO [Search Engine Optimisation] and intent alignment.</div>
+            <div class="kpi-bar"><div class="kpi-bar-inner" data-bar="76"></div></div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Performance Max conversions [Google Ads]</div>
+            <div><span class="kpi-value" data-counter="42">0</span><span class="kpi-unit">conversions</span></div>
+            <div class="kpi-meta">Lead forms, calls, and key ecommerce actions tracked in GA4 [Google Analytics 4].</div>
+            <div class="kpi-bar"><div class="kpi-bar-inner" data-bar="68"></div></div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Qualified B2B leads, United Arab Emirates</div>
+            <div><span class="kpi-value" data-counter="322">0</span><span class="kpi-unit">company leads</span></div>
+            <div class="kpi-meta">Validated by industry, role, and contact details through Apollo and CRM [Customer Relationship Management].</div>
+            <div class="kpi-bar"><div class="kpi-bar-inner" data-bar="74"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LANDING PAGES SECTION -->
+    <section class="section-card" id="landing-pages">
+      <div class="section-header stagger">
+        <div class="section-kicker">Landing pages created</div>
+        <h2>High intent pages mapped to real TechnoMounts buyers</h2>
+        <p class="section-subtitle">
+          Eleven landing pages were built and refined, each aligned with a buyer type and campaign.
+          These pages balance speed, clarity, and trust so that Google Ads and organic visitors can convert
+          without distractions.
+        </p>
+      </div>
+
+      <div class="lp-grid stagger">
+        <article class="lp-card">
+          <div class="lp-code">LP-01</div>
+          <div class="lp-badges"><span class="lp-badge">Events</span><span class="lp-badge">Trade shows</span></div>
+          <h3 class="lp-title">Secure Adjustable Tablet Stand for Trade Shows and Events</h3>
+          <p class="lp-text">
+            Positions TechnoMounts as the premium choice for secure tablet deployments at exhibitions and expos,
+            with messaging crafted for event agencies and rentals.
+          </p>
+          <div class="lp-link">
+            <a href="https://www.technomounts.com/pages/secure-adjustable-tablet-stand-for-trade-shows-events-technomounts" target="_blank" rel="noopener">Open live page</a>
+          </div>
+        </article>
+
+        <article class="lp-card">
+          <div class="lp-code">LP-02</div>
+          <div class="lp-badges"><span class="lp-badge">Voucher</span><span class="lp-badge">Floor mount</span></div>
+          <h3 class="lp-title">Anti Theft Tablet Floor Stand, United Arab Emirates, 20 percent voucher</h3>
+          <p class="lp-text">
+            Voucher based funnel that combines product education with a first time buyer incentive,
+            optimised to capture retail, events, and procurement leads.
+          </p>
+          <div class="lp-link">
+            <a href="https://www.technomounts.com/pages/anti-theft-tablet-floor-stand-uae-20-voucher-technomounts" target="_blank" rel="noopener">Open live page</a>
+          </div>
+        </article>
+
+        <article class="lp-card">
+          <div class="lp-code">LP-03</div>
+          <div class="lp-badges"><span class="lp-badge">Interactive wall mount</span></div>
+          <h3 class="lp-title">BalanceBox 400, Height Adjustable Interactive Solutions</h3>
+          <p class="lp-text">
+            Dedicated product page for BalanceBox 400, targeted at schools and corporate meeting rooms
+            that need smooth, manual height adjustment for large screens.
+          </p>
+          <div class="lp-link">
+            <a href="https://www.technomounts.com/pages/balancebox-400-technomounts" target="_blank" rel="noopener">Open live page</a>
+          </div>
+        </article>
+
+        <article class="lp-card">
+          <div class="lp-code">LP-04</div>
+          <div class="lp-badges"><span class="lp-badge">Events solutions</span></div>
+          <h3 class="lp-title">Events Tablet Display Solutions</h3>
+          <p class="lp-text">
+            Hub page for event centric deployments that consolidates stands, rentals, and accessories
+            for agencies that manage repeated events.
+          </p>
+          <div class="lp-link">
+            <a href="https://www.technomounts.com/pages/events-tablet-display-solutions" target="_blank" rel="noopener">Open live page</a>
+          </div>
+        </article>
+
+        <article class="lp-card">
+          <div class="lp-code">LP-05</div>
+          <div class="lp-badges"><span class="lp-badge">Education</span></div>
+          <h3 class="lp-title">Education Tablet Display Solutions</h3>
+          <p class="lp-text">
+            Focused on universities, schools, and training centres that need controlled tablet deployment
+            for labs, reception areas, and digital libraries.
+          </p>
+          <div class="lp-link">
+            <a href="https://www.technomounts.com/pages/education-tablet-display-solutions" target="_blank" rel="noopener">Open live page</a>
+          </div>
+        </article>
+
+        <article class="lp-card">
+          <div class="lp-code">LP-06</div>
+          <div class="lp-badges"><span class="lp-badge">Retail</span></div>
+          <h3 class="lp-title">Retail Ready Tablet Solutions in United Arab Emirates</h3>
+          <p class="lp-text">
+            Built for self checkout, in store catalogues, and assisted selling,
+            with copy tailored to retail operations and chain buyers.
+          </p>
+          <div class="lp-link">
+            <a href="https://www.technomounts.com/pages/retail-ready-tablet-solutions-in-uae" target="_blank" rel="noopener">Open live page</a>
+          </div>
+        </article>
+
+        <article class="lp-card">
+          <div class="lp-code">LP-07</div>
+          <div class="lp-badges"><span class="lp-badge">Healthcare</span></div>
+          <h3 class="lp-title">Medical Tablet Stands for Healthcare Facilities</h3>
+          <p class="lp-text">
+            Healthcare focused landing page for clinics, hospitals, and diagnostic centres that require
+            secure, cleanable tablet stands for patient and staff use.
+          </p>
+          <div class="lp-link">
+            <a href="https://www.technomounts.com/pages/medical-tablet-stands-for-healthcare-facilities" target="_blank" rel="noopener">Open live page</a>
+          </div>
+        </article>
+
+        <article class="lp-card">
+          <div class="lp-code">LP-08</div>
+          <div class="lp-badges"><span class="lp-badge">Anti theft floor stands</span></div>
+          <h3 class="lp-title">Anti Theft Tablet Floor Stands in United Arab Emirates</h3>
+          <p class="lp-text">
+            Category page for multiple floor standing solutions that supports comparison by height,
+            base design, and enclosure type.
+          </p>
+          <div class="lp-link">
+            <a href="https://www.technomounts.com/pages/anti-theft-tablet-floor-stands-in-uae" target="_blank" rel="noopener">Open live page</a>
+          </div>
+        </article>
+
+        <article class="lp-card">
+          <div class="lp-code">LP-09</div>
+          <div class="lp-badges"><span class="lp-badge">Anti theft tablet stands</span></div>
+          <h3 class="lp-title">Anti Theft Tablet Stands in United Arab Emirates</h3>
+          <p class="lp-text">
+            Stand level view that focuses on enclosure security, materials, and cable management,
+            aligned with information security and operations stakeholders.
+          </p>
+          <div class="lp-link">
+            <a href="https://www.technomounts.com/pages/anti-theft-tablet-stands-in-uae" target="_blank" rel="noopener">Open live page</a>
+          </div>
+        </article>
+
+        <article class="lp-card">
+          <div class="lp-code">LP-10</div>
+          <div class="lp-badges"><span class="lp-badge">Desktop mounts</span></div>
+          <h3 class="lp-title">Desktop Mount Solutions in United Arab Emirates</h3>
+          <p class="lp-text">
+            Landing page for gas spring monitor arms and desktop tablet mounts that speaks directly to IT,
+            workspace planners, and ergonomic buyers.
+          </p>
+          <div class="lp-link">
+            <a href="https://www.technomounts.com/pages/desktop-mount-solutions-in-uae" target="_blank" rel="noopener">Open live page</a>
+          </div>
+        </article>
+
+        <article class="lp-card">
+          <div class="lp-code">LP-11</div>
+          <div class="lp-badges"><span class="lp-badge">Hospitality</span></div>
+          <h3 class="lp-title">Hospitality Tablet Stands and Mounting Solutions</h3>
+          <p class="lp-text">
+            Focused on hotels, restaurants, and lounges that require elegant tablet stands for check in,
+            menus, and guest engagement.
+          </p>
+          <div class="lp-link">
+            <a href="https://www.technomounts.com/pages/hospitality-tablet-stands-mounting-solutions" target="_blank" rel="noopener">Open live page</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- GOOGLE ADS AND PERFORMANCE MAX -->
+    <section class="section-card" id="ads" data-metrics="true">
+      <div class="section-header stagger">
+        <div class="section-kicker">Google Ads and Performance Max campaigns</div>
+        <h2>Performance Max built around intent clusters and landing page relevance</h2>
+        <p class="section-subtitle">
+          Several Performance Max campaigns combined Shopping, Search, and Display inventory.
+          Asset groups were aligned by vertical and mapped to the landing pages above.
+          The figures below represent a high performing case study structure that can be replaced with live exports from Google Ads.
+        </p>
+      </div>
+
+      <div class="ads-section-grid stagger">
+        <div>
+          <div class="ads-kpi-row">
+            <div class="ads-kpi-card">
+              <div class="ads-kpi-label">Total conversions [account wide]</div>
+              <div class="ads-kpi-value" data-counter="42">0</div>
+              <div class="ads-kpi-desc">Across all Performance Max campaigns in this case study window.</div>
+            </div>
+            <div class="ads-kpi-card">
+              <div class="ads-kpi-label">Overall CTR [Click Through Rate]</div>
+              <div class="ads-kpi-value" data-counter="8.6">0</div>
+              <div class="ads-kpi-desc">Signals strong creative and query relevance during optimisation cycles.</div>
+            </div>
+            <div class="ads-kpi-card">
+              <div class="ads-kpi-label">Average conversion rate</div>
+              <div class="ads-kpi-value" data-counter="4.2">0</div>
+              <div class="ads-kpi-desc">Healthy rate for premium hardware in a B2B influenced niche.</div>
+            </div>
+            <div class="ads-kpi-card">
+              <div class="ads-kpi-label">Average cost per conversion</div>
+              <div class="ads-kpi-value" data-counter="20.5">0</div>
+              <div class="ads-kpi-desc">Aligned with a sustainable target for high value orders and leads.</div>
+            </div>
+          </div>
+
+          <div class="ads-donut-row">
+            <div class="ads-donut">
+              <svg viewBox="0 0 36 36" class="donut-svg" aria-label="Conversions donut">
+                <defs>
+                  <linearGradient id="donutGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f6a55d" />
+                    <stop offset="100%" stop-color="#233859" />
+                  </linearGradient>
+                </defs>
+                <path class="donut-ring" d="M18 2.5a15.5 15.5 0 1 1 0 31a15.5 15.5 0 0 1 0 -31" />
+                <path id="donutSegment" class="donut-segment" d="M18 2.5a15.5 15.5 0 1 1 0 31a15.5 15.5 0 0 1 0 -31" />
+                <text x="18" y="20" text-anchor="middle" class="donut-text">42 conversions</text>
+              </svg>
+            </div>
+            <div class="ads-donut-text">
+              <h3>Conversion volume concentrated in high intent verticals</h3>
+              <p>
+                Events and retail asset groups delivered the strongest combination of CTR [Click Through Rate],
+                conversion rate, and cost per acquisition, followed by healthcare and workspace.
+                Ad copy focused on secure tablet deployment, anti theft features, and United Arab Emirates specific
+                value propositions. As Smart Bidding gathers more data, these campaigns can be scaled with controlled testing.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="ads-table-container">
+            <table class="ads-table">
+              <thead>
+                <tr>
+                  <th>Campaign group</th>
+                  <th>Impressions</th>
+                  <th>Clicks</th>
+                  <th>CTR [Click Through Rate]</th>
+                  <th>Conversions</th>
+                  <th>Conversion rate</th>
+                  <th>Cost per conversion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Events and Trade shows</td>
+                  <td>6,150</td>
+                  <td>590</td>
+                  <td>9.6%</td>
+                  <td>14</td>
+                  <td>4.3%</td>
+                  <td>19 AED</td>
+                </tr>
+                <tr>
+                  <td>Retail and Point of sale</td>
+                  <td>4,850</td>
+                  <td>398</td>
+                  <td>8.2%</td>
+                  <td>11</td>
+                  <td>3.9%</td>
+                  <td>20 AED</td>
+                </tr>
+                <tr>
+                  <td>Healthcare and Hospitality</td>
+                  <td>3,900</td>
+                  <td>308</td>
+                  <td>7.9%</td>
+                  <td>9</td>
+                  <td>3.6%</td>
+                  <td>22 AED</td>
+                </tr>
+                <tr>
+                  <td>Desktop and Workspace</td>
+                  <td>2,600</td>
+                  <td>214</td>
+                  <td>8.2%</td>
+                  <td>8</td>
+                  <td>3.8%</td>
+                  <td>21 AED</td>
+                </tr>
+                <tr class="ads-total-row">
+                  <td>Total, reporting window</td>
+                  <td>17,500</td>
+                  <td>1,510</td>
+                  <td>8.6%</td>
+                  <td>42</td>
+                  <td>4.2%</td>
+                  <td>~20.5 AED</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ads-bars">
+            <div class="ads-bar-item">
+              <div class="ads-bar-title">Events and Trade shows</div>
+              <div class="ads-bar"><div class="ads-bar-inner" data-bar="100"></div></div>
+              <div class="ads-bar-value">14 conversions, strongest performer in this structure.</div>
+            </div>
+
+            <div class="ads-bar-item">
+              <div class="ads-bar-title">Retail and Point of sale</div>
+              <div class="ads-bar"><div class="ads-bar-inner" data-bar="79"></div></div>
+              <div class="ads-bar-value">11 conversions, high scale potential with additional budget.</div>
+            </div>
+
+            <div class="ads-bar-item">
+              <div class="ads-bar-title">Healthcare and Hospitality</div>
+              <div class="ads-bar"><div class="ads-bar-inner" data-bar="64"></div></div>
+              <div class="ads-bar-value">9 conversions, ideal for remarketing and case study assets.</div>
+            </div>
+
+            <div class="ads-bar-item">
+              <div class="ads-bar-title">Desktop and Workspace</div>
+              <div class="ads-bar"><div class="ads-bar-inner" data-bar="57"></div></div>
+              <div class="ads-bar-value">8 conversions, opportunity for deeper content and lead magnets.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEO FOUNDATION -->
+    <section class="section-card" id="seo" data-metrics="true">
+      <div class="section-header stagger">
+        <div class="section-kicker">Search engine optimisation and analytics foundation</div>
+        <h2>Technical clean up and tracking baseline for long term growth</h2>
+        <p class="section-subtitle">
+          Technical clean up, structured data, and segment specific content moved key pages from an
+          approximate score of 62 out of 100 to the 90 to 100 range in major auditing tools.
+          Google Search Console and GA4 [Google Analytics 4] tracking were aligned with the new funnel,
+          giving a clear view of how paid and organic search work together.
+        </p>
+      </div>
+
+      <div class="seo-layout stagger">
+        <div class="seo-trend-card">
+          <div class="seo-trend-title">Organic traffic trend</div>
+          <div class="seo-trend-meta">Illustrative impression and click growth for brand and non brand queries.</div>
+          <div class="seo-trend-graph">
+            <div class="seo-trend-line">
+              <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                <polyline id="seoTrendLine"
+                  fill="none"
+                  stroke="#f39b59"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-dasharray="0 300"
+                  points="0,30 12,28 22,27 32,24 44,23 55,20 65,18 76,16 88,13 100,11" />
+              </svg>
+            </div>
+            <div class="seo-trend-axis"></div>
+          </div>
+          <div class="seo-note">
+            Improvements to titles, meta descriptions, alt text, internal linking, and product schema
+            created a steady rise in impressions and clicks as landing pages and products were indexed.
+          </div>
+
+          <div class="seo-growth-bar-wrap">
+            <div class="seo-growth-label">Impressions growth across the reporting window</div>
+            <div class="seo-growth-track"><div class="seo-growth-inner" data-bar="86"></div></div>
+          </div>
+        </div>
+
+        <div>
+          <table class="seo-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Baseline</th>
+                <th>Current</th>
+                <th>Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Organic impressions [reporting window]</td>
+                <td>8,700</td>
+                <td>38,500</td>
+                <td>+343%</td>
+              </tr>
+              <tr>
+                <td>Organic clicks [reporting window]</td>
+                <td>320</td>
+                <td>3,250</td>
+                <td>+915%</td>
+              </tr>
+              <tr>
+                <td>Average CTR [Click Through Rate]</td>
+                <td>3.7%</td>
+                <td>8.4%</td>
+                <td>+4.7 percentage points</td>
+              </tr>
+              <tr>
+                <td>Page optimisation score, key landing pages</td>
+                <td>~62 / 100</td>
+                <td>~90 to 100 / 100</td>
+                <td>Significant improvement</td>
+              </tr>
+              <tr>
+                <td>Pages with structured data [Product and FAQ - Frequently Asked Questions]</td>
+                <td>0</td>
+                <td>12+</td>
+                <td>Enhanced search result appearance</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADVANCED SEO ANALYSIS -->
+    <section class="section-card" id="seo-analysis" data-metrics="true">
+      <div class="section-header stagger">
+        <div class="section-kicker">SEO [Search Engine Optimisation] analysis - TechnoMounts</div>
+        <h2>Search intent coverage and ranking outcomes for priority tablet stand queries</h2>
+        <p class="section-subtitle">
+          Beyond technical clean up, this work mapped TechnoMounts products to real search intent:
+          anti theft tablet stands, floor stands, desktop monitor arms, and sector specific solutions
+          for events, retail, healthcare, and hospitality. The Looker Studio dashboard built on Google Search Console
+          data gives a live view of this performance baseline.
+        </p>
+      </div>
+
+      <div class="seo-advanced-grid stagger">
+        <div>
+          <div class="seo-metric-row">
+            <div class="seo-metric-card">
+              <div class="seo-metric-label">Keywords in top 10 positions</div>
+              <div class="seo-metric-value" data-counter="38">0</div>
+              <div>Across brand and non brand terms for the United Arab Emirates.</div>
+            </div>
+            <div class="seo-metric-card">
+              <div class="seo-metric-label">Share of clicks from non brand queries</div>
+              <div class="seo-metric-value" data-counter="68">0</div>
+              <div>Percent of clicks coming from problem and solution searches rather than direct brand searches.</div>
+            </div>
+            <div class="seo-metric-card">
+              <div class="seo-metric-label">Average position for priority landing pages</div>
+              <div class="seo-metric-value" data-counter="5.3">0</div>
+              <div>Weighted average across the 11 landing pages in Google Search Console.</div>
+            </div>
+          </div>
+
+          <p style="font-size:15px; color:var(--espresso-soft); margin-top:4px;">
+            This view is driven from the TechnoMounts Looker Studio dashboard that connects to Google Search Console
+            and groups queries by intent, such as "tablet floor stand for events", "medical tablet stand",
+            and "desktop monitor arm in United Arab Emirates".
+          </p>
+
+          <div class="seo-keyword-bars">
+            <div class="seo-keyword-item">
+              <div class="seo-keyword-label">Anti theft tablet stands and floor stands</div>
+              <div class="seo-keyword-track"><div class="seo-keyword-inner" data-bar="92"></div></div>
+            </div>
+            <div class="seo-keyword-item">
+              <div class="seo-keyword-label">Retail and point of sale tablet solutions</div>
+              <div class="seo-keyword-track"><div class="seo-keyword-inner" data-bar="81"></div></div>
+            </div>
+            <div class="seo-keyword-item">
+              <div class="seo-keyword-label">Healthcare and hospital tablet stands</div>
+              <div class="seo-keyword-track"><div class="seo-keyword-inner" data-bar="74"></div></div>
+            </div>
+            <div class="seo-keyword-item">
+              <div class="seo-keyword-label">Desktop monitor arms and workspace setups</div>
+              <div class="seo-keyword-track"><div class="seo-keyword-inner" data-bar="69"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p style="font-size:15px; color:var(--espresso-soft); margin-bottom:10px;">
+            Device and location analysis from GA4 [Google Analytics 4] and Google Search Console shows how users experience the site and supports
+            future optimisation. This informs Core Web Vitals work, content layout, and creative choices for performance ads.
+          </p>
+          <ul class="seo-device-list">
+            <li><strong>62 percent mobile:</strong> prioritised for Core Web Vitals, mobile first layouts, and sticky call to action elements.</li>
+            <li><strong>28 percent desktop:</strong> driven by B2B buyers, procurement staff, and IT teams researching monitor arms and mounts.</li>
+            <li><strong>10 percent tablet:</strong> often demo units and internal reviews, useful for testing responsive product pages.</li>
+            <li><strong>Primary markets:</strong> Dubai, Abu Dhabi, Sharjah, with early visibility in wider Gulf Cooperation Council searches.</li>
+          </ul>
+
+          <p style="font-size:15px; color:var(--espresso-soft); margin-top:12px;">
+            On page work included:
+          </p>
+          <ul class="seo-device-list">
+            <li>Consolidated and cleaned meta titles and descriptions for all core products and collections.</li>
+            <li>Alt text templates for Shopify product images to support accessibility and search relevance.</li>
+            <li>FAQ [Frequently Asked Questions] schema and product schema for key pages to qualify for rich results.</li>
+            <li>Internal linking from blog style content and landing pages back to high value product pages.</li>
+            <li>Benchmarking against competitors such as Idisplay for wording, structured data, and product positioning.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCOUNTS AND TRACKING ARCHITECTURE -->
+    <section class="section-card" id="accounts" data-metrics="true">
+      <div class="section-header stagger">
+        <div class="section-kicker">Measurement and account architecture</div>
+        <h2>How the TechnoMounts stack was wired for clean data and optimisation</h2>
+        <p class="section-subtitle">
+          A strong performance system is only possible when the accounts behind it are wired correctly.
+          Below is a summary of how Shopify, GA4 [Google Analytics 4], Google Ads, Merchant Center, Google Search Console,
+          Amazon, email tools, Apollo, and CRM [Customer Relationship Management] were aligned so that every campaign is measurable.
+        </p>
+      </div>
+
+      <div class="account-grid stagger">
+        <div class="account-diagram">
+          <h3 style="font-size:18px; margin-bottom:4px;">Acquisition, measurement, and retention map</h3>
+          <p style="font-size:14px; color:var(--espresso-soft);">
+            This overview follows the real TechnoMounts setup: Shopify as the commerce engine,
+            GA4 [Google Analytics 4] as the source of truth for events, and Google Ads, Merchant Center,
+            email platforms, Apollo, and Amazon layered on top.
+          </p>
+
+          <div class="account-diagram-grid">
+            <div class="account-node">
+              <div class="account-node-title">Acquisition, paid and organic</div>
+              <div class="account-node-body">
+                <ul>
+                  <li>Google Ads: Performance Max, Shopping, and Search campaigns linked to GA4 [Google Analytics 4].</li>
+                  <li>Google Merchant Center: feed built from Shopify with optimised titles and images.</li>
+                  <li>Google Search Console: property connected to Shopify domain for query and page data.</li>
+                  <li>LinkedIn and content channels driving additional traffic into landing pages.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="account-node">
+              <div class="account-node-title">Measurement, analytics and events</div>
+              <div class="account-node-body">
+                <ul>
+                  <li>GA4 [Google Analytics 4] property attached to Shopify store with key events defined.</li>
+                  <li>Events such as add to cart, begin checkout, purchase, and lead form submissions tracked.</li>
+                  <li>GA4 [Google Analytics 4] conversions shared with Google Ads for Smart Bidding optimisation.</li>
+                  <li>Looker Studio dashboard built on GA4 [Google Analytics 4] and Google Search Console for reporting.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="account-node">
+              <div class="account-node-title">Retention and sales operations</div>
+              <div class="account-node-body">
+                <ul>
+                  <li>Email automation through Shopify and connected platforms for welcome and abandon flows.</li>
+                  <li>Apollo.io sequences for B2B outreach and enrichment of company level data.</li>
+                  <li>HubSpot or similar CRM [Customer Relationship Management] for longer cycle B2B accounts.</li>
+                  <li>Amazon listing groundwork aligned with Shopify data for marketplace expansion.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p style="font-size:15px; color:var(--espresso-soft); margin-bottom:10px;">
+            The table below shows a simplified readiness score for each major part of the stack,
+            based on the configuration work carried out for TechnoMounts.
+          </p>
+
+          <div class="account-status-grid">
+            <div class="account-status-card">
+              <div class="account-status-label">Shopify theme and tracking</div>
+              <div class="account-status-value">Theme and tracking, 90 percent ready</div>
+              <div>Product templates, collections, and conversion events set up, with room for future speed work.</div>
+              <div class="account-status-track"><div class="account-status-inner" data-bar="90"></div></div>
+            </div>
+
+            <div class="account-status-card">
+              <div class="account-status-label">GA4 [Google Analytics 4] and Google Search Console</div>
+              <div class="account-status-value">Measurement, 88 percent ready</div>
+              <div>Core events, conversions, and search query tracking configured with Looker Studio baseline.</div>
+              <div class="account-status-track"><div class="account-status-inner" data-bar="88"></div></div>
+            </div>
+
+            <div class="account-status-card">
+              <div class="account-status-label">Google Ads and Merchant Center</div>
+              <div class="account-status-value">Advertising stack, 84 percent ready</div>
+              <div>Performance Max, feed, and sitelinks configured with room for more structured testing.</div>
+              <div class="account-status-track"><div class="account-status-inner" data-bar="84"></div></div>
+            </div>
+
+            <div class="account-status-card">
+              <div class="account-status-label">Email, CRM [Customer Relationship Management], and Apollo.io</div>
+              <div class="account-status-value">Lifecycle, 80 percent ready</div>
+              <div>Core journeys and B2B sequences live with high potential for additional segmentation.</div>
+              <div class="account-status-track"><div class="account-status-inner" data-bar="80"></div></div>
+            </div>
+          </div>
+
+          <p style="font-size:14px; color:var(--espresso-soft); margin-top:12px;">
+            This architecture means that future tests, such as new landing pages or offers,
+            can be launched quickly with confidence that their impact on revenue and lead quality
+            will be measurable inside GA4 [Google Analytics 4], Google Ads, and the CRM [Customer Relationship Management] stack.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMAIL AND AMAZON SUMMARY -->
+    <section class="section-card" id="channels" data-metrics="true">
+      <div class="section-header stagger">
+        <div class="section-kicker">Email and Amazon groundwork</div>
+        <h2>Lifecycle and marketplace foundations to support paid and organic traffic</h2>
+        <p class="section-subtitle">
+          While Google Ads and SEO [Search Engine Optimisation] drive the majority of traffic, email automation
+          and Amazon listing work ensure that high intent visitors can be nurtured, retargeted,
+          and eventually serviced through the most appropriate purchase path.
+        </p>
+      </div>
+
+      <div class="channel-grid stagger">
+        <div class="channel-card">
+          <div class="channel-title">Email and lead nurturing</div>
+          <div class="channel-tagline">
+            Welcome journeys, voucher flows, abandoned cart emails, and event follow up sequences.
+          </div>
+          <div class="channel-metric-row">
+            <div class="channel-metric">
+              <span class="channel-metric-label">Contacts added [reporting window]</span>
+              <span class="channel-metric-value" data-counter="640">0</span>
+            </div>
+            <div class="channel-metric">
+              <span class="channel-metric-label">Average open rate</span>
+              <span class="channel-metric-value"><span data-counter="31">0</span>%</span>
+            </div>
+          </div>
+          <div class="channel-metric-row">
+            <div class="channel-metric">
+              <span class="channel-metric-label">Average click rate</span>
+              <span class="channel-metric-value"><span data-counter="6.4">0</span>%</span>
+            </div>
+            <div class="channel-metric">
+              <span class="channel-metric-label">Key journeys live</span>
+              <span class="channel-metric-value">Welcome, voucher, event follow up</span>
+            </div>
+          </div>
+          <div class="channel-note">
+            Email flows focus on education and proof before pushing for direct purchase,
+            which matches the higher average order value of TechnoMounts products.
+          </div>
+        </div>
+
+        <div class="channel-card">
+          <div class="channel-title">Amazon groundwork</div>
+          <div class="channel-tagline">
+            Product listing optimisation prepared to support search based buyers.
+          </div>
+          <div class="channel-metric-row">
+            <div class="channel-metric">
+              <span class="channel-metric-label">Listings mapped for launch</span>
+              <span class="channel-metric-value" data-counter="18">0</span>
+            </div>
+            <div class="channel-metric">
+              <span class="channel-metric-label">Priority keywords researched</span>
+              <span class="channel-metric-value" data-counter="65">0</span>
+            </div>
+          </div>
+          <div class="channel-metric-row">
+            <div class="channel-metric">
+              <span class="channel-metric-label">Image sets prepared</span>
+              <span class="channel-metric-value" data-counter="90">0</span>
+            </div>
+            <div class="channel-metric">
+              <span class="channel-metric-label">Alignment with Shopify</span>
+              <span class="channel-metric-value">Consistent naming and pricing</span>
+            </div>
+          </div>
+          <div class="channel-note">
+            Once Amazon goes live, campaign structures and keyword insights from Google Ads and SEO [Search Engine Optimisation]
+            can be reused to accelerate listing visibility, reviews, and marketplace conversions.
+          </div>
+        </div>
+      </div>
+
+      <p class="footer-note">
+        All numbers on this page are structured as a high performance case study.
+        Replace them with live exports from Google Ads, GA4 [Google Analytics 4], Google Search Console,
+        email platforms, marketplaces, and CRM [Customer Relationship Management] before sharing externally.
+      </p>
+    </section>
+  </div>
+
+  <script>
+    /* =========================
+       Portfolio level automation
+       ========================= */
+
+    // Scroll progress bar
+    (function initScrollProgress(){
+      const bar = document.getElementById("tmProgress");
+      if (!bar) return;
+
+      function update(){
+        const doc = document.documentElement;
+        const scrollTop = doc.scrollTop || document.body.scrollTop;
+        const scrollHeight = (doc.scrollHeight || document.body.scrollHeight) - doc.clientHeight;
+        const p = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        bar.style.width = p.toFixed(2) + "%";
+      }
+
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+    })();
+
+    // ---------------- GALLERY CONFIG ----------------
+    const galleryImages = [
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/01_luxury.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/02_modern.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/03_office.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/04_hotel.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/05_retail.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/06_showroom.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/07_business.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/08_elegant.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/09_minimal.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/10_tablet.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/11_display.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/12_floor.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/13_stand.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/14_mount.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/15_desktop.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/16_wall.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/17_black.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/18_white.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/19_angle.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/20_rotation.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/21_feature.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/22_adjustable.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/23_secure.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/24_anti.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/25_theft.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/26_install.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/27_adhesive.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/28_screws.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/29_tilt.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/30_height.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/31_gallery.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/32_scene.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/33_usage.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/34_customer.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/35_staff.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/36_counter.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/37_hospital.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/38_clinic.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/39_event.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/40_exhibition.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/41_profile.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/42_closeup.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/43_shine.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/44_glossy.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/45_detail.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/46_motion.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/47_focus.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/48_light.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/49_clean.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/50_space.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/51_form.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/52_style.png",
+      "https://moeabdelrazek.github.io/TechnoMounts/Assets/53_visual.png"
+    ];
+
+    // Preload gallery images
+    (function preloadGalleryImages() {
+      galleryImages.forEach(src => {
+        const img = new Image();
+        img.decoding = "async";
+        img.loading = "eager";
+        img.src = src;
+      });
+    })();
+
+    // ---------------- SECTION REVEAL SYSTEM ----------------
+    const sections = document.querySelectorAll(".section-card");
+    const revealed = new WeakSet();
+    const metricsDone = new WeakSet();
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        if (!revealed.has(el)) {
+          revealed.add(el);
+          el.classList.add("is-visible");
+        }
+
+        // Metric sections run once
+        if (el.getAttribute("data-metrics") === "true" && !metricsDone.has(el)) {
+          metricsDone.add(el);
+          animateCounters(el);
+          animateBars(el);
+          animateDonut();
+          animateTrendLine();
+        }
+      });
+    }, { threshold: 0.22 });
+
+    sections.forEach(s => sectionObserver.observe(s));
+
+    // ---------------- COUNTERS ----------------
+    function animateCounters(scopeEl) {
+      const counters = scopeEl.querySelectorAll("[data-counter]");
+      counters.forEach(counter => {
+        const target = parseFloat(counter.getAttribute("data-counter"));
+        if (!isFinite(target)) return;
+
+        const isDecimal = String(target).includes(".");
+        const duration = 1500;
+        const startTime = performance.now();
+
+        function update(now) {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const value = target * progress;
+          counter.textContent = isDecimal ? value.toFixed(1) : Math.round(value);
+          if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+      });
     }
-  });
-},{threshold:.35});
 
-document.querySelectorAll(".section-card").forEach(s=>observer.observe(s));
-
-function animateCounters(){
-  document.querySelectorAll("[data-counter]").forEach(c=>{
-    const t=parseFloat(c.dataset.counter);
-    const d=1600,start=performance.now();
-    function step(now){
-      const p=Math.min((now-start)/d,1);
-      c.textContent=String(t).includes(".")?(t*p).toFixed(1):Math.round(t*p);
-      if(p<1)requestAnimationFrame(step);
+    // ---------------- BAR ANIMATION ----------------
+    function animateBars(scopeEl) {
+      scopeEl.querySelectorAll(".kpi-bar-inner, .ads-bar-inner, .seo-growth-inner, .seo-keyword-inner, .account-status-inner")
+        .forEach(bar => {
+          const v = parseFloat(bar.getAttribute("data-bar") || "0");
+          if (!isNaN(v)) bar.style.width = v + "%";
+        });
     }
-    requestAnimationFrame(step);
-  });
-}
 
-function animateBars(){
-  document.querySelectorAll("[data-bar]").forEach(b=>{
-    b.style.width=b.dataset.bar+"%";
-  });
-}
-</script>
+    // Donut segment animation
+    function animateDonut() {
+      const donut = document.getElementById("donutSegment");
+      if (!donut) return;
+      // Visual fill only, not tied to a percentage metric
+      donut.setAttribute("stroke-dasharray", "72 100");
+    }
 
+    // SEO trend line animation
+    function animateTrendLine() {
+      const trend = document.getElementById("seoTrendLine");
+      if (!trend) return;
+      trend.setAttribute("stroke-dasharray", "140 300");
+    }
+
+    // ---------------- INFINITE CAROUSEL + LIGHTBOX ----------------
+    let carouselIndex = 0;
+    let slideWidth = 0;
+    let trackEl = null;
+    let dots = [];
+    let autoplayId = null;
+    let autoplayPaused = false;
+
+    let lightboxIndex = 0;
+
+    function buildInfiniteCarousel() {
+      const track = document.getElementById("tmCarouselTrack");
+      const dotsWrap = document.getElementById("carouselDots");
+      if (!track || !dotsWrap) return;
+
+      trackEl = track;
+      track.innerHTML = "";
+      dotsWrap.innerHTML = "";
+      dots = [];
+
+      // Clone padding for seamless loop
+      const cloneCount = 3;
+      const extended = [
+        ...galleryImages.slice(-cloneCount),
+        ...galleryImages,
+        ...galleryImages.slice(0, cloneCount)
+      ];
+
+      extended.forEach((src, idx) => {
+        const slide = document.createElement("div");
+        slide.className = "gallery-slide";
+
+        const img = new Image();
+        img.decoding = "async";
+        img.loading = "eager";
+        img.onload = () => img.classList.add("tm-loaded");
+        img.src = src;
+        img.alt = "TechnoMounts gallery item " + (idx + 1);
+
+        slide.appendChild(img);
+
+        const real = ((idx - cloneCount) % galleryImages.length + galleryImages.length) % galleryImages.length;
+        slide.dataset.realIndex = String(real);
+        slide.addEventListener("click", () => openLightbox(real));
+
+        track.appendChild(slide);
+      });
+
+      // Dots for originals only
+      galleryImages.forEach((_, i) => {
+        const dot = document.createElement("div");
+        dot.className = "carousel-dot" + (i === 0 ? " is-active" : "");
+        dot.addEventListener("click", () => {
+          carouselIndex = i;
+          applyCarouselTransform(true);
+          updateDots();
+          pauseAutoplayTemporarily();
+        });
+        dotsWrap.appendChild(dot);
+        dots.push(dot);
+      });
+
+      // Initial sizing and position
+      requestAnimationFrame(() => {
+        measureSlideWidth();
+        applyCarouselTransform(false);
+        startAutoplay();
+      });
+    }
+
+    function measureSlideWidth() {
+      if (!trackEl) return;
+      const anySlide = trackEl.querySelector(".gallery-slide");
+      if (!anySlide) return;
+      slideWidth = anySlide.offsetWidth + 22; // width + gap
+    }
+
+    function applyCarouselTransform(animate) {
+      if (!trackEl) return;
+      const cloneCount = 3;
+      trackEl.style.transition = animate ? "transform 0.55s ease" : "none";
+      trackEl.style.transform = `translateX(${-slideWidth * (carouselIndex + cloneCount)}px)`;
+    }
+
+    function updateDots() {
+      const idx = (carouselIndex + galleryImages.length) % galleryImages.length;
+      dots.forEach((d, i) => d.classList.toggle("is-active", i === idx));
+    }
+
+    function moveSlides(step) {
+      if (!trackEl || slideWidth === 0) return;
+
+      const cloneCount = 3;
+      carouselIndex += step;
+      trackEl.style.transition = "transform 0.55s ease";
+      trackEl.style.transform = `translateX(${-slideWidth * (carouselIndex + cloneCount)}px)`;
+      updateDots();
+
+      // Seamless reset
+      setTimeout(() => {
+        if (!trackEl) return;
+        if (carouselIndex >= galleryImages.length) {
+          trackEl.style.transition = "none";
+          carouselIndex = 0;
+          trackEl.style.transform = `translateX(${-slideWidth * cloneCount}px)`;
+          updateDots();
+        }
+        if (carouselIndex < 0) {
+          trackEl.style.transition = "none";
+          carouselIndex = galleryImages.length - 1;
+          trackEl.style.transform = `translateX(${-slideWidth * (carouselIndex + cloneCount)}px)`;
+          updateDots();
+        }
+      }, 600);
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      autoplayId = setInterval(() => {
+        if (!autoplayPaused) moveSlides(1);
+      }, 3200);
+    }
+
+    function stopAutoplay() {
+      if (autoplayId) clearInterval(autoplayId);
+      autoplayId = null;
+    }
+
+    function pauseAutoplayTemporarily() {
+      autoplayPaused = true;
+      setTimeout(() => { autoplayPaused = false; }, 5500);
+    }
+
+    // Lightbox
+    function openLightbox(realIndex) {
+      const lightbox = document.getElementById("lightbox");
+      const img = document.getElementById("lightboxImage");
+      const counter = document.getElementById("lightboxCounter");
+      if (!lightbox || !img || !counter) return;
+
+      lightboxIndex = realIndex;
+      img.src = galleryImages[lightboxIndex];
+      counter.textContent = `${lightboxIndex + 1} / ${galleryImages.length}`;
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById("lightbox");
+      if (!lightbox) return;
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    function moveLightbox(delta) {
+      const img = document.getElementById("lightboxImage");
+      const counter = document.getElementById("lightboxCounter");
+      if (!img || !counter) return;
+
+      lightboxIndex = (lightboxIndex + delta + galleryImages.length) % galleryImages.length;
+      img.src = galleryImages[lightboxIndex];
+      counter.textContent = `${lightboxIndex + 1} / ${galleryImages.length}`;
+    }
+
+    // Events
+    window.addEventListener("load", () => {
+      buildInfiniteCarousel();
+
+      const lightbox = document.getElementById("lightbox");
+      const closeBtn = document.getElementById("lightboxClose");
+      const prevBtn = document.getElementById("lightboxPrev");
+      const nextBtn = document.getElementById("lightboxNext");
+
+      if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
+      if (prevBtn) prevBtn.addEventListener("click", () => moveLightbox(-1));
+      if (nextBtn) nextBtn.addEventListener("click", () => moveLightbox(1));
+
+      if (lightbox) {
+        lightbox.addEventListener("click", (e) => {
+          if (e.target === lightbox) closeLightbox();
+        });
+      }
+
+      document.addEventListener("keydown", e => {
+        if (!lightbox || !lightbox.classList.contains("is-open")) return;
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowLeft") moveLightbox(-1);
+        if (e.key === "ArrowRight") moveLightbox(1);
+      });
+
+      const carouselPrev = document.getElementById("carouselPrev");
+      const carouselNext = document.getElementById("carouselNext");
+      if (carouselPrev) carouselPrev.addEventListener("click", () => { moveSlides(-1); pauseAutoplayTemporarily(); });
+      if (carouselNext) carouselNext.addEventListener("click", () => { moveSlides(1); pauseAutoplayTemporarily(); });
+
+      const frame = document.getElementById("tmCarouselFrame");
+      if (frame) {
+        frame.addEventListener("mouseenter", () => { autoplayPaused = true; });
+        frame.addEventListener("mouseleave", () => { autoplayPaused = false; });
+      }
+    });
+
+    // Resize safe carousel
+    window.addEventListener("resize", () => {
+      if (!trackEl) return;
+      measureSlideWidth();
+      applyCarouselTransform(false);
+    });
+  </script>
 </body>
 </html>
