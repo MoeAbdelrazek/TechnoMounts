@@ -293,40 +293,49 @@
 
     .carousel-track-wrapper { overflow: hidden; }
 
+    /* No animation: single-image manual viewer */
     .carousel-track {
       display: flex;
-      gap: 22px;
-      will-change: transform;
-      transition: transform 0.55s ease;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
       padding: 0 80px;
+      will-change: auto;
+      transition: none;
+      transform: none;
     }
 
     @media (max-width: 900px) { .carousel-track { padding: 0 36px; } }
 
     .gallery-slide {
-      flex: 0 0 420px;
-      height: 260px;
+      flex: 0 0 min(980px, 86vw);
+      height: 520px;
       border-radius: 24px;
       overflow: hidden;
       background: #fff;
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
       cursor: pointer;
-      transform-origin: center;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      transform: none;
+      transition: none;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-slide { flex: 0 0 86vw; height: 300px; }
     }
 
     .gallery-slide:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 22px 52px rgba(0, 0, 0, 0.23);
+      transform: none;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
     }
 
     .gallery-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0;
-      transition: opacity 0.4s ease-out;
+      opacity: 1;
+      transition: none;
       transform: translateZ(0);
+      display: block;
     }
 
     .gallery-slide img.tm-loaded { opacity: 1; }
@@ -336,6 +345,8 @@
       justify-content: center;
       gap: 8px;
       margin-top: 18px;
+      flex-wrap: wrap;
+      padding: 0 18px;
     }
 
     .carousel-dot {
@@ -343,7 +354,8 @@
       height: 7px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.55);
-      transition: width 0.25s ease, background 0.25s ease;
+      transition: none;
+      cursor: pointer;
     }
 
     .carousel-dot.is-active {
@@ -376,21 +388,20 @@
       cursor: pointer;
       font-size: 22px;
       color: var(--espresso);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      transition: none;
       z-index: 5;
     }
 
     .carousel-nav:hover {
-      transform: translateY(-50%) scale(1.06);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.24);
-      background: #ffffff;
+      transform: translateY(-50%);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+      background: rgba(255, 255, 255, 0.95);
     }
 
     .carousel-nav.prev { left: 26px; }
     .carousel-nav.next { right: 26px; }
 
     @media (max-width: 900px) {
-      .gallery-slide { flex: 0 0 80vw; height: 220px; }
       .carousel-nav.prev { left: 10px; }
       .carousel-nav.next { right: 10px; }
     }
@@ -1081,7 +1092,7 @@
             Positions TechnoMounts as the premium choice for secure tablet deployments at exhibitions and expos,
             with messaging crafted for event agencies and rentals.
           </p>
-         
+
         </article>
 
         <article class="lp-card">
@@ -1092,7 +1103,7 @@
             Voucher based funnel that combines product education with a first time buyer incentive,
             optimised to capture retail, events, and procurement leads.
           </p>
-        
+
         </article>
 
         <article class="lp-card">
@@ -1103,7 +1114,7 @@
             Dedicated product page for BalanceBox 400, targeted at schools and corporate meeting rooms
             that need smooth, manual height adjustment for large screens.
           </p>
-         
+
         </article>
 
         <article class="lp-card">
@@ -1114,7 +1125,7 @@
             Hub page for event centric deployments that consolidates stands, rentals, and accessories
             for agencies that manage repeated events.
           </p>
-          
+
         </article>
 
         <article class="lp-card">
@@ -1125,7 +1136,7 @@
             Focused on universities, schools, and training centres that need controlled tablet deployment
             for labs, reception areas, and digital libraries.
           </p>
-          
+
         </article>
 
         <article class="lp-card">
@@ -1136,7 +1147,7 @@
             Built for self checkout, in store catalogues, and assisted selling,
             with copy tailored to retail operations and chain buyers.
           </p>
-         
+
         </article>
 
         <article class="lp-card">
@@ -1147,7 +1158,7 @@
             Healthcare focused landing page for clinics, hospitals, and diagnostic centres that require
             secure, cleanable tablet stands for patient and staff use.
           </p>
-          
+
         </article>
 
         <article class="lp-card">
@@ -1158,7 +1169,7 @@
             Category page for multiple floor standing solutions that supports comparison by height,
             base design, and enclosure type.
           </p>
-          
+
         </article>
 
         <article class="lp-card">
@@ -1169,7 +1180,7 @@
             Stand level view that focuses on enclosure security, materials, and cable management,
             aligned with information security and operations stakeholders.
           </p>
-          
+
         </article>
 
         <article class="lp-card">
@@ -1180,7 +1191,7 @@
             Landing page for gas spring monitor arms and desktop tablet mounts that speaks directly to IT,
             workspace planners, and ergonomic buyers.
           </p>
-          
+
         </article>
 
         <article class="lp-card">
@@ -1191,7 +1202,7 @@
             Focused on hotels, restaurants, and lounges that require elegant tablet stands for check in,
             menus, and guest engagement.
           </p>
-          
+
         </article>
       </div>
     </section>
@@ -1795,16 +1806,6 @@
       "https://moeabdelrazek.github.io/TechnoMounts/Assets/53_visual.png"
     ];
 
-    // Preload gallery images
-    (function preloadGalleryImages() {
-      galleryImages.forEach(src => {
-        const img = new Image();
-        img.decoding = "async";
-        img.loading = "eager";
-        img.src = src;
-      });
-    })();
-
     // ---------------- SECTION REVEAL SYSTEM ----------------
     const sections = document.querySelectorAll(".section-card");
     const revealed = new WeakSet();
@@ -1866,7 +1867,6 @@
     function animateDonut() {
       const donut = document.getElementById("donutSegment");
       if (!donut) return;
-      // Visual fill only, not tied to a percentage metric
       donut.setAttribute("stroke-dasharray", "72 100");
     }
 
@@ -1877,139 +1877,78 @@
       trend.setAttribute("stroke-dasharray", "140 300");
     }
 
-    // ---------------- INFINITE CAROUSEL + LIGHTBOX ----------------
+    // ---------------- MANUAL GALLERY (NO ANIMATION, FAST FIRST LOAD) ----------------
     let carouselIndex = 0;
-    let slideWidth = 0;
-    let trackEl = null;
     let dots = [];
-    let autoplayId = null;
-    let autoplayPaused = false;
+    let mainImgEl = null;
 
     let lightboxIndex = 0;
 
-    function buildInfiniteCarousel() {
+    function buildManualGallery() {
       const track = document.getElementById("tmCarouselTrack");
       const dotsWrap = document.getElementById("carouselDots");
       if (!track || !dotsWrap) return;
 
-      trackEl = track;
       track.innerHTML = "";
       dotsWrap.innerHTML = "";
       dots = [];
 
-      // Clone padding for seamless loop
-      const cloneCount = 3;
-      const extended = [
-        ...galleryImages.slice(-cloneCount),
-        ...galleryImages,
-        ...galleryImages.slice(0, cloneCount)
-      ];
+      const slide = document.createElement("div");
+      slide.className = "gallery-slide";
 
-      extended.forEach((src, idx) => {
-        const slide = document.createElement("div");
-        slide.className = "gallery-slide";
+      const img = new Image();
+      img.decoding = "async";
+      img.loading = "eager";
+      img.fetchPriority = "high";
+      img.alt = "TechnoMounts gallery item 1";
+      img.onload = () => {
+        img.classList.add("tm-loaded");
+        warmPreloadAround(carouselIndex);
+      };
+      img.src = galleryImages[0];
 
-        const img = new Image();
-        img.decoding = "async";
-        img.loading = "eager";
-        img.onload = () => img.classList.add("tm-loaded");
-        img.src = src;
-        img.alt = "TechnoMounts gallery item " + (idx + 1);
+      slide.appendChild(img);
+      slide.addEventListener("click", () => openLightbox(carouselIndex));
 
-        slide.appendChild(img);
+      track.appendChild(slide);
+      mainImgEl = img;
 
-        const real = ((idx - cloneCount) % galleryImages.length + galleryImages.length) % galleryImages.length;
-        slide.dataset.realIndex = String(real);
-        slide.addEventListener("click", () => openLightbox(real));
-
-        track.appendChild(slide);
-      });
-
-      // Dots for originals only
       galleryImages.forEach((_, i) => {
         const dot = document.createElement("div");
         dot.className = "carousel-dot" + (i === 0 ? " is-active" : "");
-        dot.addEventListener("click", () => {
-          carouselIndex = i;
-          applyCarouselTransform(true);
-          updateDots();
-          pauseAutoplayTemporarily();
-        });
+        dot.addEventListener("click", () => setGalleryIndex(i));
         dotsWrap.appendChild(dot);
         dots.push(dot);
       });
-
-      // Initial sizing and position
-      requestAnimationFrame(() => {
-        measureSlideWidth();
-        applyCarouselTransform(false);
-        startAutoplay();
-      });
     }
 
-    function measureSlideWidth() {
-      if (!trackEl) return;
-      const anySlide = trackEl.querySelector(".gallery-slide");
-      if (!anySlide) return;
-      slideWidth = anySlide.offsetWidth + 22; // width + gap
-    }
+    function setGalleryIndex(i) {
+      if (!mainImgEl) return;
+      const nextIndex = (i + galleryImages.length) % galleryImages.length;
+      carouselIndex = nextIndex;
 
-    function applyCarouselTransform(animate) {
-      if (!trackEl) return;
-      const cloneCount = 3;
-      trackEl.style.transition = animate ? "transform 0.55s ease" : "none";
-      trackEl.style.transform = `translateX(${-slideWidth * (carouselIndex + cloneCount)}px)`;
+      mainImgEl.classList.remove("tm-loaded");
+      mainImgEl.alt = "TechnoMounts gallery item " + (carouselIndex + 1);
+      mainImgEl.src = galleryImages[carouselIndex];
+
+      updateDots();
+      warmPreloadAround(carouselIndex);
     }
 
     function updateDots() {
-      const idx = (carouselIndex + galleryImages.length) % galleryImages.length;
-      dots.forEach((d, i) => d.classList.toggle("is-active", i === idx));
+      dots.forEach((d, i) => d.classList.toggle("is-active", i === carouselIndex));
     }
 
-    function moveSlides(step) {
-      if (!trackEl || slideWidth === 0) return;
-
-      const cloneCount = 3;
-      carouselIndex += step;
-      trackEl.style.transition = "transform 0.55s ease";
-      trackEl.style.transform = `translateX(${-slideWidth * (carouselIndex + cloneCount)}px)`;
-      updateDots();
-
-      // Seamless reset
-      setTimeout(() => {
-        if (!trackEl) return;
-        if (carouselIndex >= galleryImages.length) {
-          trackEl.style.transition = "none";
-          carouselIndex = 0;
-          trackEl.style.transform = `translateX(${-slideWidth * cloneCount}px)`;
-          updateDots();
-        }
-        if (carouselIndex < 0) {
-          trackEl.style.transition = "none";
-          carouselIndex = galleryImages.length - 1;
-          trackEl.style.transform = `translateX(${-slideWidth * (carouselIndex + cloneCount)}px)`;
-          updateDots();
-        }
-      }, 600);
-    }
-
-    function startAutoplay() {
-      stopAutoplay();
-      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-      autoplayId = setInterval(() => {
-        if (!autoplayPaused) moveSlides(1);
-      }, 3200);
-    }
-
-    function stopAutoplay() {
-      if (autoplayId) clearInterval(autoplayId);
-      autoplayId = null;
-    }
-
-    function pauseAutoplayTemporarily() {
-      autoplayPaused = true;
-      setTimeout(() => { autoplayPaused = false; }, 5500);
+    function warmPreloadAround(center) {
+      // Keep initial load fast: only warm up a few adjacent images for instant manual browsing
+      const offsets = [1, 2, 3, -1, -2];
+      offsets.forEach(off => {
+        const idx = (center + off + galleryImages.length) % galleryImages.length;
+        const im = new Image();
+        im.decoding = "async";
+        im.loading = "eager";
+        im.src = galleryImages[idx];
+      });
     }
 
     // Lightbox
@@ -2047,7 +1986,7 @@
 
     // Events
     window.addEventListener("load", () => {
-      buildInfiniteCarousel();
+      buildManualGallery();
 
       const lightbox = document.getElementById("lightbox");
       const closeBtn = document.getElementById("lightboxClose");
@@ -2073,21 +2012,8 @@
 
       const carouselPrev = document.getElementById("carouselPrev");
       const carouselNext = document.getElementById("carouselNext");
-      if (carouselPrev) carouselPrev.addEventListener("click", () => { moveSlides(-1); pauseAutoplayTemporarily(); });
-      if (carouselNext) carouselNext.addEventListener("click", () => { moveSlides(1); pauseAutoplayTemporarily(); });
-
-      const frame = document.getElementById("tmCarouselFrame");
-      if (frame) {
-        frame.addEventListener("mouseenter", () => { autoplayPaused = true; });
-        frame.addEventListener("mouseleave", () => { autoplayPaused = false; });
-      }
-    });
-
-    // Resize safe carousel
-    window.addEventListener("resize", () => {
-      if (!trackEl) return;
-      measureSlideWidth();
-      applyCarouselTransform(false);
+      if (carouselPrev) carouselPrev.addEventListener("click", () => setGalleryIndex(carouselIndex - 1));
+      if (carouselNext) carouselNext.addEventListener("click", () => setGalleryIndex(carouselIndex + 1));
     });
   </script>
 </body>
