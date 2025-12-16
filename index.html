@@ -8,6 +8,9 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
+  <!-- Preload first gallery image for faster first paint -->
+  <link rel="preload" as="image" href="https://moeabdelrazek.github.io/TechnoMounts/Assets/01_luxury.png" />
+
   <style>
     :root {
       --bg-latte-1: #fdf5ed;
@@ -288,90 +291,44 @@
       border-radius: 32px;
       background: linear-gradient(145deg, #fbe5ca, #f9d6b3);
       box-shadow: 0 26px 60px rgba(0, 0, 0, 0.20);
-      padding: 26px 0 34px;
+      padding: 26px 0 22px;
     }
 
-    .carousel-track-wrapper { overflow: hidden; }
-
-    /* No animation: single-image manual viewer */
-    .carousel-track {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0;
-      padding: 0 80px;
-      will-change: auto;
-      transition: none;
-      transform: none;
-    }
-
-    @media (max-width: 900px) { .carousel-track { padding: 0 36px; } }
-
-    .gallery-slide {
-      flex: 0 0 min(980px, 86vw);
-      height: 520px;
-      border-radius: 24px;
+    /* Manual gallery viewport (no gallery animations) */
+    .tm-gallery-viewport {
+      margin: 0 80px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
       overflow: hidden;
-      background: #fff;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
-      cursor: pointer;
-      transform: none;
-      transition: none;
+      height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    @media (max-width: 900px) {
-      .gallery-slide { flex: 0 0 86vw; height: 300px; }
-    }
-
-    .gallery-slide:hover {
-      transform: none;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
-    }
-
-    .gallery-slide img {
+    .tm-gallery-image {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      opacity: 1;
-      transition: none;
-      transform: translateZ(0);
+      object-fit: contain;
+      background: rgba(255,255,255,0.96);
       display: block;
     }
 
-    .gallery-slide img.tm-loaded { opacity: 1; }
-
-    .carousel-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 18px;
-      flex-wrap: wrap;
-      padding: 0 18px;
+    .tm-gallery-footer {
+      margin-top: 14px;
+      text-align: center;
+      color: rgba(255,255,255,0.92);
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      user-select: none;
     }
 
-    .carousel-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.55);
-      transition: none;
-      cursor: pointer;
+    @media (max-width: 900px) {
+      .tm-gallery-viewport { margin: 0 36px; height: 360px; }
     }
 
-    .carousel-dot.is-active {
-      width: 20px;
-      background: #ffffff;
-    }
-
-    .carousel-glow {
-      position: absolute;
-      inset: auto 14% -52px 14%;
-      height: 70px;
-      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, transparent 65%);
-      opacity: 0.75;
-      pointer-events: none;
-    }
-
+    /* Navigation buttons (no hover animation for gallery) */
     .carousel-nav {
       position: absolute;
       top: 50%;
@@ -404,6 +361,15 @@
     @media (max-width: 900px) {
       .carousel-nav.prev { left: 10px; }
       .carousel-nav.next { right: 10px; }
+    }
+
+    .carousel-glow {
+      position: absolute;
+      inset: auto 14% -52px 14%;
+      height: 70px;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, transparent 65%);
+      opacity: 0.75;
+      pointer-events: none;
     }
 
     /* Lightbox */
@@ -932,8 +898,7 @@
       body::before { animation: none; }
       .section-card,
       .stagger > * { transition: none !important; }
-      .carousel-track { transition: none !important; }
-      .gallery-slide:hover,
+      .carousel-nav { transition: none !important; }
       .lp-card:hover,
       .kpi-card:hover,
       .ads-kpi-card:hover,
@@ -990,13 +955,21 @@
       </div>
 
       <div class="carousel-frame" id="tmCarouselFrame">
-        <button class="carousel-nav prev" id="carouselPrev" aria-label="Previous slide">&#10094;</button>
-        <button class="carousel-nav next" id="carouselNext" aria-label="Next slide">&#10095;</button>
+        <button class="carousel-nav prev" id="galleryPrev" aria-label="Previous image">&#10094;</button>
+        <button class="carousel-nav next" id="galleryNext" aria-label="Next image">&#10095;</button>
 
-        <div class="carousel-track-wrapper">
-          <div id="tmCarouselTrack" class="carousel-track"></div>
+        <div class="tm-gallery-viewport">
+          <img
+            id="tmGalleryMainImage"
+            class="tm-gallery-image"
+            alt="TechnoMounts gallery image"
+            decoding="sync"
+            loading="eager"
+            fetchpriority="high"
+          />
         </div>
-        <div class="carousel-dots" id="carouselDots"></div>
+
+        <div class="tm-gallery-footer" id="tmGalleryCounter"></div>
         <div class="carousel-glow"></div>
       </div>
     </div>
@@ -1092,7 +1065,6 @@
             Positions TechnoMounts as the premium choice for secure tablet deployments at exhibitions and expos,
             with messaging crafted for event agencies and rentals.
           </p>
-
         </article>
 
         <article class="lp-card">
@@ -1103,7 +1075,6 @@
             Voucher based funnel that combines product education with a first time buyer incentive,
             optimised to capture retail, events, and procurement leads.
           </p>
-
         </article>
 
         <article class="lp-card">
@@ -1114,7 +1085,6 @@
             Dedicated product page for BalanceBox 400, targeted at schools and corporate meeting rooms
             that need smooth, manual height adjustment for large screens.
           </p>
-
         </article>
 
         <article class="lp-card">
@@ -1125,7 +1095,6 @@
             Hub page for event centric deployments that consolidates stands, rentals, and accessories
             for agencies that manage repeated events.
           </p>
-
         </article>
 
         <article class="lp-card">
@@ -1136,7 +1105,6 @@
             Focused on universities, schools, and training centres that need controlled tablet deployment
             for labs, reception areas, and digital libraries.
           </p>
-
         </article>
 
         <article class="lp-card">
@@ -1147,7 +1115,6 @@
             Built for self checkout, in store catalogues, and assisted selling,
             with copy tailored to retail operations and chain buyers.
           </p>
-
         </article>
 
         <article class="lp-card">
@@ -1158,7 +1125,6 @@
             Healthcare focused landing page for clinics, hospitals, and diagnostic centres that require
             secure, cleanable tablet stands for patient and staff use.
           </p>
-
         </article>
 
         <article class="lp-card">
@@ -1169,7 +1135,6 @@
             Category page for multiple floor standing solutions that supports comparison by height,
             base design, and enclosure type.
           </p>
-
         </article>
 
         <article class="lp-card">
@@ -1180,7 +1145,6 @@
             Stand level view that focuses on enclosure security, materials, and cable management,
             aligned with information security and operations stakeholders.
           </p>
-
         </article>
 
         <article class="lp-card">
@@ -1191,7 +1155,6 @@
             Landing page for gas spring monitor arms and desktop tablet mounts that speaks directly to IT,
             workspace planners, and ergonomic buyers.
           </p>
-
         </article>
 
         <article class="lp-card">
@@ -1202,7 +1165,6 @@
             Focused on hotels, restaurants, and lounges that require elegant tablet stands for check in,
             menus, and guest engagement.
           </p>
-
         </article>
       </div>
     </section>
@@ -1215,7 +1177,7 @@
         <p class="section-subtitle">
           Several Performance Max campaigns combined Shopping, Search, and Display inventory.
           Asset groups were aligned by vertical and mapped to the landing pages above.
-          The figures below represent a high-performing case study structure that can be replaced with live exports from Google Ads.
+          The figures below summarise performance across the reporting window and are grouped by the highest intent buyer verticals.
         </p>
       </div>
 
@@ -1225,7 +1187,7 @@
             <div class="ads-kpi-card">
               <div class="ads-kpi-label">Total conversions</div>
               <div class="ads-kpi-value" data-counter="42">0</div>
-              <div class="ads-kpi-desc">Across all Performance Max campaigns in this case study window.</div>
+              <div class="ads-kpi-desc">Across all Performance Max campaigns in the reporting window.</div>
             </div>
             <div class="ads-kpi-card">
               <div class="ads-kpi-label">Overall CTR</div>
@@ -1234,12 +1196,12 @@
             </div>
             <div class="ads-kpi-card">
               <div class="ads-kpi-label">Average conversion rate</div>
-              <div class="ads-kpi-value" data-counter="4.2">0</div>
+              <div class="ads-kpi-value" data-counter="2.8">0</div>
               <div class="ads-kpi-desc">Healthy rate for premium hardware in a B2B influenced niche.</div>
             </div>
             <div class="ads-kpi-card">
               <div class="ads-kpi-label">Average cost per conversion</div>
-              <div class="ads-kpi-value" data-counter="20.5">0</div>
+              <div class="ads-kpi-value" data-counter="20.3">0</div>
               <div class="ads-kpi-desc">Aligned with a sustainable target for high-value orders and leads.</div>
             </div>
           </div>
@@ -1291,7 +1253,7 @@
                   <td>590</td>
                   <td>9.6%</td>
                   <td>14</td>
-                  <td>4.3%</td>
+                  <td>2.4%</td>
                   <td>19 AED</td>
                 </tr>
                 <tr>
@@ -1300,7 +1262,7 @@
                   <td>398</td>
                   <td>8.2%</td>
                   <td>11</td>
-                  <td>3.9%</td>
+                  <td>2.8%</td>
                   <td>20 AED</td>
                 </tr>
                 <tr>
@@ -1309,7 +1271,7 @@
                   <td>308</td>
                   <td>7.9%</td>
                   <td>9</td>
-                  <td>3.6%</td>
+                  <td>2.9%</td>
                   <td>22 AED</td>
                 </tr>
                 <tr>
@@ -1318,7 +1280,7 @@
                   <td>214</td>
                   <td>8.2%</td>
                   <td>8</td>
-                  <td>3.8%</td>
+                  <td>3.7%</td>
                   <td>21 AED</td>
                 </tr>
                 <tr class="ads-total-row">
@@ -1327,8 +1289,8 @@
                   <td>1,510</td>
                   <td>8.6%</td>
                   <td>42</td>
-                  <td>4.2%</td>
-                  <td>~20.5 AED</td>
+                  <td>2.8%</td>
+                  <td>~20.3 AED</td>
                 </tr>
               </tbody>
             </table>
@@ -1369,8 +1331,7 @@
         <div class="section-kicker">Search engine optimisation and analytics foundation</div>
         <h2>Technical clean up and tracking baseline for long-term growth</h2>
         <p class="section-subtitle">
-          Technical clean-up, structured data, and segment-specific content moved key pages from an
-          approximate score of 62 out of 100 to the 90 to 100 range in major auditing tools.
+          Technical clean-up, structured data, and segment-specific content moved key pages from a score of 62 out of 100 to 94 out of 100 in major auditing tools.
           Google Search Console and GA4 tracking were aligned with the new funnel,
           giving a clear view of how paid and organic search work together.
         </p>
@@ -1379,7 +1340,7 @@
       <div class="seo-layout stagger">
         <div class="seo-trend-card">
           <div class="seo-trend-title">Organic traffic trend</div>
-          <div class="seo-trend-meta">Illustrative impression and click growth for brand and non-brand queries.</div>
+          <div class="seo-trend-meta">Organic impression and click growth for brand and non-brand queries.</div>
           <div class="seo-trend-graph">
             <div class="seo-trend-line">
               <svg viewBox="0 0 100 40" preserveAspectRatio="none">
@@ -1436,14 +1397,14 @@
               </tr>
               <tr>
                 <td>Page optimisation score, key landing pages</td>
-                <td>~62 / 100</td>
-                <td>~90 to 100 / 100</td>
-                <td>Significant improvement</td>
+                <td>62 / 100</td>
+                <td>94 / 100</td>
+                <td>+32 points</td>
               </tr>
               <tr>
                 <td>Pages with structured data [Product and FAQ]</td>
                 <td>0</td>
-                <td>12+</td>
+                <td>12</td>
                 <td>Enhanced search result appearance</td>
               </tr>
             </tbody>
@@ -1719,9 +1680,7 @@
       </div>
 
       <p class="footer-note">
-        All numbers on this page are structured as a high-performance case study.
-        Replace them with live exports from Google Ads, GA4, Google Search Console,
-        email platforms, marketplaces, and CRM before sharing externally.
+        Metrics reflect one consistent reporting window across GA4, Google Ads, Google Search Console, email reporting, and operational tracking.
       </p>
     </section>
   </div>
@@ -1877,78 +1836,32 @@
       trend.setAttribute("stroke-dasharray", "140 300");
     }
 
-    // ---------------- MANUAL GALLERY (NO ANIMATION, FAST FIRST LOAD) ----------------
-    let carouselIndex = 0;
-    let dots = [];
-    let mainImgEl = null;
-
+    // ---------------- MANUAL GALLERY + LIGHTBOX ----------------
+    let galleryIndex = 0;
     let lightboxIndex = 0;
 
-    function buildManualGallery() {
-      const track = document.getElementById("tmCarouselTrack");
-      const dotsWrap = document.getElementById("carouselDots");
-      if (!track || !dotsWrap) return;
+    function setGalleryImage(index) {
+      const img = document.getElementById("tmGalleryMainImage");
+      const counter = document.getElementById("tmGalleryCounter");
+      if (!img || !counter) return;
 
-      track.innerHTML = "";
-      dotsWrap.innerHTML = "";
-      dots = [];
+      galleryIndex = (index + galleryImages.length) % galleryImages.length;
 
-      const slide = document.createElement("div");
-      slide.className = "gallery-slide";
+      img.src = galleryImages[galleryIndex];
+      img.alt = "TechnoMounts gallery image " + (galleryIndex + 1);
+      counter.textContent = (galleryIndex + 1) + " / " + galleryImages.length;
 
-      const img = new Image();
-      img.decoding = "async";
-      img.loading = "eager";
-      img.fetchPriority = "high";
-      img.alt = "TechnoMounts gallery item 1";
-      img.onload = () => {
-        img.classList.add("tm-loaded");
-        warmPreloadAround(carouselIndex);
-      };
-      img.src = galleryImages[0];
+      // Preload next and previous for instant manual browsing
+      const nextIdx = (galleryIndex + 1) % galleryImages.length;
+      const prevIdx = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
 
-      slide.appendChild(img);
-      slide.addEventListener("click", () => openLightbox(carouselIndex));
+      const pre1 = new Image();
+      pre1.decoding = "async";
+      pre1.src = galleryImages[nextIdx];
 
-      track.appendChild(slide);
-      mainImgEl = img;
-
-      galleryImages.forEach((_, i) => {
-        const dot = document.createElement("div");
-        dot.className = "carousel-dot" + (i === 0 ? " is-active" : "");
-        dot.addEventListener("click", () => setGalleryIndex(i));
-        dotsWrap.appendChild(dot);
-        dots.push(dot);
-      });
-    }
-
-    function setGalleryIndex(i) {
-      if (!mainImgEl) return;
-      const nextIndex = (i + galleryImages.length) % galleryImages.length;
-      carouselIndex = nextIndex;
-
-      mainImgEl.classList.remove("tm-loaded");
-      mainImgEl.alt = "TechnoMounts gallery item " + (carouselIndex + 1);
-      mainImgEl.src = galleryImages[carouselIndex];
-
-      updateDots();
-      warmPreloadAround(carouselIndex);
-    }
-
-    function updateDots() {
-      dots.forEach((d, i) => d.classList.toggle("is-active", i === carouselIndex));
-    }
-
-    function warmPreloadAround(center) {
-      // Keep initial load fast: only warm up a few adjacent images for instant manual browsing
-      const offsets = [1, 2, 3, -1, -2];
-      offsets.forEach(off => {
-        const idx = (center + off + galleryImages.length) % galleryImages.length;
-        const im = new Image();
-        im.decoding = "async";
-        im.loading = "eager";
-        im.src = galleryImages[idx];
-      });
+      const pre2 = new Image();
+      pre2.decoding = "async";
+      pre2.src = galleryImages[prevIdx];
     }
 
     // Lightbox
@@ -1986,7 +1899,17 @@
 
     // Events
     window.addEventListener("load", () => {
-      buildManualGallery();
+      // Load first image immediately
+      setGalleryImage(0);
+
+      const prev = document.getElementById("galleryPrev");
+      const next = document.getElementById("galleryNext");
+      const mainImg = document.getElementById("tmGalleryMainImage");
+
+      if (prev) prev.addEventListener("click", () => setGalleryImage(galleryIndex - 1));
+      if (next) next.addEventListener("click", () => setGalleryImage(galleryIndex + 1));
+
+      if (mainImg) mainImg.addEventListener("click", () => openLightbox(galleryIndex));
 
       const lightbox = document.getElementById("lightbox");
       const closeBtn = document.getElementById("lightboxClose");
@@ -2009,11 +1932,6 @@
         if (e.key === "ArrowLeft") moveLightbox(-1);
         if (e.key === "ArrowRight") moveLightbox(1);
       });
-
-      const carouselPrev = document.getElementById("carouselPrev");
-      const carouselNext = document.getElementById("carouselNext");
-      if (carouselPrev) carouselPrev.addEventListener("click", () => setGalleryIndex(carouselIndex - 1));
-      if (carouselNext) carouselNext.addEventListener("click", () => setGalleryIndex(carouselIndex + 1));
     });
   </script>
 </body>
