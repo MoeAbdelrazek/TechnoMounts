@@ -8,8 +8,9 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Preload first gallery image for faster first paint -->
+  <!-- Preload first TWO gallery images for faster first paint -->
   <link rel="preload" as="image" href="https://moeabdelrazek.github.io/TechnoMounts/Assets/01_luxury.png" />
+  <link rel="preload" as="image" href="https://moeabdelrazek.github.io/TechnoMounts/Assets/02_modern.png" />
 
   <style>
     :root {
@@ -294,25 +295,51 @@
       padding: 26px 0 22px;
     }
 
-    /* Manual gallery viewport (no gallery animations) */
+    /* Gallery viewport (two images per view) */
     .tm-gallery-viewport {
       margin: 0 80px;
       border-radius: 26px;
-      background: rgba(255,255,255,0.92);
+      background:
+        radial-gradient(circle at 18% 24%, rgba(240,155,87,0.12), transparent 44%),
+        radial-gradient(circle at 82% 70%, rgba(35,56,89,0.10), transparent 46%),
+        linear-gradient(145deg, rgba(255,255,255,0.92), rgba(253,245,237,0.92));
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
       overflow: hidden;
       height: 520px;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 14px;
+    }
+
+    .tm-gallery-duo {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .tm-gallery-panel {
+      width: 100%;
+      height: 100%;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.10);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-in;
     }
 
     .tm-gallery-image {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      background: rgba(255,255,255,0.96);
+      object-fit: contain; /* keeps full length, minimal cropping */
       display: block;
+      background: transparent;
     }
 
     .tm-gallery-footer {
@@ -324,8 +351,19 @@
       user-select: none;
     }
 
+    @media (max-width: 1100px) {
+      .tm-gallery-viewport { margin: 0 50px; }
+    }
+
     @media (max-width: 900px) {
-      .tm-gallery-viewport { margin: 0 36px; height: 360px; }
+      .tm-gallery-viewport { margin: 0 36px; height: 380px; padding: 12px; }
+      .tm-gallery-duo { gap: 10px; }
+    }
+
+    @media (max-width: 720px) {
+      .tm-gallery-viewport { margin: 0 18px; height: 520px; }
+      .tm-gallery-duo { grid-template-columns: 1fr; }
+      .tm-gallery-panel { cursor: zoom-in; }
     }
 
     /* Navigation buttons (no hover animation for gallery) */
@@ -955,18 +993,32 @@
       </div>
 
       <div class="carousel-frame" id="tmCarouselFrame">
-        <button class="carousel-nav prev" id="galleryPrev" aria-label="Previous image">&#10094;</button>
-        <button class="carousel-nav next" id="galleryNext" aria-label="Next image">&#10095;</button>
+        <button class="carousel-nav prev" id="galleryPrev" aria-label="Previous images">&#10094;</button>
+        <button class="carousel-nav next" id="galleryNext" aria-label="Next images">&#10095;</button>
 
         <div class="tm-gallery-viewport">
-          <img
-            id="tmGalleryMainImage"
-            class="tm-gallery-image"
-            alt="TechnoMounts gallery image"
-            decoding="sync"
-            loading="eager"
-            fetchpriority="high"
-          />
+          <div class="tm-gallery-duo" aria-label="Gallery images">
+            <div class="tm-gallery-panel" id="panelLeft" title="Click to open">
+              <img
+                id="tmGalleryImageLeft"
+                class="tm-gallery-image"
+                alt="TechnoMounts gallery image"
+                decoding="async"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </div>
+            <div class="tm-gallery-panel" id="panelRight" title="Click to open">
+              <img
+                id="tmGalleryImageRight"
+                class="tm-gallery-image"
+                alt="TechnoMounts gallery image"
+                decoding="async"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </div>
+          </div>
         </div>
 
         <div class="tm-gallery-footer" id="tmGalleryCounter"></div>
@@ -1538,7 +1590,7 @@
                 <ul>
                   <li>GA4 property attached to Shopify store with key events defined.</li>
                   <li>Events such as add to cart, begin checkout, purchase, and lead form submissions tracked.</li>
-                  <li>GA4conversions shared with Google Ads for Smart Bidding optimisation.</li>
+                  <li>GA4 conversions shared with Google Ads for Smart Bidding optimisation.</li>
                   <li>Looker Studio dashboard built on GA4 and Google Search Console for reporting.</li>
                 </ul>
               </div>
@@ -1779,7 +1831,6 @@
           el.classList.add("is-visible");
         }
 
-        // Metric sections run once
         if (el.getAttribute("data-metrics") === "true" && !metricsDone.has(el)) {
           metricsDone.add(el);
           animateCounters(el);
@@ -1822,46 +1873,62 @@
         });
     }
 
-    // Donut segment animation
     function animateDonut() {
       const donut = document.getElementById("donutSegment");
       if (!donut) return;
       donut.setAttribute("stroke-dasharray", "72 100");
     }
 
-    // SEO trend line animation
     function animateTrendLine() {
       const trend = document.getElementById("seoTrendLine");
       if (!trend) return;
       trend.setAttribute("stroke-dasharray", "140 300");
     }
 
-    // ---------------- MANUAL GALLERY + LIGHTBOX ----------------
-    let galleryIndex = 0;
+    // ---------------- TWO-IMAGE GALLERY + LIGHTBOX ----------------
+    const STEP = 2; // move by two images per click
+    let galleryIndex = 0; // index of LEFT image (pair start)
     let lightboxIndex = 0;
 
-    function setGalleryImage(index) {
-      const img = document.getElementById("tmGalleryMainImage");
+    function safeIndex(i) {
+      return (i + galleryImages.length) % galleryImages.length;
+    }
+
+    function preloadIndices(indices) {
+      indices.forEach(i => {
+        const img = new Image();
+        img.decoding = "async";
+        img.src = galleryImages[safeIndex(i)];
+      });
+    }
+
+    function setGalleryImages(startIndex) {
+      const leftImg = document.getElementById("tmGalleryImageLeft");
+      const rightImg = document.getElementById("tmGalleryImageRight");
       const counter = document.getElementById("tmGalleryCounter");
-      if (!img || !counter) return;
+      if (!leftImg || !rightImg || !counter) return;
 
-      galleryIndex = (index + galleryImages.length) % galleryImages.length;
+      galleryIndex = safeIndex(startIndex);
 
-      img.src = galleryImages[galleryIndex];
-      img.alt = "TechnoMounts gallery image " + (galleryIndex + 1);
-      counter.textContent = (galleryIndex + 1) + " / " + galleryImages.length;
+      const leftIdx = galleryIndex;
+      const rightIdx = safeIndex(galleryIndex + 1);
 
-      // Preload next and previous for instant manual browsing
-      const nextIdx = (galleryIndex + 1) % galleryImages.length;
-      const prevIdx = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+      leftImg.src = galleryImages[leftIdx];
+      leftImg.alt = "TechnoMounts gallery image " + (leftIdx + 1);
+      leftImg.loading = "eager";
 
-      const pre1 = new Image();
-      pre1.decoding = "async";
-      pre1.src = galleryImages[nextIdx];
+      rightImg.src = galleryImages[rightIdx];
+      rightImg.alt = "TechnoMounts gallery image " + (rightIdx + 1);
+      rightImg.loading = "eager";
 
-      const pre2 = new Image();
-      pre2.decoding = "async";
-      pre2.src = galleryImages[prevIdx];
+      counter.textContent = (leftIdx + 1) + " and " + (rightIdx + 1) + " / " + galleryImages.length;
+
+      // Preload next/prev pairs for faster browsing
+      preloadIndices([
+        galleryIndex + STEP, galleryIndex + STEP + 1,
+        galleryIndex - STEP, galleryIndex - STEP + 1,
+        galleryIndex + (STEP * 2), galleryIndex + (STEP * 2) + 1
+      ]);
     }
 
     // Lightbox
@@ -1871,12 +1938,14 @@
       const counter = document.getElementById("lightboxCounter");
       if (!lightbox || !img || !counter) return;
 
-      lightboxIndex = realIndex;
+      lightboxIndex = safeIndex(realIndex);
       img.src = galleryImages[lightboxIndex];
-      counter.textContent = `${lightboxIndex + 1} / ${galleryImages.length}`;
+      counter.textContent = (lightboxIndex + 1) + " / " + galleryImages.length;
       lightbox.classList.add("is-open");
       lightbox.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
+
+      preloadIndices([lightboxIndex + 1, lightboxIndex - 1, lightboxIndex + 2]);
     }
 
     function closeLightbox() {
@@ -1892,24 +1961,28 @@
       const counter = document.getElementById("lightboxCounter");
       if (!img || !counter) return;
 
-      lightboxIndex = (lightboxIndex + delta + galleryImages.length) % galleryImages.length;
+      lightboxIndex = safeIndex(lightboxIndex + delta);
       img.src = galleryImages[lightboxIndex];
-      counter.textContent = `${lightboxIndex + 1} / ${galleryImages.length}`;
+      counter.textContent = (lightboxIndex + 1) + " / " + galleryImages.length;
+
+      preloadIndices([lightboxIndex + 1, lightboxIndex - 1, lightboxIndex + 2]);
     }
 
     // Events
     window.addEventListener("load", () => {
-      // Load first image immediately
-      setGalleryImage(0);
+      setGalleryImages(0);
 
       const prev = document.getElementById("galleryPrev");
       const next = document.getElementById("galleryNext");
-      const mainImg = document.getElementById("tmGalleryMainImage");
 
-      if (prev) prev.addEventListener("click", () => setGalleryImage(galleryIndex - 1));
-      if (next) next.addEventListener("click", () => setGalleryImage(galleryIndex + 1));
+      const panelLeft = document.getElementById("panelLeft");
+      const panelRight = document.getElementById("panelRight");
 
-      if (mainImg) mainImg.addEventListener("click", () => openLightbox(galleryIndex));
+      if (prev) prev.addEventListener("click", () => setGalleryImages(galleryIndex - STEP));
+      if (next) next.addEventListener("click", () => setGalleryImages(galleryIndex + STEP));
+
+      if (panelLeft) panelLeft.addEventListener("click", () => openLightbox(galleryIndex));
+      if (panelRight) panelRight.addEventListener("click", () => openLightbox(galleryIndex + 1));
 
       const lightbox = document.getElementById("lightbox");
       const closeBtn = document.getElementById("lightboxClose");
